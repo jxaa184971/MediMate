@@ -10,6 +10,7 @@ import UIKit
 
 class DetailContactCell: UITableViewCell {
 
+    @IBOutlet var titleLabel: UILabel!
     @IBOutlet var valueLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()

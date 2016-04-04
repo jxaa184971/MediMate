@@ -1,21 +1,17 @@
 //
-//  DetailHeaderCell.swift
+//  DetailOpeningHourCell.swift
 //  Medimate
 //
-//  Created by 一川 黄 on 20/03/2016.
+//  Created by 一川 黄 on 31/03/2016.
 //  Copyright © 2016 Team MarshGhatti. All rights reserved.
 //
 
 import UIKit
 
-class DetailHeaderCell: UITableViewCell {
+class DetailOpeningHourCell: UITableViewCell {
 
-    @IBOutlet var picView: UIImageView!
-    @IBOutlet var nameLabel: UILabel!
-    @IBOutlet var ratingLabel: UILabel!
-    @IBOutlet var reviewLabel: UILabel!
-    @IBOutlet var typeLabel: UILabel!
-    @IBOutlet var distanceLabel: UILabel!
+    @IBOutlet var titleLabel: UILabel!
+    @IBOutlet var valueLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

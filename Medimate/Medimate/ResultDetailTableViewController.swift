@@ -10,19 +10,12 @@ import UIKit
 
 class ResultDetailTableViewController: UITableViewController {
 
-    var result:GP!
-    var rowSeleted:Int!
+    var result:Facility!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.navigationItem.title = self.result.name
-        print(rowSeleted)
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
 
     override func didReceiveMemoryWarning() {
@@ -34,7 +27,7 @@ class ResultDetailTableViewController: UITableViewController {
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 2
+        return 3
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -45,11 +38,15 @@ class ResultDetailTableViewController: UITableViewController {
         }
         if section == 1
         {
-            if self.result.website != nil
+            if self.result.website != ""
             {
                 return 3
             }
             return 2
+        }
+        if section == 2
+        {
+            return 3
         }
         return 0
     }
@@ -60,14 +57,22 @@ class ResultDetailTableViewController: UITableViewController {
         {
             let cell = tableView.dequeueReusableCellWithIdentifier("headerCell", forIndexPath: indexPath) as! DetailHeaderCell
             cell.nameLabel.text = self.result.name
-            cell.distanceLabel.text = "\(self.result.distance) km"
-            cell.ratingLabel.text = "Rating: \(RatingStarGenerator.ratingStarsFromDouble(self.result.rating))"
-            cell.typeLabel.text = "General Practitioner"
-            cell.reviewLabel.text = "\(self.result.numberOfReview) Reviews"
+            cell.distanceLabel.text = "\(NSString(format:"%.1f",self.result.distance)) km"
+            cell.ratingLabel.text = ""
+            if result.type == "GP"
+            {
+                cell.typeLabel.text = "General Practitioner"
+            }
+            else
+            {
+                cell.typeLabel.text = self.result.type
+            }
+            cell.reviewLabel.text = ""
             
             // asynchronouse loading images from URL
             if cell.picView.image == nil
             {
+                cell.picView.image = UIImage(named: "DefaultImage.png")
                 let session = NSURLSession.sharedSession()
                 let url = NSURL(string: self.result.imageURL)
                 let task = session.dataTaskWithURL(url!, completionHandler:
@@ -98,15 +103,39 @@ class ResultDetailTableViewController: UITableViewController {
             let cell = tableView.dequeueReusableCellWithIdentifier("contactCell", forIndexPath: indexPath) as! DetailContactCell
             if indexPath.row == 0
             {
-                cell.valueLabel.text = self.result.address
+                cell.titleLabel.text = self.result.address
+                cell.valueLabel.text = ""
             }
             if indexPath.row == 1
             {
-                cell.valueLabel.text = "Phone: \(self.result.phone)"
+                cell.titleLabel.text = "Phone: "
+                cell.valueLabel.text = "\(self.result.phone)"
             }
-            if indexPath.row == 2 && self.result.website != nil
+            if indexPath.row == 2
             {
-                cell.valueLabel.text = "Website: \(self.result.website)"
+                cell.titleLabel.text = "Website: "
+                cell.valueLabel.text = "\(self.result.website)"
+            }
+            return cell
+        }
+        if indexPath.section == 2
+        {
+            
+            let cell = tableView.dequeueReusableCellWithIdentifier("openingHourCell", forIndexPath: indexPath) as! DetailOpeningHourCell
+            if indexPath.row == 0
+            {
+                cell.titleLabel.text = "Weekday"
+                cell.valueLabel.text = "\(self.result.openningHourWeek)"
+            }
+            if indexPath.row == 1
+            {
+                cell.titleLabel.text = "Saturday"
+                cell.valueLabel.text = "\(self.result.openningHourSat)"
+            }
+            if indexPath.row == 2
+            {
+                cell.titleLabel.text = "Sunday"
+                cell.valueLabel.text = "\(self.result.openningHourSun)"
             }
             return cell
         }
@@ -118,11 +147,21 @@ class ResultDetailTableViewController: UITableViewController {
         {
             return 116
         }
-        if indexPath.section == 1
+        else
         {
             return 40
         }
-        return 0
+    }
+    
+    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if section == 2
+        {
+            return "Opening Hours"
+        }
+        else
+        {
+            return ""
+        }
     }
 
 

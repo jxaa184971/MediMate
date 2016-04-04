@@ -7,39 +7,58 @@
 //
 
 import UIKit
+import GoogleMaps
+import CoreLocation
 
-class SearchListTableViewController: UITableViewController {
+class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, CLLocationManagerDelegate {
 
-    var searchCategory: String!
-    var samples: Array<GP>!
-    var results: Array<GP>!
-    var filter:[String:String]!
+    // MARK: - Properties
+    var searchCategory: String!    //category of medical facilities, such as GP, Clinic
+    var samples: Array<Facility>!
+    var results: Array<Facility>!        //search results
+    var filter:[String:String]!    //filter settings
+    var isList:Bool! = true        //used to determine the view
     
+    var locationManager:CLLocationManager!
+    var mapView:GMSMapView!
+    
+    @IBOutlet var infoLabel: UILabel!
+    
+    // MARK: - View Settings
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.automaticallyAdjustsScrollViewInsets = false;
         self.navigationItem.title = self.searchCategory
         
+        // initialize filter settings
         self.filter = ["searchLocation":"Current Location", "language":"English", "sortBy":"Distance"]
         
-        let gp1 = GP(name: "Wilson Jennifer Dr", address: "4 Burke Rd, Malvern East VIC 3145", phone: "(03) 9569 3511", language: "Spanish", rating: 3.8, numberOfReview: 27, distance: 0.8, website: "No website", imageURL: "http://cimg0.ibsrv.net/cimg/www.hospitaljobsonline.com/335x188_60/304/General_Practitioners_325186-5304.jpg")
+        // initialize location manager
+        self.locationManager = CLLocationManager()
+        self.locationManager.delegate = self
+        self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        self.locationManager.requestWhenInUseAuthorization()
+        self.locationManager.startUpdatingLocation()
         
-        let gp2 = GP(name: "Dr San Zhang", address: "17 Grattan St, Carlton VIC 3053", phone: "1300 798 598", language:"Chinese", rating: 4.5, numberOfReview: 18, distance: 13.6, website: "joachimdiederich.com", imageURL: "http://gloucestershire.respectyourself.info/wp-content/uploads/2012/07/Brunswick-clinic-Room.jpg")
-        
-        let gp3 = GP(name: "Dr David L Sweeney", address: "412 Collins St, Melbourne VIC 3000", phone: "(03) 9670 7303", language:"Spanish", rating: 2.8, numberOfReview: 43, distance: 20.2, website: "No website", imageURL: "http://i.dailymail.co.uk/i/pix/2013/10/19/article-2468175-1A43B868000005DC-21_634x424.jpg")
-        
-        self.samples = [gp1, gp2, gp3]
-        
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        self.samples = Array<Facility>()
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
+        
+        let results = HTTPHelper.requestForFacilitiesByType(self.searchCategory)
+        if results == nil
+        {
+            print("Internet Issues")
+        }
+        else
+        {
+            self.samples = results!
+        }
+        
+        let location = self.getCurrentLocation()
+        DistanceCalculator.distanceBetween(location, facilityArray: self.samples)
         
         self.refreshTableView()
     }
@@ -48,37 +67,132 @@ class SearchListTableViewController: UITableViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    // Hide the tab bottom bar
+    override var hidesBottomBarWhenPushed: Bool {
+        get { return true }
+        set { super.hidesBottomBarWhenPushed = newValue }
+    }
 
-    // MARK: - Table view data source
+    // MARK: - Table View Setting
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 2
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        if section == 0
+        if self.isList == true
         {
-            if self.searchCategory == "GP"
+            if section == 0
             {
-                return 3
+                if self.searchCategory == "GP" || self.searchCategory == "Clinic"
+                {
+                    return 3
+                }
+                else
+                {
+                    return 2
+                }
             }
-            else
+            if section == 1
             {
-                return 2
+                if self.results.count < 35
+                {
+                    return self.results.count
+                }
+                else
+                {
+                    return 35
+                }
             }
         }
-        if section == 1
+        if self.isList == false
         {
-            return self.results.count
+            if section == 0
+            {
+                if self.searchCategory == "GP" || self.searchCategory == "Clinic"
+                {
+                    return 2
+                }
+                else
+                {
+                    return 1
+                }
+            }
         }
         return 0
     }
 
-    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if indexPath.section == 0
+        if self.isList == true
+        {
+            // initialize filter cell
+            if indexPath.section == 0
+            {
+                let cell = tableView.dequeueReusableCellWithIdentifier("filterCell", forIndexPath: indexPath) as! FilterCell
+                if indexPath.row == 0
+                {
+                    cell.filterName.text = "Search Location"
+                    cell.filterValue.text = self.filter["searchLocation"]
+                }
+                if indexPath.row == 1
+                {
+                    if self.searchCategory == "GP" || self.searchCategory == "Clinic"
+                    {
+                        cell.filterName.text = "Language Prefer"
+                        cell.filterValue.text = self.filter["language"]
+                    }
+                    else
+                    {
+                        cell.filterName.text = "Sort By"
+                        cell.filterValue.text = self.filter["sortBy"]
+                    }
+                }
+                if indexPath.row == 2 && (self.searchCategory == "GP" || self.searchCategory == "Clinic")
+                {
+                    cell.filterName.text = "Sort By"
+                    cell.filterValue.text = self.filter["sortBy"]
+                }
+                return cell
+            }
+            else
+            {
+                // initialize result cell
+                let cell = tableView.dequeueReusableCellWithIdentifier("resultCell", forIndexPath: indexPath) as! SearchResultCell
+                cell.nameLabel.text = self.results[indexPath.row].name
+                //let stars = RatingStarGenerator.ratingStarsFromDouble(self.results[indexPath.row].rating)
+                cell.ratingLabel.text = ""
+                cell.addressLabel.text = self.results[indexPath.row].address
+                cell.reviewsLabel.text = ""
+                cell.distanceLabel.text = "\(NSString(format:"%.1f",self.results[indexPath.row].distance)) km"
+                
+                cell.picView.image = UIImage(named: "DefaultImage.png")
+                
+                // asynchronous loading images from URL
+                let session = NSURLSession.sharedSession()
+                let url = NSURL(string: self.results[indexPath.row].imageURL)
+                let task = session.dataTaskWithURL(url!, completionHandler:
+                    {
+                        (data, response, error) -> Void in
+                        if error != nil
+                        {
+                            print("Error: \(error!.localizedDescription)")
+                        }
+                        else
+                        {
+                            let image = UIImage(data: data!)
+                            dispatch_async(dispatch_get_main_queue(),
+                                {
+                                    let cellToUpdate = tableView.cellForRowAtIndexPath(indexPath) as! SearchResultCell
+                                    cellToUpdate.picView.image = image
+                            })
+                        }
+                        })
+                task.resume()
+                return cell
+            }
+        }
+        else
         {
             let cell = tableView.dequeueReusableCellWithIdentifier("filterCell", forIndexPath: indexPath) as! FilterCell
             if indexPath.row == 0
@@ -88,61 +202,17 @@ class SearchListTableViewController: UITableViewController {
             }
             if indexPath.row == 1
             {
-                if self.searchCategory == "GP"
+                if self.searchCategory == "GP" || self.searchCategory == "Clinic"
                 {
                     cell.filterName.text = "Language Prefer"
                     cell.filterValue.text = self.filter["language"]
                 }
-                else
-                {
-                    cell.filterName.text = "Sort By"
-                    cell.filterValue.text = self.filter["sortBy"]
-                }
             }
-            if indexPath.row == 2 && self.searchCategory == "GP"
-            {
-                cell.filterName.text = "Sort By"
-                cell.filterValue.text = self.filter["sortBy"]
-            }
-            return cell
-        }
-        else
-        {
-            let cell = tableView.dequeueReusableCellWithIdentifier("resultCell", forIndexPath: indexPath) as! SearchResultCell
-            cell.nameLabel.text = self.results[indexPath.row].name
-            let stars = RatingStarGenerator.ratingStarsFromDouble(self.results[indexPath.row].rating)
-            cell.ratingLabel.text = "\(stars) \(self.results[indexPath.row].rating)"
-            cell.addressLabel.text = self.results[indexPath.row].address
-            cell.reviewsLabel.text = "\(self.results[indexPath.row].numberOfReview) reviews"
-            cell.distanceLabel.text = "\(self.results[indexPath.row].distance) km"
-
-            // asynchronous loading images from URL
-            let session = NSURLSession.sharedSession()
-            let url = NSURL(string: self.results[indexPath.row].imageURL)
-            let task = session.dataTaskWithURL(url!, completionHandler:
-                {
-                    (data, response, error) -> Void in
-                    if error != nil
-                    {
-                        print("error when downloading image from URL")
-                        print("Error: \(error!.localizedDescription)")
-                    }
-                    else
-                    {
-
-                        let image = UIImage(data: data!)
-                        dispatch_async(dispatch_get_main_queue(),
-                            {
-                                let cellToUpdate = tableView.cellForRowAtIndexPath(indexPath) as! SearchResultCell
-                                cellToUpdate.picView.image = image
-                        })
-                    }
-                })
-            task.resume()
             return cell
         }
     }
     
+    // set height for rows
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if indexPath.section == 0
         {
@@ -155,6 +225,7 @@ class SearchListTableViewController: UITableViewController {
         return 0
     }
     
+    // set height for header
     override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section == 0
         {
@@ -163,25 +234,176 @@ class SearchListTableViewController: UITableViewController {
         return self.tableView.sectionHeaderHeight - 15
     }
     
+    // set title for header
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == 1
         {
-            return "Results"
+            if isList == true
+            {
+                return "Results"
+            }
+            else
+            {
+                return "Map"
+            }
         }
         return ""
     }
 
     
-    // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
         return false
+    }
+    
+    // MARK: - Location Based Functions
+
+    func getCurrentLocation() -> CLLocation
+    {
+        return self.locationManager.location!
+    }
+    
+    // MARK: - Map
+    
+    func mapView(mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView?
+    { 
+        let facility = marker.userData as! Facility
+        
+        let infoWindow = NSBundle.mainBundle().loadNibNamed("InfoWindow", owner: self, options: nil).first as! MarkerInfoWindow
+        infoWindow.titleLabel.text = facility.name
+        if facility.type == "GP"
+        {
+            infoWindow.typeLabel.text = "General Practitioner"
+        }else
+        {
+            infoWindow.typeLabel.text = "\(facility.type)"
+        }
+        infoWindow.ratingLabel.text = ""  //"\(RatingStarGenerator.ratingStarsFromDouble(facility.rating)) \(facility.rating)"
+        infoWindow.reviewLabel.text = ""  //"\(facility.numberOfReview) reviews"
+        infoWindow.addressLabel.text = "\(facility.address)"
+        infoWindow.facility = facility
+
+        return infoWindow
+    }
+    
+    func mapView(mapView: GMSMapView, didTapInfoWindowOfMarker marker: GMSMarker) {
+        print("tap on info window")
+        let selectedFacility = marker.userData as! Facility
+        let controller = self.storyboard?.instantiateViewControllerWithIdentifier("DetailViewController") as! ResultDetailTableViewController
+        
+        controller.result = selectedFacility
+        self.navigationController?.pushViewController(controller, animated: true)
+    }
+
+    // add markers to map view
+    func updateMarkers()
+    {
+        self.mapView.clear()
+        
+        for result in results
+        {
+            let position = CLLocationCoordinate2DMake(result.latitude, result.longitude)
+            let marker = GMSMarker(position: position)
+            marker.userData = result
+            marker.map = self.mapView
+        }
+    }
+    
+    
+    // MARK: - Other Functions
+    
+    @IBAction func showMap(sender: UIBarButtonItem)
+    {
+        if self.isList == true
+        {
+            self.navigationItem.rightBarButtonItem?.title = "List"
+            self.isList = false
+            var location:CLLocation!
+            // initialize map view
+            if (self.filter["searchLocation"] == "Current Location")
+            {
+                location = self.getCurrentLocation()
+            }
+            else
+            {
+                location = SuburbHelper.locationFromSuburb(self.filter["searchLocation"]!)
+            }
+            let camera = GMSCameraPosition.cameraWithLatitude(location.coordinate.latitude,
+                longitude: location.coordinate.longitude, zoom: 8)
+            self.mapView = GMSMapView.mapWithFrame(CGRect(x: 0,y: 160,width: self.view.frame.width,height: self.view.frame.height-160), camera: camera)
+            self.mapView.myLocationEnabled = true
+            self.mapView.settings.myLocationButton = true
+            self.mapView.delegate = self
+            self.view.addSubview(self.mapView)
+            self.updateMarkers()
+        }
+        else
+        {
+            self.navigationItem.rightBarButtonItem?.title = "Map"
+            self.isList = true
+            self.view.subviews.last?.removeFromSuperview()
+        }
+        self.refreshTableView()
+    }
+    
+    func updateSearchLocation()
+    {
+        var locationBasedResults = Array<Facility>()
+        for result in self.results
+        {
+            if self.filter["searchLocation"] == "Current Location"
+            {
+                locationBasedResults.append(result)
+            }
+            else
+            {
+                if result.suburb == self.filter["searchLocation"]
+                {
+                    locationBasedResults.append(result)
+                }
+            }
+        }
+        self.results = locationBasedResults
+        
+        if self.isList == false
+        {
+            var location:CLLocation!
+            // initialize map view
+            if (self.filter["searchLocation"] == "Current Location")
+            {
+                location = self.getCurrentLocation()
+            }
+            else
+            {
+                location = SuburbHelper.locationFromSuburb(self.filter["searchLocation"]!)
+            }
+            let camera = GMSCameraPosition.cameraWithLatitude(location.coordinate.latitude,
+                longitude: location.coordinate.longitude, zoom: 15)
+            self.mapView.camera = camera
+        }
     }
     
     func refreshTableView()
     {
+        var hasDataRetrived = true
+        if self.samples.count == 0
+        {
+            self.infoLabel.text = "Sorry, there is no data returned. Please make sure the network is working."
+            hasDataRetrived = false
+        }
+        else
+        {
+            self.infoLabel.text = ""
+        }
+        
         self.languagePreferedResult()
+        self.updateSearchLocation()
         self.sortResults()
+        
+        if self.results.count == 0 && hasDataRetrived == true
+        {
+            self.infoLabel.text = "There is no result satisfy the searching condition. Please try other options."
+        }
+        
         self.tableView.reloadData()
     }
 
@@ -193,20 +415,12 @@ class SearchListTableViewController: UITableViewController {
         }
         else
         {
-            var language = ""
-            if self.filter["language"] == "中文"
-            {
-                language = "Chinese"
-            }
-            if self.filter["language"] == "Español"
-            {
-                language = "Spanish"
-            }
+            let language = LanguageHelper.englishFromOtherLanguage(self.filter["language"]!)
             
-            var preferedArray = Array<GP>()
+            var preferedArray = Array<Facility>()
             for sample in samples
             {
-                if sample.language == language
+                if sample.language.containsString(language)
                 {
                     preferedArray.append(sample)
                 }
@@ -269,7 +483,6 @@ class SearchListTableViewController: UITableViewController {
             let indexPath = self.tableView.indexPathForSelectedRow!
             let controller = segue.destinationViewController as! ResultDetailTableViewController
             controller.result = self.results[indexPath.row]
-            controller.rowSeleted = indexPath.row
         }
         
         if segue.identifier == "filterSegue"
@@ -280,15 +493,15 @@ class SearchListTableViewController: UITableViewController {
             {
                 controller.filterType = "searchLocation"
             }
-            if indexPath.row == 1 && self.searchCategory == "GP"
+            if indexPath.row == 1 && (self.searchCategory == "GP" || self.searchCategory == "Clinic")
             {
                 controller.filterType = "language"
             }
-            if indexPath.row == 2 && self.searchCategory == "GP"
+            if indexPath.row == 2 && (self.searchCategory == "GP" || self.searchCategory == "Clinic")
             {
                 controller.filterType = "sortBy"
             }
-            if indexPath.row == 1 && self.searchCategory != "GP"
+            if indexPath.row == 1 && self.searchCategory != "GP" && self.searchCategory != "Clinic"
             {
                 controller.filterType = "sortBy"
             }

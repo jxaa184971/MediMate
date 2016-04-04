@@ -12,6 +12,7 @@ class FilterTableViewController: UITableViewController {
 
     var filterType: String!
     var valueSet: Array<String>!
+    var titleSet: Array<String>!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,16 +20,19 @@ class FilterTableViewController: UITableViewController {
         var title = ""
         if filterType == "searchLocation"
         {
-            self.valueSet = ["Current Location", "Caulfield", "Carnegie", "Carlton", "Melbourne"]
+            self.titleSet = SuburbHelper.stringFromSuburbAndPostCode()
+            self.valueSet = SuburbHelper.suburbArray
             title = "Search Location"
         }
         if filterType == "language"
         {
-            self.valueSet = ["English", "中文", "Español"]
+            self.titleSet = LanguageHelper.otherLanguageArray
+            self.valueSet = LanguageHelper.otherLanguageArray
             title = "Language"
         }
         if filterType == "sortBy"
         {
+            self.titleSet = ["Distance", "Rating", "Popularity"]
             self.valueSet = ["Distance", "Rating", "Popularity"]
             title = "Sort By"
         }
@@ -55,19 +59,23 @@ class FilterTableViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return self.valueSet.count
+        return self.titleSet.count
     }
-
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("valueCell", forIndexPath: indexPath) as! FilterValueCell
-        cell.valueLabel.text = self.valueSet[indexPath.row]
+        cell.valueLabel.text = self.titleSet[indexPath.row]
         return cell
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let controller = self.navigationController?.viewControllers[1] as! SearchListTableViewController
         controller.filter[self.filterType] = self.valueSet[indexPath.row]
+        controller.refreshTableView()
+        if controller.isList == false
+        {
+            controller.updateMarkers()
+        }
         self.navigationController?.popToViewController(controller, animated: true)
     }
 
