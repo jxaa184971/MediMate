@@ -17,7 +17,7 @@ class RatingStarGenerator: NSObject {
         while number > 1
         {
             starts += "★"
-            number--
+            number = number - 1
         }
         
         if number > 0 && number < 1

@@ -96,13 +96,13 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
             }
             if section == 1
             {
-                if self.results.count < 35
+                if self.results.count < 20
                 {
                     return self.results.count
                 }
                 else
                 {
-                    return 35
+                    return 20
                 }
             }
         }
@@ -216,11 +216,11 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if indexPath.section == 0
         {
-            return 25
+            return 40
         }
         if indexPath.section == 1
         {
-            return 84
+            return 100
         }
         return 0
     }
@@ -275,11 +275,11 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
             infoWindow.typeLabel.text = "General Practitioner"
         }else
         {
-            infoWindow.typeLabel.text = "\(facility.type)"
+            infoWindow.typeLabel.text = "Type: \(facility.type)"
         }
         infoWindow.ratingLabel.text = ""  //"\(RatingStarGenerator.ratingStarsFromDouble(facility.rating)) \(facility.rating)"
         infoWindow.reviewLabel.text = ""  //"\(facility.numberOfReview) reviews"
-        infoWindow.addressLabel.text = "\(facility.address)"
+        infoWindow.addressLabel.text = "Address: \(facility.address)"
         infoWindow.facility = facility
 
         return infoWindow
