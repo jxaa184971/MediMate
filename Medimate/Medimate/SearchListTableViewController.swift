@@ -38,29 +38,41 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
         self.locationManager = CLLocationManager()
         self.locationManager.delegate = self
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        self.locationManager.requestWhenInUseAuthorization()
-        self.locationManager.startUpdatingLocation()
+        
+        if CLLocationManager.authorizationStatus() == CLAuthorizationStatus.NotDetermined
+        {
+            self.locationManager.requestWhenInUseAuthorization()
+            var timer = NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: #selector(self.popToParentView), userInfo: nil, repeats: false)
+        }
+        else
+        {
+            self.locationManager.startUpdatingLocation()
+        }
         
         self.samples = Array<Facility>()
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
-        
-        let results = HTTPHelper.requestForFacilitiesByType(self.searchCategory)
-        if results == nil
+
+        if CLLocationManager.authorizationStatus() != CLAuthorizationStatus.NotDetermined
         {
-            print("Internet Issues")
-        }
-        else
-        {
-            self.samples = results!
-        }
+            print("Called")
+            let results = HTTPHelper.requestForFacilitiesByType(self.searchCategory)
+            if results == nil
+            {
+                print("Internet Issues")
+            }
+            else
+            {
+                self.samples = results!
+            }
         
-        let location = self.getCurrentLocation()
-        DistanceCalculator.distanceBetween(location, facilityArray: self.samples)
+            let location = self.getCurrentLocation()
+            DistanceCalculator.distanceBetween(location, facilityArray: self.samples)
         
-        self.refreshTableView()
+            self.refreshTableView()
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -77,6 +89,10 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
     // MARK: - Table View Setting
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        if CLLocationManager.authorizationStatus() == CLAuthorizationStatus.NotDetermined
+        {
+            return 0
+        }
         return 2
     }
 
@@ -444,6 +460,11 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
         {
             self.results.sortInPlace({$0.numberOfReview > $1.numberOfReview})
         }
+    }
+    
+    func popToParentView()
+    {
+        self.navigationController?.popViewControllerAnimated(true)
     }
     
 
