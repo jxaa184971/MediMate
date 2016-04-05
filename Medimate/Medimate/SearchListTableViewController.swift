@@ -34,6 +34,9 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
         // initialize filter settings
         self.filter = ["searchLocation":"Current Location", "language":"English", "sortBy":"Distance"]
         
+        // slow down the speed of scrolling table view
+        self.tableView.decelerationRate = UIScrollViewDecelerationRateFast
+        
         // initialize location manager
         self.locationManager = CLLocationManager()
         self.locationManager.delegate = self
