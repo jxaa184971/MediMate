@@ -18,6 +18,7 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
     var results: Array<Facility>!        //search results
     var filter:[String:String]!    //filter settings
     var isList:Bool! = true        //used to determine the view
+    var numberOfRowsShowed:Int! = 10
     
     var locationManager:CLLocationManager!
     var mapView:GMSMapView!
@@ -53,6 +54,8 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
         }
         
         self.samples = Array<Facility>()
+        self.results = Array<Facility>()
+
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -60,7 +63,6 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
 
         if CLLocationManager.authorizationStatus() != CLAuthorizationStatus.NotDetermined
         {
-            print("Called")
             let results = HTTPHelper.requestForFacilitiesByType(self.searchCategory)
             if results == nil
             {
@@ -74,7 +76,7 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
             let location = self.getCurrentLocation()
             DistanceCalculator.distanceBetween(location, facilityArray: self.samples)
         
-            self.refreshTableView()
+            self.refresh()
         }
     }
 
@@ -115,7 +117,14 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
             }
             if section == 1
             {
-                return self.results.count
+                if self.results.count < self.numberOfRowsShowed
+                {
+                    return self.results.count
+                }
+                else
+                {
+                    return self.numberOfRowsShowed
+                }
             }
         }
         if self.isList == false
@@ -151,7 +160,7 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
                 {
                     if self.searchCategory == "GP" || self.searchCategory == "Clinic"
                     {
-                        cell.filterName.text = "Language Prefer"
+                        cell.filterName.text = "Language Spoken"
                         cell.filterValue.text = self.filter["language"]
                     }
                     else
@@ -329,10 +338,7 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
         }
     }
     
-    
-    // MARK: - Other Functions
-    
-    @IBAction func showMap(sender: UIBarButtonItem)
+        @IBAction func showMap(sender: UIBarButtonItem)
     {
         if self.isList == true
         {
@@ -364,8 +370,10 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
             self.isList = true
             self.view.subviews.last?.removeFromSuperview()
         }
-        self.refreshTableView()
+        self.refresh()
     }
+    
+    // MARK: - Filter Search Results
     
     func updateSearchLocation()
     {
@@ -400,13 +408,14 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
         }
     }
     
-    func refreshTableView()
+    func refresh()
     {
         var hasDataRetrived = true
         if self.samples.count == 0
         {
-            self.infoLabel.text = "Sorry, there is no data returned. Please make sure the network is working."
-            hasDataRetrived = false
+            print("No data returned")
+            self.errorMessage("There is no data returned from server. Please check the network is working well.")
+            return
         }
         else
         {
@@ -424,10 +433,17 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
         
         if self.results.count == 0 && hasDataRetrived == true
         {
-            self.infoLabel.text = "There is no result satisfy the searching condition. Please try other options."
+            self.errorMessage("There is no result satisfied with the search conditions.")
+            self.tableView.reloadData()
+
         }
-        
-        self.tableView.reloadData()
+        else
+        {
+            print("2")
+            self.tableView.reloadData()
+            self.createTableFooter()
+        }
+
     }
 
     func languagePreferedResult()
@@ -482,10 +498,96 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
         self.results = filtedResults
     }
     
+    func errorMessage(message: String)
+    {
+        self.tableView.tableFooterView = nil
+        let tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: self.tableView.bounds.width, height: 40))
+        let loadMoreLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.tableView.bounds.width, height: 40))
+        loadMoreLabel.center = tableFooterView.center
+        loadMoreLabel.textAlignment = NSTextAlignment.Center
+        loadMoreLabel.font = UIFont(name: "Helvetica Neue", size:14)
+        loadMoreLabel.textColor = UIColor.grayColor()
+        loadMoreLabel.text = message
+        loadMoreLabel.numberOfLines = 3
+        tableFooterView.addSubview(loadMoreLabel)
+        self.tableView.tableFooterView = tableFooterView
+    }
+    
+    // MARK: - Scroll View
+    
+    func createTableFooter()
+    {
+        if self.hasMoreDataToLoad()
+        {
+            self.tableView.tableFooterView = nil
+            let tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: self.tableView.bounds.width, height: 40))
+            let loadMoreLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.tableView.bounds.width, height: 40))
+            loadMoreLabel.center = tableFooterView.center
+            loadMoreLabel.textAlignment = NSTextAlignment.Center
+            loadMoreLabel.font = UIFont(name: "Helvetica Neue", size:14)
+            loadMoreLabel.textColor = UIColor.grayColor()
+            loadMoreLabel.text = "Drag For More Data"
+            tableFooterView.addSubview(loadMoreLabel)
+            self.tableView.tableFooterView = tableFooterView
+        }
+        else
+        {
+            self.tableView.tableFooterView = nil
+        }
+    }
+    
+    override func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        if self.hasMoreDataToLoad()
+        {
+            if self.tableView.contentOffset.y > (self.tableView.contentSize.height - self.tableView.frame.size.height + 20)
+            {
+                let tableFooterActivityIndicator = UIActivityIndicatorView(frame: CGRect(x: 75, y: 10, width: 20, height: 20))
+                tableFooterActivityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
+                tableFooterActivityIndicator.startAnimating()
+                (self.tableView.tableFooterView?.subviews[0] as! UILabel).text = "Loading..."
+                self.tableView.tableFooterView?.addSubview(tableFooterActivityIndicator)
+            
+                self.showMoreData()
+            }
+        }
+
+    }
+    
+    func showMoreData()
+    {
+        if (self.results.count - self.numberOfRowsShowed) <= 5
+        {
+            self.numberOfRowsShowed = self.results.count
+        }
+        else
+        {
+            self.numberOfRowsShowed = self.numberOfRowsShowed + 5
+        }
+        
+        var timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(self.refresh), userInfo: nil, repeats: false)
+    }
+    
+    func hasMoreDataToLoad() -> Bool
+    {
+        if self.results.count > self.numberOfRowsShowed
+        {
+            return true
+        }
+        else
+        {
+            return false
+        }
+    }
+    
+    
+    // MARK: - Other Functions
+    
     func popToParentView()
     {
         self.navigationController?.popViewControllerAnimated(true)
     }
+    
+    
     
 
     /*
