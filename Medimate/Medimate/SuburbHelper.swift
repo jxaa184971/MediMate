@@ -36,6 +36,7 @@ class SuburbHelper: NSObject {
     {
         var results = Array<String>()
         results.append("Current Location")
+        //results.append("All")
         for index in 1...(suburbArray.count - 1)
         {
             results.append("\(self.suburbArray[index]) \(self.postCodeArray[index])")

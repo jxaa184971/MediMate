@@ -11,11 +11,11 @@ import UIKit
 class HTTPHelper: NSObject {
 
     static let URL = "http://13.73.117.26:23294/Medimate/webresources/"
-    static let FACILITY = "entities.facility/"
+    static let FACILITY = "entities.facility"
     
     static func requestForFacilitiesByType(type: String) -> Array<Facility>?
     {
-        let url = NSURL(string: "\(HTTPHelper.URL)\(HTTPHelper.FACILITY)findByType/\(type)")
+        let url = NSURL(string: "\(HTTPHelper.URL)\(HTTPHelper.FACILITY)")
         
         let request1: NSURLRequest = NSURLRequest(URL: url!)
         let response: AutoreleasingUnsafeMutablePointer<NSURLResponse?> = nil

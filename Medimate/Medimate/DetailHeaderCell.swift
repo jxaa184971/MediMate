@@ -16,6 +16,7 @@ class DetailHeaderCell: UITableViewCell {
     @IBOutlet var reviewLabel: UILabel!
     @IBOutlet var typeLabel: UILabel!
     @IBOutlet var distanceLabel: UILabel!
+    @IBOutlet var languageLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

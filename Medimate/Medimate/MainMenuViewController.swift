@@ -28,21 +28,5 @@ class MainMenuViewController: UIViewController {
         {
             controller.searchCategory = "GP"
         }
-        if segue.identifier == "clinicSegue"
-        {
-            controller.searchCategory = "Clinic"
-        }
-        if segue.identifier == "dentistSegue"
-        {
-            controller.searchCategory = "Dentist"
-        }
-        if segue.identifier == "phySegue"
-        {
-            controller.searchCategory = "Physiotheropist"
-        }
-        if segue.identifier == "chiroSegue"
-        {
-            controller.searchCategory = "Chiro"
-        }
     }
 }

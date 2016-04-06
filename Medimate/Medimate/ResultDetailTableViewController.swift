@@ -59,6 +59,11 @@ class ResultDetailTableViewController: UITableViewController {
             cell.nameLabel.text = self.result.name
             cell.distanceLabel.text = "\(NSString(format:"%.1f",self.result.distance)) km"
             cell.ratingLabel.text = ""
+            if self.result.language == ""
+            {
+                cell.languageLabel.text = "Language Spoken: English"
+            }
+            cell.languageLabel.text = "Language Spoken: English, \(self.result.language)"
             if result.type == "GP"
             {
                 cell.typeLabel.text = "General Practitioner"
@@ -68,6 +73,7 @@ class ResultDetailTableViewController: UITableViewController {
                 cell.typeLabel.text = self.result.type
             }
             cell.reviewLabel.text = ""
+            
             
             // asynchronouse loading images from URL
             if cell.picView.image == nil
@@ -125,17 +131,38 @@ class ResultDetailTableViewController: UITableViewController {
             if indexPath.row == 0
             {
                 cell.titleLabel.text = "Weekday"
-                cell.valueLabel.text = "\(self.result.openningHourWeek)"
+                if self.result.openningHourWeek == ""
+                {
+                    cell.valueLabel.text = "Unknown"
+                }
+                else
+                {
+                    cell.valueLabel.text = "\(self.result.openningHourWeek)"
+                }
             }
             if indexPath.row == 1
             {
                 cell.titleLabel.text = "Saturday"
-                cell.valueLabel.text = "\(self.result.openningHourSat)"
+                if self.result.openningHourSat == ""
+                {
+                    cell.valueLabel.text = "Unknown"
+                }
+                else
+                {
+                    cell.valueLabel.text = "\(self.result.openningHourSat)"
+                }
             }
             if indexPath.row == 2
             {
                 cell.titleLabel.text = "Sunday"
-                cell.valueLabel.text = "\(self.result.openningHourSun)"
+                if self.result.openningHourSun == ""
+                {
+                    cell.valueLabel.text = "Unknown"
+                }
+                else
+                {
+                    cell.valueLabel.text = "\(self.result.openningHourSun)"
+                }
             }
             return cell
         }
@@ -145,7 +172,7 @@ class ResultDetailTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if indexPath.section == 0
         {
-            return 116
+            return 146
         }
         else
         {

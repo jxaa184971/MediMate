@@ -115,14 +115,7 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
             }
             if section == 1
             {
-                if self.results.count < 20
-                {
-                    return self.results.count
-                }
-                else
-                {
-                    return 20
-                }
+                return self.results.count
             }
         }
         if self.isList == false
@@ -186,6 +179,10 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
                 cell.distanceLabel.text = "\(NSString(format:"%.1f",self.results[indexPath.row].distance)) km"
                 
                 cell.picView.image = UIImage(named: "DefaultImage.png")
+                // set the picView display image as a circle
+                cell.picView.layer.cornerRadius = CGRectGetHeight(cell.picView.bounds) / 2
+                // remove the parts outside the bound
+                cell.picView.clipsToBounds =  true
                 
                 // asynchronous loading images from URL
                 let session = NSURLSession.sharedSession()
@@ -200,6 +197,7 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
                         else
                         {
                             let image = UIImage(data: data!)
+
                             dispatch_async(dispatch_get_main_queue(),
                                 {
                                     let cellToUpdate = tableView.cellForRowAtIndexPath(indexPath) as! SearchResultCell
@@ -248,9 +246,9 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
     override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section == 0
         {
-            return 75
+            return 64
         }
-        return self.tableView.sectionHeaderHeight - 15
+        return self.tableView.sectionHeaderHeight
     }
     
     // set title for header
@@ -259,6 +257,10 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
         {
             if isList == true
             {
+                if self.filter["searchLocation"] == "Current Location"
+                {
+                    return "Results ( Within 10km )"
+                }
                 return "Results"
             }
             else
@@ -338,7 +340,8 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
             self.isList = false
             var location:CLLocation!
             // initialize map view
-            if (self.filter["searchLocation"] == "Current Location")
+            if self.filter["searchLocation"] == "Current Location" ||
+                self.filter["searchLocation"] == "All"
             {
                 location = self.getCurrentLocation()
             }
@@ -347,7 +350,7 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
                 location = SuburbHelper.locationFromSuburb(self.filter["searchLocation"]!)
             }
             let camera = GMSCameraPosition.cameraWithLatitude(location.coordinate.latitude,
-                longitude: location.coordinate.longitude, zoom: 8)
+                longitude: location.coordinate.longitude, zoom: 5)
             self.mapView = GMSMapView.mapWithFrame(CGRect(x: 0,y: 160,width: self.view.frame.width,height: self.view.frame.height-160), camera: camera)
             self.mapView.myLocationEnabled = true
             self.mapView.settings.myLocationButton = true
@@ -366,28 +369,24 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
     
     func updateSearchLocation()
     {
-        var locationBasedResults = Array<Facility>()
-        for result in self.results
+        if !(self.filter["searchLocation"] == "Current Location")
         {
-            if self.filter["searchLocation"] == "Current Location"
-            {
-                locationBasedResults.append(result)
-            }
-            else
+            var locationBasedResults = Array<Facility>()
+            for result in self.results
             {
                 if result.suburb == self.filter["searchLocation"]
                 {
                     locationBasedResults.append(result)
                 }
             }
+            self.results = locationBasedResults
         }
-        self.results = locationBasedResults
         
         if self.isList == false
         {
             var location:CLLocation!
             // initialize map view
-            if (self.filter["searchLocation"] == "Current Location")
+            if self.filter["searchLocation"] == "Current Location"
             {
                 location = self.getCurrentLocation()
             }
@@ -417,6 +416,11 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
         self.languagePreferedResult()
         self.updateSearchLocation()
         self.sortResults()
+        
+        if self.filter["searchLocation"] == "Current Location"
+        {
+            self.resultsWithin10KM()
+        }
         
         if self.results.count == 0 && hasDataRetrived == true
         {
@@ -463,6 +467,19 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
         {
             self.results.sortInPlace({$0.numberOfReview > $1.numberOfReview})
         }
+    }
+    
+    func resultsWithin10KM ()
+    {
+        var filtedResults = Array<Facility>()
+        for result in results
+        {
+            if result.distance <= 10
+            {
+                filtedResults.append(result)
+            }
+        }
+        self.results = filtedResults
     }
     
     func popToParentView()
