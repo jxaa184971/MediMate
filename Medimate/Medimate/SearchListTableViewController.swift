@@ -13,18 +13,17 @@ import CoreLocation
 class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, CLLocationManagerDelegate {
 
     // MARK: - Properties
-    var searchCategory: String!    //category of medical facilities, such as GP, Clinic
+    var searchCategory: String!        //category of medical facilities, such as GP, Clinic
     var samples: Array<Facility>!
-    var results: Array<Facility>!        //search results
-    var filter:[String:String]!    //filter settings
-    var isList:Bool! = true        //used to determine the view
-    var numberOfRowsShowed:Int! = 10
+    var results: Array<Facility>!      //search results
+    var filter:[String:String]!        //filter settings
+    var isList:Bool! = true            //used to determine the view
+    var numberOfRowsShowed:Int! = 10   //the number of results showed on tableview
+    var isLoading:Bool! = false        //check whether the view is loading or not
     
     var locationManager:CLLocationManager!
     var mapView:GMSMapView!
-    
-    @IBOutlet var infoLabel: UILabel!
-    
+        
     // MARK: - View Settings
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,7 +45,7 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
         if CLLocationManager.authorizationStatus() == CLAuthorizationStatus.NotDetermined
         {
             self.locationManager.requestWhenInUseAuthorization()
-            var timer = NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: #selector(self.popToParentView), userInfo: nil, repeats: false)
+            _ = NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: #selector(self.popToParentView), userInfo: nil, repeats: false)
         }
         else
         {
@@ -410,18 +409,13 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
     
     func refresh()
     {
-        var hasDataRetrived = true
         if self.samples.count == 0
         {
             print("No data returned")
             self.errorMessage("There is no data returned from server. Please check the network is working well.")
             return
         }
-        else
-        {
-            self.infoLabel.text = ""
-        }
-        
+
         self.languagePreferedResult()
         self.updateSearchLocation()
         self.sortResults()
@@ -431,7 +425,7 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
             self.resultsWithin10KM()
         }
         
-        if self.results.count == 0 && hasDataRetrived == true
+        if self.results.count == 0 
         {
             self.errorMessage("There is no result satisfied with the search conditions.")
             self.tableView.reloadData()
@@ -443,7 +437,6 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
             self.tableView.reloadData()
             self.createTableFooter()
         }
-
     }
 
     func languagePreferedResult()
@@ -537,24 +530,25 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
     }
     
     override func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        if self.hasMoreDataToLoad()
+        print("\(self.isLoading)")
+        if self.hasMoreDataToLoad() && self.isLoading == false
         {
             if self.tableView.contentOffset.y > (self.tableView.contentSize.height - self.tableView.frame.size.height + 20)
             {
                 let tableFooterActivityIndicator = UIActivityIndicatorView(frame: CGRect(x: 75, y: 10, width: 20, height: 20))
                 tableFooterActivityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
-                tableFooterActivityIndicator.startAnimating()
+                    tableFooterActivityIndicator.startAnimating()
                 (self.tableView.tableFooterView?.subviews[0] as! UILabel).text = "Loading..."
                 self.tableView.tableFooterView?.addSubview(tableFooterActivityIndicator)
             
                 self.showMoreData()
             }
         }
-
     }
     
     func showMoreData()
     {
+        self.isLoading = true    // start loading more data
         if (self.results.count - self.numberOfRowsShowed) <= 5
         {
             self.numberOfRowsShowed = self.results.count
@@ -564,7 +558,10 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
             self.numberOfRowsShowed = self.numberOfRowsShowed + 5
         }
         
-        var timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(self.refresh), userInfo: nil, repeats: false)
+        _ = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(self.refresh), userInfo: nil, repeats: false)
+        
+        // finish loading data after 2 sec, to avoid multiple times loading as one time
+        _ = NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: #selector(self.finishLoading), userInfo: nil, repeats: false)
     }
     
     func hasMoreDataToLoad() -> Bool
@@ -577,6 +574,11 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
         {
             return false
         }
+    }
+    
+    func finishLoading()
+    {
+        self.isLoading = false
     }
     
     

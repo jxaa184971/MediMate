@@ -4,6 +4,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -53,24 +54,50 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9t1-LR-aBz">
-                                <rect key="frame" x="20" y="260" width="560" height="80"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9t1-LR-aBz">
+                                <rect key="frame" x="20" y="238" width="560" height="124"/>
                                 <color key="backgroundColor" red="0.47058823529999999" green="0.69803921570000005" blue="0.82352941180000006" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
-                                <state key="normal" title="General Practitioner">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="124" id="gQ5-D9-Lrm"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
+                                <state key="normal">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <segue destination="iHg-gO-Lon" kind="show" identifier="gpSegue" id="mXl-C8-UQf"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="General Practitioner" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u90-IH-IBa">
+                                <rect key="frame" x="20" y="325" width="560" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="1x2-Si-aQX"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="GP_icon.png" translatesAutoresizingMaskIntoConstraints="NO" id="Qwm-Z5-5V4">
+                                <rect key="frame" x="268" y="253" width="64" height="64"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="64" id="CfI-XL-Mi8"/>
+                                    <constraint firstAttribute="height" constant="64" id="Gxb-6e-z9W"/>
+                                    <constraint firstAttribute="width" secondItem="Qwm-Z5-5V4" secondAttribute="height" multiplier="1:1" id="vTn-1H-fzM"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="9t1-LR-aBz" firstAttribute="centerY" secondItem="gDr-Ae-62H" secondAttribute="centerY" id="0b9-Z8-U0h"/>
-                            <constraint firstItem="9t1-LR-aBz" firstAttribute="leading" secondItem="gDr-Ae-62H" secondAttribute="leadingMargin" id="26d-Ju-bGn"/>
-                            <constraint firstItem="9t1-LR-aBz" firstAttribute="trailing" secondItem="gDr-Ae-62H" secondAttribute="trailingMargin" id="2zA-Ss-apM"/>
-                            <constraint firstItem="9t1-LR-aBz" firstAttribute="top" secondItem="viI-kY-etS" secondAttribute="bottom" constant="196" id="Zdr-c1-Hde"/>
+                            <constraint firstItem="u90-IH-IBa" firstAttribute="trailing" secondItem="gDr-Ae-62H" secondAttribute="trailingMargin" id="5X2-jX-7Lx"/>
+                            <constraint firstItem="Qwm-Z5-5V4" firstAttribute="centerX" secondItem="gDr-Ae-62H" secondAttribute="centerX" id="83z-Le-Fk9"/>
+                            <constraint firstItem="9t1-LR-aBz" firstAttribute="centerY" secondItem="gDr-Ae-62H" secondAttribute="centerY" id="Blr-Yo-gGu"/>
+                            <constraint firstItem="Qwm-Z5-5V4" firstAttribute="centerX" secondItem="gDr-Ae-62H" secondAttribute="centerX" id="DG3-Z5-PFi"/>
+                            <constraint firstItem="Qwm-Z5-5V4" firstAttribute="centerY" secondItem="gDr-Ae-62H" secondAttribute="centerY" constant="-15" id="ECV-Bv-TcL"/>
+                            <constraint firstItem="Qwm-Z5-5V4" firstAttribute="centerY" secondItem="gDr-Ae-62H" secondAttribute="centerY" constant="-15" id="bSE-hW-eT6"/>
+                            <constraint firstItem="u90-IH-IBa" firstAttribute="top" secondItem="Qwm-Z5-5V4" secondAttribute="bottom" constant="8" id="hmf-ky-0Uw"/>
+                            <constraint firstItem="9t1-LR-aBz" firstAttribute="trailing" secondItem="gDr-Ae-62H" secondAttribute="trailingMargin" id="ikC-af-S3l"/>
+                            <constraint firstItem="9t1-LR-aBz" firstAttribute="leading" secondItem="gDr-Ae-62H" secondAttribute="leadingMargin" id="o75-lv-FXB"/>
+                            <constraint firstItem="u90-IH-IBa" firstAttribute="leading" secondItem="gDr-Ae-62H" secondAttribute="leadingMargin" id="oiS-Dv-peU"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="MediMate" id="bUe-qL-Y66"/>
@@ -87,13 +114,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
-                        <label key="tableFooterView" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="111" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="jRj-V9-u7y">
-                            <rect key="frame" x="0.0" y="271.5" width="600" height="100"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                            <nil key="highlightedColor"/>
-                        </label>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="filterCell" rowHeight="40" id="4cx-Af-3wE" customClass="FilterCell" customModule="Medimate" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="113.5" width="600" height="40"/>
@@ -234,9 +254,6 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
-                    <connections>
-                        <outlet property="infoLabel" destination="jRj-V9-u7y" id="njk-We-CSK"/>
-                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SRD-Y9-2AH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -348,7 +365,7 @@
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Language:" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tIP-yy-geO">
                                             <rect key="frame" x="124" y="95" width="468" height="43"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="B9Z-R1-PV5">
@@ -576,4 +593,7 @@
             <point key="canvasLocation" x="685" y="396"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="GP_icon.png" width="128" height="128"/>
+    </resources>
 </document>
