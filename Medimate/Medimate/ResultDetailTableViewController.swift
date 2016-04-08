@@ -7,20 +7,48 @@
 //
 
 import UIKit
+import CoreLocation
+import GoogleMaps
 
-class ResultDetailTableViewController: UITableViewController {
+class ResultDetailTableViewController: UITableViewController, GMSMapViewDelegate {
 
     var result:Facility!
+    var mapView:GMSMapView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.automaticallyAdjustsScrollViewInsets = false;
 
         self.navigationItem.title = self.result.name
+        self.showMap()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    // MARK: - Map
+    func showMap()
+    {
+        // initialize map view
+        let location = CLLocation(latitude: self.result.latitude, longitude: self.result.longitude)
+
+        let camera = GMSCameraPosition.cameraWithLatitude(location.coordinate.latitude,
+                                                          longitude: location.coordinate.longitude,
+                                                          zoom: 12)
+
+        self.mapView = GMSMapView.mapWithFrame(CGRect(x: 0, y: 210, width: self.view.frame.width, height: 155), camera: camera)
+        self.mapView.myLocationEnabled = false
+        self.mapView.settings.myLocationButton = false
+        self.mapView.delegate = self
+        self.view.addSubview(self.mapView)
+        
+        // initialize the location marker
+        let position = CLLocationCoordinate2DMake(self.result.latitude, self.result.longitude)
+        let marker = GMSMarker(position: position)
+        marker.userData = result
+        marker.map = self.mapView
     }
 
     // MARK: - Table view data source
@@ -40,9 +68,9 @@ class ResultDetailTableViewController: UITableViewController {
         {
             if self.result.website != ""
             {
-                return 3
+                return 4
             }
-            return 2
+            return 3
         }
         if section == 2
         {
@@ -63,7 +91,11 @@ class ResultDetailTableViewController: UITableViewController {
             {
                 cell.languageLabel.text = "Language Spoken: English"
             }
-            cell.languageLabel.text = "Language Spoken: English, \(self.result.language)"
+            else
+            {
+                cell.languageLabel.text = "Language Spoken: English, \(self.result.language)"
+
+            }
             if result.type == "GP"
             {
                 cell.typeLabel.text = "General Practitioner"
@@ -109,15 +141,20 @@ class ResultDetailTableViewController: UITableViewController {
             let cell = tableView.dequeueReusableCellWithIdentifier("contactCell", forIndexPath: indexPath) as! DetailContactCell
             if indexPath.row == 0
             {
-                cell.titleLabel.text = self.result.address
+                cell.titleLabel.text = ""
                 cell.valueLabel.text = ""
             }
             if indexPath.row == 1
             {
+                cell.titleLabel.text = self.result.address
+                cell.valueLabel.text = ""
+            }
+            if indexPath.row == 2
+            {
                 cell.titleLabel.text = "Phone: "
                 cell.valueLabel.text = "\(self.result.phone)"
             }
-            if indexPath.row == 2
+            if indexPath.row == 3
             {
                 cell.titleLabel.text = "Website: "
                 cell.valueLabel.text = "\(self.result.website)"
@@ -174,10 +211,22 @@ class ResultDetailTableViewController: UITableViewController {
         {
             return 146
         }
+        else if indexPath.section == 1 && indexPath.row == 0
+        {
+            return 120
+        }
         else
         {
             return 40
         }
+    }
+    
+    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if section == 0
+        {
+            return 64
+        }
+        return self.tableView.sectionHeaderHeight
     }
     
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {

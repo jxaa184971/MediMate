@@ -105,7 +105,7 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
         {
             if section == 0
             {
-                if self.searchCategory == "GP" || self.searchCategory == "Clinic"
+                if self.searchCategory == "GP"
                 {
                     return 3
                 }
@@ -130,7 +130,7 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
         {
             if section == 0
             {
-                if self.searchCategory == "GP" || self.searchCategory == "Clinic"
+                if self.searchCategory == "GP"
                 {
                     return 2
                 }
@@ -157,9 +157,9 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
                 }
                 if indexPath.row == 1
                 {
-                    if self.searchCategory == "GP" || self.searchCategory == "Clinic"
+                    if self.searchCategory == "GP"
                     {
-                        cell.filterName.text = "Language Spoken"
+                        cell.filterName.text = "GP's Language"
                         cell.filterValue.text = self.filter["language"]
                     }
                     else
@@ -168,7 +168,7 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
                         cell.filterValue.text = self.filter["sortBy"]
                     }
                 }
-                if indexPath.row == 2 && (self.searchCategory == "GP" || self.searchCategory == "Clinic")
+                if indexPath.row == 2 && self.searchCategory == "GP"
                 {
                     cell.filterName.text = "Sort By"
                     cell.filterValue.text = self.filter["sortBy"]
@@ -227,7 +227,7 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
             }
             if indexPath.row == 1
             {
-                if self.searchCategory == "GP" || self.searchCategory == "Clinic"
+                if self.searchCategory == "GP"
                 {
                     cell.filterName.text = "Language Prefer"
                     cell.filterValue.text = self.filter["language"]
@@ -530,7 +530,6 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
     }
     
     override func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        print("\(self.isLoading)")
         if self.hasMoreDataToLoad() && self.isLoading == false
         {
             if self.tableView.contentOffset.y > (self.tableView.contentSize.height - self.tableView.frame.size.height + 20)
@@ -638,15 +637,15 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
             {
                 controller.filterType = "searchLocation"
             }
-            if indexPath.row == 1 && (self.searchCategory == "GP" || self.searchCategory == "Clinic")
+            if indexPath.row == 1 && self.searchCategory == "GP"
             {
                 controller.filterType = "language"
             }
-            if indexPath.row == 2 && (self.searchCategory == "GP" || self.searchCategory == "Clinic")
+            if indexPath.row == 2 && self.searchCategory == "GP"
             {
                 controller.filterType = "sortBy"
             }
-            if indexPath.row == 1 && self.searchCategory != "GP" && self.searchCategory != "Clinic"
+            if indexPath.row == 1 && self.searchCategory != "GP"
             {
                 controller.filterType = "sortBy"
             }
