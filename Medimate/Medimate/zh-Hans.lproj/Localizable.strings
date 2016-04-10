@@ -46,6 +46,10 @@
 
 "Sunday" = "星期日";
 
+"Closed" = "关闭";
+
+"Unknown" = "未知";
+
 "General Practitioner" = "全科医生";
 
 "GP" = "全科医生";
@@ -67,4 +71,14 @@
 "Yes" = "确认";
 
 "No" = "取消";
+
+"Make Phone Call" = "拨打电话";
+
+"Are you sure to make a phone call of selected medical facility?" = "你确定要拨打所选医疗设施的电话吗?";
+
+"Open Website" = "打开网页";
+
+"Are you sure to open the website of selected medical facility in Web Browser?" = "你确定在网页浏览器打开所选医疗设施的网址吗?";
+
+
 

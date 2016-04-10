@@ -170,11 +170,11 @@ class ResultDetailTableViewController: UITableViewController, GMSMapViewDelegate
                 cell.titleLabel.text = NSLocalizedString("Weekday", comment:"")
                 if self.result.openningHourWeek == ""
                 {
-                    cell.valueLabel.text = "Unknown"
+                    cell.valueLabel.text = NSLocalizedString("Unknown", comment:"")
                 }
                 else
                 {
-                    cell.valueLabel.text = "\(self.result.openningHourWeek)"
+                    cell.valueLabel.text = "\(NSLocalizedString(self.result.openningHourWeek, comment:""))"
                 }
             }
             if indexPath.row == 1
@@ -182,11 +182,11 @@ class ResultDetailTableViewController: UITableViewController, GMSMapViewDelegate
                 cell.titleLabel.text = NSLocalizedString("Saturday", comment:"")
                 if self.result.openningHourSat == ""
                 {
-                    cell.valueLabel.text = "Unknown"
+                    cell.valueLabel.text = NSLocalizedString("Unknown", comment:"")
                 }
                 else
                 {
-                    cell.valueLabel.text = "\(self.result.openningHourSat)"
+                    cell.valueLabel.text = "\(NSLocalizedString(self.result.openningHourSat, comment:""))"
                 }
             }
             if indexPath.row == 2
@@ -194,11 +194,11 @@ class ResultDetailTableViewController: UITableViewController, GMSMapViewDelegate
                 cell.titleLabel.text = NSLocalizedString("Sunday", comment:"")
                 if self.result.openningHourSun == ""
                 {
-                    cell.valueLabel.text = "Unknown"
+                    cell.valueLabel.text = NSLocalizedString("Unknown", comment:"")
                 }
                 else
                 {
-                    cell.valueLabel.text = "\(self.result.openningHourSun)"
+                    cell.valueLabel.text = "\(NSLocalizedString(self.result.openningHourSun, comment:""))"
                 }
             }
             return cell
@@ -241,32 +241,52 @@ class ResultDetailTableViewController: UITableViewController, GMSMapViewDelegate
     }
 
 
-    /*
-    // Override to support editing the table view.
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            // Delete the row from the data source
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if indexPath.section == 1
+        {
+            if indexPath.row == 2
+            {
+                let phoneNumberURL = "tel:\(PhoneNoHelper.phoneNumberFromString(self.result.phone))"
+                
+                let title = NSLocalizedString("Make Phone Call", comment: "")
+                let message = NSLocalizedString("Are you sure to make a phone call of selected medical facility?", comment: "")
+                self.alterViewFrom(title, message: message, urlString: phoneNumberURL)
+                
+            }
+            if indexPath.row == 3
+            {
+                let websiteURL = "http://\(self.result.website)"
+                
+                let title = NSLocalizedString("Open Website", comment: "")
+                let message = NSLocalizedString("Are you sure to open the website of selected medical facility in Web Browser?", comment: "")
+                self.alterViewFrom(title, message: message, urlString: websiteURL)
+            }
+        }
     }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-
+    
+    // MARK: - OpenURL
+    
+    func openURLFromString(string:String)
+    {
+        UIApplication.sharedApplication().openURL(NSURL(string: string)!)
     }
-    */
 
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
+    // MARK: - Alert
+    func alterViewFrom(title:String, message:String, urlString:String)
+    {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+        
+        let defaultAction = UIAlertAction(title: NSLocalizedString("Yes", comment: ""), style: .Default, handler:
+            { (action:UIAlertAction!) in
+                self.openURLFromString(urlString)
+        })
+        
+        let cancelAction = UIAlertAction(title: NSLocalizedString("No", comment: ""), style: .Default, handler: nil)
+        alertController.addAction(defaultAction)
+        alertController.addAction(cancelAction)
+        
+        self.presentViewController(alertController, animated: true, completion: nil)
     }
-    */
 
     /*
     // MARK: - Navigation
