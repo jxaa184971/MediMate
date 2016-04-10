@@ -1,0 +1,84 @@
+
+/* Class = "UINavigationItem"; title = "Title"; ObjectID = "4EH-yn-lxN"; */
+"4EH-yn-lxN.title" = "Title";
+
+/* Class = "UILabel"; text = "Reviews"; ObjectID = "6mT-Lb-WtC"; */
+"6mT-Lb-WtC.text" = "Reviews";
+
+/* Class = "UILabel"; text = "Rating: "; ObjectID = "7j6-Kb-YBF"; */
+"7j6-Kb-YBF.text" = "Rating: ";
+
+/* Class = "UILabel"; text = "Type: "; ObjectID = "8I0-9f-4A5"; */
+"8I0-9f-4A5.text" = "Type: ";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "9Ce-8o-OCT"; */
+"9Ce-8o-OCT.text" = "Label";
+
+/* Class = "UITabBarItem"; title = "Item"; ObjectID = "B9r-gi-pTe"; */
+"B9r-gi-pTe.title" = "Item";
+
+/* Class = "UILabel"; text = "distance"; ObjectID = "EU1-RE-wK9"; */
+"EU1-RE-wK9.text" = "distance";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "RQs-qH-WI6"; */
+"RQs-qH-WI6.text" = "Label";
+
+/* Class = "UITabBarItem"; title = "Search"; ObjectID = "UNn-3j-7Xa"; */
+"UNn-3j-7Xa.title" = "搜索";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "VH7-rv-6KS"; */
+"VH7-rv-6KS.text" = "Label";
+
+/* Class = "UILabel"; text = "distance"; ObjectID = "WUg-fm-kGG"; */
+"WUg-fm-kGG.text" = "distance";
+
+/* Class = "UILabel"; text = "Rating"; ObjectID = "WaZ-c8-9t9"; */
+"WaZ-c8-9t9.text" = "Rating";
+
+/* Class = "UILabel"; text = "Name"; ObjectID = "Zai-sf-qJW"; */
+"Zai-sf-qJW.text" = "Name";
+
+/* Class = "UINavigationItem"; title = "MediMate"; ObjectID = "bUe-qL-Y66"; */
+"bUe-qL-Y66.title" = "MediMate";
+
+/* Class = "UINavigationItem"; title = "Root View Controller"; ObjectID = "bkp-Pm-1ZZ"; */
+"bkp-Pm-1ZZ.title" = "Root View Controller";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "cyG-K2-3En"; */
+"cyG-K2-3En.text" = "Label";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "jyx-Sc-UnI"; */
+"jyx-Sc-UnI.text" = "Label";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "k6q-iZ-Tlv"; */
+"k6q-iZ-Tlv.text" = "Label";
+
+/* Class = "UILabel"; text = "reviews"; ObjectID = "kPg-8n-omw"; */
+"kPg-8n-omw.text" = "reviews";
+
+/* Class = "UIBarButtonItem"; title = "Map"; ObjectID = "sFd-iB-dxP"; */
+"sFd-iB-dxP.title" = "地图";
+
+/* Class = "UILabel"; text = "Language:"; ObjectID = "tIP-yy-geO"; */
+"tIP-yy-geO.text" = "Language:";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "ts8-dB-QuW"; */
+"ts8-dB-QuW.text" = "Label";
+
+/* Class = "UILabel"; text = "General Practitioner"; ObjectID = "u90-IH-IBa"; */
+"u90-IH-IBa.text" = "全科医生";
+
+/* Class = "UILabel"; text = "Name"; ObjectID = "upG-sS-yw8"; */
+"upG-sS-yw8.text" = "Name";
+
+/* Class = "UILabel"; text = "Location"; ObjectID = "vRN-QW-6WX"; */
+"vRN-QW-6WX.text" = "Location";
+
+/* Class = "UITabBarItem"; title = "Profile"; ObjectID = "wda-yC-s0P"; */
+"wda-yC-s0P.title" = "设置";
+
+/* Class = "UINavigationItem"; title = "Root View Controller"; ObjectID = "zxr-kK-tRO"; */
+"zxr-kK-tRO.title" = "设置";
+
+
+

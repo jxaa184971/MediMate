@@ -11,7 +11,7 @@ import CoreLocation
 
 class SuburbHelper: NSObject {
     
-    static let suburbArray = ["Current Location", "Melbourne", "East Melbourne", "West Melbourne",  "Southbank", "Kensington", "Flemington", "North Melbourne", "Parkville", "Carlton", "Carlton North", "South Yarra", "Caulfield East", "Marvern East", "Caulfield North", "Caulfield", "Caulfield South", "Carnegie", "Glen Huntly", "Bentleigh East", "St Kilda East", "Elsternwik", "Ripponlea", "Bentleigh", "Ormond", "Mckinnon", "Port Melbourne"]
+    static let suburbArray = [NSLocalizedString("Current Location", comment:""), "Melbourne", "East Melbourne", "West Melbourne",  "Southbank", "Kensington", "Flemington", "North Melbourne", "Parkville", "Carlton", "Carlton North", "South Yarra", "Caulfield East", "Marvern East", "Caulfield North", "Caulfield", "Caulfield South", "Carnegie", "Glen Huntly", "Bentleigh East", "St Kilda East", "Elsternwik", "Ripponlea", "Bentleigh", "Ormond", "Mckinnon", "Port Melbourne"]
     
     static let postCodeArray = ["", "3000", "3002", "3003", "3006", "3031", "3031", "3051", "3052", "3053", "3054", "3141", "3145", "3145", "3161", "3162", "3162", "3163", "3163", "3165", "3183", "3185", "3185", "3204", "3204", "3204", "3207"]
     
@@ -35,7 +35,7 @@ class SuburbHelper: NSObject {
     static func stringFromSuburbAndPostCode() -> Array<String>
     {
         var results = Array<String>()
-        results.append("Current Location")
+        results.append(NSLocalizedString("Current Location", comment:""))
         //results.append("All")
         for index in 1...(suburbArray.count - 1)
         {

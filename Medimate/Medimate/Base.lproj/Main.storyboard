@@ -19,6 +19,7 @@
                     </tabBar>
                     <connections>
                         <segue destination="rvx-qt-fBv" kind="relationship" relationship="viewControllers" id="LdN-1f-PJJ"/>
+                        <segue destination="ob1-Mi-FM1" kind="relationship" relationship="viewControllers" id="DMN-M8-Ag4"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vNM-V3-XCZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -45,7 +46,7 @@
         <!--MediMate-->
         <scene sceneID="jmQ-pG-wgZ">
             <objects>
-                <viewController id="Z1T-Hp-7r5" customClass="MainMenuViewController" customModule="Medimate" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Z1T-Hp-7r5" customClass="MainMenuViewController" customModule="Medimate_temp_caseinsensitive_rename_temp_caseinsensitive_rename" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="viI-kY-etS"/>
                         <viewControllerLayoutGuide type="bottom" id="wh7-vU-XJB"/>
@@ -109,13 +110,13 @@
         <!--Title-->
         <scene sceneID="Z15-Jf-SXF">
             <objects>
-                <tableViewController id="iHg-gO-Lon" customClass="SearchListTableViewController" customModule="Medimate" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="iHg-gO-Lon" customClass="SearchListTableViewController" customModule="Medimate_temp_caseinsensitive_rename_temp_caseinsensitive_rename" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="aKF-Yx-I3f">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="filterCell" rowHeight="40" id="4cx-Af-3wE" customClass="FilterCell" customModule="Medimate" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="filterCell" rowHeight="40" id="4cx-Af-3wE" customClass="FilterCell" customModule="Medimate_temp_caseinsensitive_rename_temp_caseinsensitive_rename" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="113.5" width="600" height="40"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4cx-Af-3wE" id="mYe-n9-Z8L">
@@ -156,7 +157,7 @@
                                     <segue destination="lCo-bO-qoh" kind="show" identifier="filterSegue" id="iOc-jg-7iC"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="resultCell" rowHeight="100" id="9m8-22-r3Q" customClass="SearchResultCell" customModule="Medimate" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="resultCell" rowHeight="100" id="9m8-22-r3Q" customClass="SearchResultCell" customModule="Medimate_temp_caseinsensitive_rename_temp_caseinsensitive_rename" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="153.5" width="600" height="100"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="9m8-22-r3Q" id="TZS-RH-hTy">
@@ -262,13 +263,13 @@
         <!--Filter Table View Controller-->
         <scene sceneID="flS-jw-sb6">
             <objects>
-                <tableViewController id="lCo-bO-qoh" customClass="FilterTableViewController" customModule="Medimate" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="lCo-bO-qoh" customClass="FilterTableViewController" customModule="Medimate_temp_caseinsensitive_rename_temp_caseinsensitive_rename" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="O0f-Eo-nBA">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="valueCell" id="ywW-oo-U41" customClass="FilterValueCell" customModule="Medimate" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="valueCell" id="ywW-oo-U41" customClass="FilterValueCell" customModule="Medimate_temp_caseinsensitive_rename_temp_caseinsensitive_rename" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="113.5" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ywW-oo-U41" id="lYz-wt-1qx">
@@ -307,13 +308,13 @@
         <!--Result Detail Table View Controller-->
         <scene sceneID="TTF-l0-oeX">
             <objects>
-                <tableViewController restorationIdentifier="DetailViewController" storyboardIdentifier="DetailViewController" id="RgP-5n-4F5" customClass="ResultDetailTableViewController" customModule="Medimate" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController restorationIdentifier="DetailViewController" storyboardIdentifier="DetailViewController" id="RgP-5n-4F5" customClass="ResultDetailTableViewController" customModule="Medimate_temp_caseinsensitive_rename_temp_caseinsensitive_rename" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="116" sectionHeaderHeight="18" sectionFooterHeight="18" id="H8C-1B-cmf">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="headerCell" rowHeight="146" id="6IY-jZ-Eo5" customClass="DetailHeaderCell" customModule="Medimate" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="headerCell" rowHeight="146" id="6IY-jZ-Eo5" customClass="DetailHeaderCell" customModule="Medimate_temp_caseinsensitive_rename_temp_caseinsensitive_rename" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="113.5" width="600" height="146"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6IY-jZ-Eo5" id="Zuq-Wp-c08">
@@ -411,7 +412,7 @@
                                     <outlet property="typeLabel" destination="8I0-9f-4A5" id="bHV-9y-lQN"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="contactCell" rowHeight="44" id="JdR-lf-eED" customClass="DetailContactCell" customModule="Medimate" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="contactCell" rowHeight="44" id="JdR-lf-eED" customClass="DetailContactCell" customModule="Medimate_temp_caseinsensitive_rename_temp_caseinsensitive_rename" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="259.5" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="JdR-lf-eED" id="402-l0-eTB">
@@ -449,7 +450,7 @@
                                     <outlet property="valueLabel" destination="VH7-rv-6KS" id="nfb-OQ-cvu"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="openingHourCell" rowHeight="44" id="Kf9-zo-8pr" customClass="DetailOpeningHourCell" customModule="Medimate" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="openingHourCell" rowHeight="44" id="Kf9-zo-8pr" customClass="DetailOpeningHourCell" customModule="Medimate_temp_caseinsensitive_rename_temp_caseinsensitive_rename" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="303.5" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Kf9-zo-8pr" id="Jag-wN-148">
@@ -529,22 +530,53 @@
             </objects>
             <point key="canvasLocation" x="1475" y="396"/>
         </scene>
-        <!--Root View Controller-->
+        <!--Settings-->
         <scene sceneID="jos-QC-kuq">
             <objects>
-                <tableViewController id="1ue-1i-Vbo" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="p1S-Mf-ivB">
+                <tableViewController id="1ue-1i-Vbo" customClass="ProfileTableViewController" customModule="Medimate_temp_caseinsensitive_rename_temp_caseinsensitive_rename" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="p1S-Mf-ivB">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="Fe1-xd-DAR">
-                                <rect key="frame" x="0.0" y="92" width="600" height="44"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="settingCell" id="Fe1-xd-DAR" customClass="SettingCell" customModule="Medimate_temp_caseinsensitive_rename_temp_caseinsensitive_rename" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="113.5" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Fe1-xd-DAR" id="Ypq-7X-F9r">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="567" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SettingTitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cox-lw-til">
+                                            <rect key="frame" x="8" y="11" width="559" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SettingValue" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gG9-bi-hee">
+                                            <rect key="frame" x="297" y="11" width="270" height="21"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="270" id="Iay-lj-NdX"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="cox-lw-til" firstAttribute="centerY" secondItem="Ypq-7X-F9r" secondAttribute="centerY" id="0BO-Tn-ony"/>
+                                        <constraint firstItem="gG9-bi-hee" firstAttribute="trailing" secondItem="cox-lw-til" secondAttribute="trailing" id="Kpp-ay-z8a"/>
+                                        <constraint firstItem="cox-lw-til" firstAttribute="baseline" secondItem="gG9-bi-hee" secondAttribute="baseline" id="atQ-xN-sSV"/>
+                                        <constraint firstAttribute="trailing" secondItem="cox-lw-til" secondAttribute="trailing" id="fAW-oJ-lfg"/>
+                                        <constraint firstItem="cox-lw-til" firstAttribute="leading" secondItem="Ypq-7X-F9r" secondAttribute="leadingMargin" id="hGd-J9-UwG"/>
+                                        <constraint firstItem="cox-lw-til" firstAttribute="firstBaseline" secondItem="gG9-bi-hee" secondAttribute="firstBaseline" id="rKR-Pk-KG6"/>
+                                        <constraint firstItem="cox-lw-til" firstAttribute="top" secondItem="Ypq-7X-F9r" secondAttribute="topMargin" constant="3" id="xxR-Ft-2B2"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="titleLabel" destination="cox-lw-til" id="bNd-qY-G9w"/>
+                                    <outlet property="valueLabel" destination="gG9-bi-hee" id="6ur-wV-3i5"/>
+                                    <segue destination="JaY-UO-ZL0" kind="show" identifier="settingSegue" id="0wj-uh-Ifi"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -552,17 +584,69 @@
                             <outlet property="delegate" destination="1ue-1i-Vbo" id="NOK-mj-axT"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Root View Controller" id="zxr-kK-tRO"/>
+                    <navigationItem key="navigationItem" title="Settings" id="zxr-kK-tRO"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gEr-Si-2cs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1490" y="1241"/>
         </scene>
-        <!--Profile-->
+        <!--Item-->
+        <scene sceneID="INT-2P-RqF">
+            <objects>
+                <tableViewController id="JaY-UO-ZL0" customClass="SettingEditTableViewController" customModule="Medimate_temp_caseinsensitive_rename_temp_caseinsensitive_rename" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="jdO-9A-cGr">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="settingValueCell" id="f43-yF-SrZ" customClass="SettingValueCell" customModule="Medimate_temp_caseinsensitive_rename_temp_caseinsensitive_rename" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="113.5" width="600" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="f43-yF-SrZ" id="iPb-Ps-vKD">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="settingValue" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="li1-la-5dx">
+                                            <rect key="frame" x="8" y="11" width="584" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <color key="textColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="li1-la-5dx" firstAttribute="centerY" secondItem="iPb-Ps-vKD" secondAttribute="centerY" id="QSe-P4-o4Z"/>
+                                        <constraint firstItem="li1-la-5dx" firstAttribute="trailing" secondItem="iPb-Ps-vKD" secondAttribute="trailingMargin" id="SoX-2e-fbA"/>
+                                        <constraint firstItem="li1-la-5dx" firstAttribute="leading" secondItem="iPb-Ps-vKD" secondAttribute="leadingMargin" id="ZxQ-oj-OIK"/>
+                                        <constraint firstItem="li1-la-5dx" firstAttribute="top" secondItem="iPb-Ps-vKD" secondAttribute="topMargin" constant="3" id="wLK-Xp-XwI"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="valueLabel" destination="li1-la-5dx" id="lwa-5c-QoW"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="JaY-UO-ZL0" id="bbJ-ev-3Zj"/>
+                            <outlet property="delegate" destination="JaY-UO-ZL0" id="AGb-bQ-DXP"/>
+                        </connections>
+                    </tableView>
+                    <tabBarItem key="tabBarItem" title="Item" id="I6I-LI-V8U"/>
+                    <toolbarItems>
+                        <barButtonItem title="Item" id="PBi-HK-hSe"/>
+                        <barButtonItem title="Item" id="O6K-lt-Mup"/>
+                    </toolbarItems>
+                    <navigationItem key="navigationItem" id="4qS-sc-LWN"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qLn-Sf-ghC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2314" y="1241"/>
+        </scene>
+        <!--Settings-->
         <scene sceneID="jfh-Dl-Lru">
             <objects>
                 <navigationController id="ob1-Mi-FM1" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Profile" id="wda-yC-s0P"/>
+                    <tabBarItem key="tabBarItem" title="Settings" id="wda-yC-s0P"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="vcY-Wv-Dcl">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>

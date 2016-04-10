@@ -19,7 +19,7 @@ class ResultDetailTableViewController: UITableViewController, GMSMapViewDelegate
         super.viewDidLoad()
         self.automaticallyAdjustsScrollViewInsets = false;
 
-        self.navigationItem.title = self.result.name
+        self.navigationItem.title = ""
         self.showMap()
     }
 
@@ -89,20 +89,20 @@ class ResultDetailTableViewController: UITableViewController, GMSMapViewDelegate
             cell.ratingLabel.text = ""
             if self.result.language == ""
             {
-                cell.languageLabel.text = "Language Spoken: English"
+                cell.languageLabel.text = "\(NSLocalizedString("GP's Language", comment:"")): English"
             }
             else
             {
-                cell.languageLabel.text = "Language Spoken: English, \(self.result.language)"
+                cell.languageLabel.text = "\(NSLocalizedString("GP's Language", comment:"")): English, \(self.result.language)"
 
             }
             if result.type == "GP"
             {
-                cell.typeLabel.text = "General Practitioner"
+                cell.typeLabel.text = "\(NSLocalizedString("Type", comment:"")): \(NSLocalizedString("General Practitioner", comment:""))"
             }
             else
             {
-                cell.typeLabel.text = self.result.type
+                cell.typeLabel.text = "\(NSLocalizedString("Type", comment:"")): \(NSLocalizedString("\(self.result.type)", comment:""))"
             }
             cell.reviewLabel.text = ""
             
@@ -151,12 +151,12 @@ class ResultDetailTableViewController: UITableViewController, GMSMapViewDelegate
             }
             if indexPath.row == 2
             {
-                cell.titleLabel.text = "Phone: "
+                cell.titleLabel.text = "\(NSLocalizedString("Phone", comment:"")): "
                 cell.valueLabel.text = "\(self.result.phone)"
             }
             if indexPath.row == 3
             {
-                cell.titleLabel.text = "Website: "
+                cell.titleLabel.text = "\(NSLocalizedString("Website", comment:"")): "
                 cell.valueLabel.text = "\(self.result.website)"
             }
             return cell
@@ -167,7 +167,7 @@ class ResultDetailTableViewController: UITableViewController, GMSMapViewDelegate
             let cell = tableView.dequeueReusableCellWithIdentifier("openingHourCell", forIndexPath: indexPath) as! DetailOpeningHourCell
             if indexPath.row == 0
             {
-                cell.titleLabel.text = "Weekday"
+                cell.titleLabel.text = NSLocalizedString("Weekday", comment:"")
                 if self.result.openningHourWeek == ""
                 {
                     cell.valueLabel.text = "Unknown"
@@ -179,7 +179,7 @@ class ResultDetailTableViewController: UITableViewController, GMSMapViewDelegate
             }
             if indexPath.row == 1
             {
-                cell.titleLabel.text = "Saturday"
+                cell.titleLabel.text = NSLocalizedString("Saturday", comment:"")
                 if self.result.openningHourSat == ""
                 {
                     cell.valueLabel.text = "Unknown"
@@ -191,7 +191,7 @@ class ResultDetailTableViewController: UITableViewController, GMSMapViewDelegate
             }
             if indexPath.row == 2
             {
-                cell.titleLabel.text = "Sunday"
+                cell.titleLabel.text = NSLocalizedString("Sunday", comment:"")
                 if self.result.openningHourSun == ""
                 {
                     cell.valueLabel.text = "Unknown"
@@ -232,7 +232,7 @@ class ResultDetailTableViewController: UITableViewController, GMSMapViewDelegate
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == 2
         {
-            return "Opening Hours"
+            return NSLocalizedString("Opening Hours", comment:"")
         }
         else
         {

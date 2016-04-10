@@ -29,10 +29,11 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
         super.viewDidLoad()
 
         self.automaticallyAdjustsScrollViewInsets = false;
-        self.navigationItem.title = self.searchCategory
+        self.navigationItem.title = NSLocalizedString("\(self.searchCategory)",comment:"")
+
         
         // initialize filter settings
-        self.filter = ["searchLocation":"Current Location", "language":"English", "sortBy":"Distance"]
+        self.filter = ["searchLocation":NSLocalizedString("Current Location",comment:""), "language": "English", "sortBy": NSLocalizedString("Distance",comment:"")]
         
         // slow down the speed of scrolling table view
         self.tableView.decelerationRate = UIScrollViewDecelerationRateFast
@@ -152,25 +153,25 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
                 let cell = tableView.dequeueReusableCellWithIdentifier("filterCell", forIndexPath: indexPath) as! FilterCell
                 if indexPath.row == 0
                 {
-                    cell.filterName.text = "Search Location"
+                    cell.filterName.text = NSLocalizedString("Search Location", comment:"")
                     cell.filterValue.text = self.filter["searchLocation"]
                 }
                 if indexPath.row == 1
                 {
                     if self.searchCategory == "GP"
                     {
-                        cell.filterName.text = "GP's Language"
+                        cell.filterName.text = NSLocalizedString("GP's Language",comment:"")
                         cell.filterValue.text = self.filter["language"]
                     }
                     else
                     {
-                        cell.filterName.text = "Sort By"
+                        cell.filterName.text = NSLocalizedString("Sort By",comment:"")
                         cell.filterValue.text = self.filter["sortBy"]
                     }
                 }
                 if indexPath.row == 2 && self.searchCategory == "GP"
                 {
-                    cell.filterName.text = "Sort By"
+                    cell.filterName.text = NSLocalizedString("Sort By",comment:"")
                     cell.filterValue.text = self.filter["sortBy"]
                 }
                 return cell
@@ -222,14 +223,14 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
             let cell = tableView.dequeueReusableCellWithIdentifier("filterCell", forIndexPath: indexPath) as! FilterCell
             if indexPath.row == 0
             {
-                cell.filterName.text = "Search Location"
+                cell.filterName.text = NSLocalizedString("Search Location", comment:"")
                 cell.filterValue.text = self.filter["searchLocation"]
             }
             if indexPath.row == 1
             {
                 if self.searchCategory == "GP"
                 {
-                    cell.filterName.text = "Language Prefer"
+                    cell.filterName.text = NSLocalizedString("GP's Language",comment:"")
                     cell.filterValue.text = self.filter["language"]
                 }
             }
@@ -265,15 +266,15 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
         {
             if isList == true
             {
-                if self.filter["searchLocation"] == "Current Location"
+                if self.filter["searchLocation"] == NSLocalizedString("Current Location",comment:"")
                 {
-                    return "Results ( Within 10km )"
+                    return NSLocalizedString("Results ( Within 10km )",comment:"")
                 }
-                return "Results"
+                return NSLocalizedString("Results",comment:"")
             }
             else
             {
-                return "Map"
+                return NSLocalizedString("Map",comment:"")
             }
         }
         return ""
@@ -288,7 +289,9 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
 
     func getCurrentLocation() -> CLLocation
     {
-        return self.locationManager.location!
+        
+        //return self.locationManager.location!
+        return CLLocation(latitude: -37.876415, longitude: 145.044455)
     }
     
     // MARK: - Map
@@ -301,14 +304,14 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
         infoWindow.titleLabel.text = facility.name
         if facility.type == "GP"
         {
-            infoWindow.typeLabel.text = "General Practitioner"
+            infoWindow.typeLabel.text = "\(NSLocalizedString("Type",comment:"")): \(NSLocalizedString("General Practitioner",comment:""))"
         }else
         {
-            infoWindow.typeLabel.text = "Type: \(facility.type)"
+            infoWindow.typeLabel.text = "\(NSLocalizedString("Type",comment:"")): \(NSLocalizedString("\(facility.type)",comment:""))"
         }
         infoWindow.ratingLabel.text = ""  //"\(RatingStarGenerator.ratingStarsFromDouble(facility.rating)) \(facility.rating)"
         infoWindow.reviewLabel.text = ""  //"\(facility.numberOfReview) reviews"
-        infoWindow.addressLabel.text = "Address: \(facility.address)"
+        infoWindow.addressLabel.text = "\(NSLocalizedString("Address",comment:"")): \(facility.address)"
         infoWindow.facility = facility
 
         return infoWindow
@@ -341,12 +344,11 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
     {
         if self.isList == true
         {
-            self.navigationItem.rightBarButtonItem?.title = "List"
+            self.navigationItem.rightBarButtonItem?.title = NSLocalizedString("List",comment:"")
             self.isList = false
             var location:CLLocation!
             // initialize map view
-            if self.filter["searchLocation"] == "Current Location" ||
-                self.filter["searchLocation"] == "All"
+            if self.filter["searchLocation"] == NSLocalizedString("Current Location",comment:"")
             {
                 location = self.getCurrentLocation()
             }
@@ -365,7 +367,7 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
         }
         else
         {
-            self.navigationItem.rightBarButtonItem?.title = "Map"
+            self.navigationItem.rightBarButtonItem?.title = NSLocalizedString("Map",comment:"")
             self.isList = true
             self.view.subviews.last?.removeFromSuperview()
         }
@@ -376,7 +378,7 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
     
     func updateSearchLocation()
     {
-        if !(self.filter["searchLocation"] == "Current Location")
+        if !(self.filter["searchLocation"] == NSLocalizedString("Current Location",comment:""))
         {
             var locationBasedResults = Array<Facility>()
             for result in self.results
@@ -393,7 +395,7 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
         {
             var location:CLLocation!
             // initialize map view
-            if self.filter["searchLocation"] == "Current Location"
+            if self.filter["searchLocation"] == NSLocalizedString("Current Location",comment:"")
             {
                 location = self.getCurrentLocation()
             }
@@ -420,7 +422,7 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
         self.updateSearchLocation()
         self.sortResults()
         
-        if self.filter["searchLocation"] == "Current Location"
+        if self.filter["searchLocation"] == NSLocalizedString("Current Location",comment:"")
         {
             self.resultsWithin10KM()
         }
@@ -464,15 +466,15 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
     func sortResults()
     {
         let sortBy = self.filter["sortBy"]
-        if sortBy == "Distance"
+        if sortBy == NSLocalizedString("Distance",comment:"")
         {
             self.results.sortInPlace({ $0.distance < $1.distance })
         }
-        if sortBy == "Rating"
+        if sortBy == NSLocalizedString("Rating",comment:"")
         {
             self.results.sortInPlace({$0.rating > $1.rating})
         }
-        if sortBy == "Popularity"
+        if sortBy == NSLocalizedString("Popularity",comment:"")
         {
             self.results.sortInPlace({$0.numberOfReview > $1.numberOfReview})
         }
@@ -519,7 +521,7 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
             loadMoreLabel.textAlignment = NSTextAlignment.Center
             loadMoreLabel.font = UIFont(name: "Helvetica Neue", size:14)
             loadMoreLabel.textColor = UIColor.grayColor()
-            loadMoreLabel.text = "Drag For More Data"
+            loadMoreLabel.text = NSLocalizedString("Drag For More Data",comment:"")
             tableFooterView.addSubview(loadMoreLabel)
             self.tableView.tableFooterView = tableFooterView
         }
@@ -537,7 +539,7 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
                 let tableFooterActivityIndicator = UIActivityIndicatorView(frame: CGRect(x: 75, y: 10, width: 20, height: 20))
                 tableFooterActivityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
                     tableFooterActivityIndicator.startAnimating()
-                (self.tableView.tableFooterView?.subviews[0] as! UILabel).text = "Loading..."
+                (self.tableView.tableFooterView?.subviews[0] as! UILabel).text = NSLocalizedString("Loading...", comment:"")
                 self.tableView.tableFooterView?.addSubview(tableFooterActivityIndicator)
             
                 self.showMoreData()

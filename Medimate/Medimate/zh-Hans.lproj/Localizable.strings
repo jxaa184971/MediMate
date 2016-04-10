@@ -1,0 +1,70 @@
+/* 
+  Localizable.strings
+  Medimate
+
+  Created by 一川 黄 on 8/04/2016.
+  Copyright © 2016 Team MarshGhatti. All rights reserved.
+*/
+
+"Search Location" = "搜索位置";
+
+"Current Location" = "当前位置";
+
+"GP's Language" = "医生语言";
+
+"Sort By" = "排序";
+
+"Results" = "搜索结果";
+
+"Results ( Within 10km )" = "搜索结果 (10km以内)";
+
+"Distance" = "距离";
+
+"Drag For More Data" = "上拉显示更多数据";
+
+"Loading..." = "加载中...";
+
+"Rating" = "评分";
+
+"Popularity" = "流行程度";
+
+"Map" = "地图";
+
+"List" = "列表";
+
+"Type" = "类型";
+
+"Phone" = "电话";
+
+"Website" = "网址";
+
+"Opening Hours" = "开业时间";
+
+"Weekday" = "工作日";
+
+"Saturday" = "星期六";
+
+"Sunday" = "星期日";
+
+"General Practitioner" = "全科医生";
+
+"GP" = "全科医生";
+
+"Clinic" = "诊所";
+
+"Address" = "地址";
+
+"Click For More Info" = "更多信息请点击";
+
+"Language" = "语言";
+
+"Default Language" = "默认语言";
+
+"Are you sure to change the language to" = "你确认将语言修改为";
+
+"The language change will take effect after restart the application." = "更改语言将会在重启程序之后生效";
+
+"Yes" = "确认";
+
+"No" = "取消";
+

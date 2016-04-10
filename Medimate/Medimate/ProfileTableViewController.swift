@@ -1,42 +1,39 @@
 //
-//  FilterTableViewController.swift
+//  ProfileTableViewController.swift
 //  Medimate
 //
-//  Created by 一川 黄 on 22/03/2016.
+//  Created by 一川 黄 on 10/04/2016.
 //  Copyright © 2016 Team MarshGhatti. All rights reserved.
 //
 
 import UIKit
 
-class FilterTableViewController: UITableViewController {
+class ProfileTableViewController: UITableViewController {
 
-    var filterType: String!
-    var valueSet: Array<String>!
-    var titleSet: Array<String>!
+    var settings:[String:String]!        //settings
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        var title = ""
-        if filterType == "searchLocation"
+        let languages = NSUserDefaults.standardUserDefaults().objectForKey("AppleLanguages") as! NSArray
+        let language = languages[0] as! String
+        if language == "zh-Hans"
         {
-            self.titleSet = SuburbHelper.stringFromSuburbAndPostCode()
-            self.valueSet = SuburbHelper.suburbArray
-            title = NSLocalizedString("Search Location", comment:"")
+            self.settings = [NSLocalizedString("Language", comment:""): "中文"]
+
         }
-        if filterType == "language"
+        else if language == "es"
         {
-            self.titleSet = LanguageHelper.otherLanguageArray
-            self.valueSet = LanguageHelper.otherLanguageArray
-            title = NSLocalizedString("GP's Language", comment:"")
+            self.settings = [NSLocalizedString("Language", comment:""): "Español"]
         }
-        if filterType == "sortBy"
+        else
         {
-            self.titleSet = [NSLocalizedString("Distance", comment:""), NSLocalizedString("Rating", comment:""), NSLocalizedString("Popularity", comment:"")]
-            self.valueSet = [NSLocalizedString("Distance", comment:""), NSLocalizedString("Rating", comment:""), NSLocalizedString("Popularity", comment:"")]
-            title = NSLocalizedString("Sort By", comment:"")
+            self.settings = [NSLocalizedString("Language", comment:""): NSLocalizedString("Default Language", comment:"")]
         }
-        self.navigationItem.title = title
+        
+        NSUserDefaults.standardUserDefaults().setObject(["zh-Hans"], forKey: "AppleLanguages")
+        NSUserDefaults.standardUserDefaults().synchronize()
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -59,26 +56,23 @@ class FilterTableViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return self.titleSet.count
+        return 1
     }
+
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("valueCell", forIndexPath: indexPath) as! FilterValueCell
-        cell.valueLabel.text = self.titleSet[indexPath.row]
-        return cell
-    }
-    
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let controller = self.navigationController?.viewControllers[1] as! SearchListTableViewController
-        controller.filter[self.filterType] = self.valueSet[indexPath.row]
-        controller.numberOfRowsShowed = 10
-        controller.refresh()
-        if controller.isList == false
+        if indexPath.row == 0
         {
-            controller.updateMarkers()
+            let cell = tableView.dequeueReusableCellWithIdentifier("settingCell", forIndexPath: indexPath) as! SettingCell
+            cell.titleLabel.text = NSLocalizedString("Language", comment:"")
+            cell.valueLabel.text = self.settings["\(NSLocalizedString("Language", comment:""))"]
+            return cell
         }
-        self.navigationController?.popToViewController(controller, animated: true)
+        
+        return UITableViewCell()
     }
+ 
+
 
     /*
     // Override to support conditional editing of the table view.
@@ -115,14 +109,22 @@ class FilterTableViewController: UITableViewController {
     }
     */
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        if segue.identifier == "settingSegue"
+        {
+            let indexPath = self.tableView.indexPathForSelectedRow
+            if indexPath?.row == 0
+            {
+                let controller = segue.destinationViewController as! SettingEditTableViewController
+                controller.settingType = NSLocalizedString("Language", comment:"")
+                controller.currentSetting = self.settings["\(NSLocalizedString("Language", comment:""))"]
+            }
+        }
     }
-    */
+ 
 
 }
