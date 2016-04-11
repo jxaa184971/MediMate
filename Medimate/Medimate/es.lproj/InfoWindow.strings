@@ -1,0 +1,18 @@
+
+/* Class = "UILabel"; text = "Reviews"; ObjectID = "BT5-0P-DEG"; */
+"BT5-0P-DEG.text" = "Reviews";
+
+/* Class = "UILabel"; text = "Rating"; ObjectID = "GK9-6f-QQU"; */
+"GK9-6f-QQU.text" = "Rating";
+
+/* Class = "UILabel"; text = "Type:"; ObjectID = "eCj-wh-bwW"; */
+"eCj-wh-bwW.text" = "Type:";
+
+/* Class = "UIButton"; normalTitle = "Click For More Info"; ObjectID = "gGk-Yu-yRS"; */
+"gGk-Yu-yRS.normalTitle" = "Más información";
+
+/* Class = "UILabel"; text = "Address"; ObjectID = "ig6-1O-qeB"; */
+"ig6-1O-qeB.text" = "Address";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "qZc-I3-oaf"; */
+"qZc-I3-oaf.text" = "Title";

@@ -1,0 +1,79 @@
+/* 
+  Localizable.strings
+  Medimate
+
+  Created by 一川 黄 on 8/04/2016.
+  Copyright © 2016 Team MarshGhatti. All rights reserved.
+*/
+
+"Search Location" = "Buscar por Ubicación";
+
+"Current Location" = "Ubicación Actual";
+
+"GP's Language" = "Idioma del Médico Clínico";
+
+"Sort By" = "Ordenar";
+
+"Results" = "Resultados";
+
+"Results ( Within 10km )" = "Resultados (Dentro de 10km)";
+
+"Distance" = "Distancia";
+
+"Drag For More Data" = "Arrastrar para obtener más datos";
+
+"Loading..." = "Cargando...";
+
+"Rating" = "Puntuación";
+
+"Popularity" = "Popularidad";
+
+"Map" = "Mapa";
+
+"List" = "Lista";
+
+"Type" = "Tipo";
+
+"Phone" = "Teléfono";
+
+"Website" = "Sitio Web";
+
+"Opening Hours" = "Horario de Atención";
+
+"Weekday" = "Entre Semana";
+
+"Saturday" = "Sabado";
+
+"Sunday" = "Domingo";
+
+"Closed" = "Cerrado";
+
+"Unknown" = "Desconocido";
+
+"General Practitioner" = "Médico Clínico";
+
+"GP" = "Médico Clínico";
+
+"Clinic" = "Clínica";
+
+"Address" = "Dirección";
+
+"Language" = "Idioma";
+
+"Default Language" = "Idioma por defecto";
+
+"Are you sure to change the language to" = "Está seguro de cambiar el idioma a:";
+
+"The language change will take effect after restart the application." = "El cambio del idioma se realizará luego de haber reiniciado la aplicación.";
+
+"Yes" = "Sí";
+
+"No" = "No";
+
+"Make Phone Call" = "Llamar";
+
+"Are you sure to make a phone call of selected medical facility?" = "Está seguro que desea llamar al número seleccionado?";
+
+"Open Website" = "Abrir sitio Web";
+
+"Are you sure to open the website of selected medical facility in Web Browser?" = "Está seguro de abrir el sitio web seleccionado?";
