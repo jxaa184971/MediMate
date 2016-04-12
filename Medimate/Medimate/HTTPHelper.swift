@@ -48,7 +48,9 @@ class HTTPHelper: NSObject {
                 let facilityEntry = oneEntry as! NSDictionary
                 facility.name = facilityEntry.valueForKey("name") as! String
                 facility.address = facilityEntry.valueForKey("address") as! String
-                facility.suburb = facilityEntry.valueForKey("suburb") as! String
+                let suburbString = facilityEntry.valueForKey("suburb") as! String
+                let postCodeString = facilityEntry.valueForKey("postcode") as! String
+                facility.suburb = "\(suburbString) \(postCodeString)"
                 facility.phone = facilityEntry.valueForKey("phone") as! String
                 facility.language = facilityEntry.valueForKey("language") as! String
                 facility.type = facilityEntry.valueForKey("type") as! String

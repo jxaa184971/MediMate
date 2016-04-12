@@ -33,7 +33,7 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
 
         
         // initialize filter settings
-        self.filter = ["searchLocation":NSLocalizedString("Current Location",comment:""), "language": "English", "sortBy": NSLocalizedString("Distance",comment:"")]
+        self.filter = ["searchLocation":NSLocalizedString("Current Location",comment:""), "language": "English", "sortBy": NSLocalizedString("Distance",comment:""), "postCode":""]
         
         // slow down the speed of scrolling table view
         self.tableView.decelerationRate = UIScrollViewDecelerationRateFast
@@ -375,6 +375,37 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
     }
     
     // MARK: - Filter Search Results
+    func refresh()
+    {
+        if self.samples.count == 0
+        {
+            print("No data returned")
+            self.errorMessage("There is no data returned from server. Please check the network is working well.")
+            return
+        }
+
+        self.languagePreferedResult()
+        self.updateSearchLocation()
+        self.sortResults()
+        //self.openFacility()
+        
+        if self.filter["searchLocation"] == NSLocalizedString("Current Location",comment:"")
+        {
+            self.resultsWithin10KM()
+        }
+        
+        if self.results.count == 0 
+        {
+            self.errorMessage("There is no result satisfied with the search conditions.")
+            self.tableView.reloadData()
+
+        }
+        else
+        {
+            self.tableView.reloadData()
+            self.createTableFooter()
+        }
+    }
     
     func updateSearchLocation()
     {
@@ -406,38 +437,6 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
             let camera = GMSCameraPosition.cameraWithLatitude(location.coordinate.latitude,
                 longitude: location.coordinate.longitude, zoom: 15)
             self.mapView.camera = camera
-        }
-    }
-    
-    func refresh()
-    {
-        if self.samples.count == 0
-        {
-            print("No data returned")
-            self.errorMessage("There is no data returned from server. Please check the network is working well.")
-            return
-        }
-
-        self.languagePreferedResult()
-        self.updateSearchLocation()
-        self.sortResults()
-        
-        if self.filter["searchLocation"] == NSLocalizedString("Current Location",comment:"")
-        {
-            self.resultsWithin10KM()
-        }
-        
-        if self.results.count == 0 
-        {
-            self.errorMessage("There is no result satisfied with the search conditions.")
-            self.tableView.reloadData()
-
-        }
-        else
-        {
-            print("2")
-            self.tableView.reloadData()
-            self.createTableFooter()
         }
     }
 
@@ -489,6 +488,57 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
             {
                 filtedResults.append(result)
             }
+        }
+        self.results = filtedResults
+    }
+    
+    func openFacility()
+    {
+        var filtedResults = Array<Facility>()
+        
+        let currentTime = DateHelper.currentTime()
+        for result in results
+        {
+            var openingHour = ""
+            let dayName = DateHelper.getCurrentDayName()
+            if dayName == "weekday"
+            {
+                openingHour = result.openningHourWeek
+            }
+            if dayName == "sat"
+            {
+                openingHour = result.openningHourSat
+            }
+            if dayName == "sun"
+            {
+                openingHour = result.openningHourSun
+            }
+            
+            if openingHour == ""
+            {
+                break
+            }
+            else
+            {
+                let openingHourArray = openingHour.characters.split{$0 == "-"}.map(String.init)
+                if openingHourArray.count > 1
+                {
+                    let startTimeString = openingHourArray[0]
+                    let endTimeString = openingHourArray[1]
+                
+                    let startTime = DateHelper.timeFromString(startTimeString)
+                    let endTime = DateHelper.timeFromString(endTimeString)
+                    
+                    print(startTime)
+                    print(endTime)
+                    if (currentTime.timeIntervalSince1970 >= startTime.timeIntervalSince1970
+                        && currentTime.timeIntervalSince1970 <= endTime.timeIntervalSince1970)
+                    {
+                        filtedResults.append(result)
+                    }
+                }
+            }
+            
         }
         self.results = filtedResults
     }

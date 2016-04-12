@@ -11,7 +11,6 @@ import UIKit
 class FilterTableViewController: UITableViewController {
 
     var filterType: String!
-    var valueSet: Array<String>!
     var titleSet: Array<String>!
     
     override func viewDidLoad() {
@@ -20,20 +19,17 @@ class FilterTableViewController: UITableViewController {
         var title = ""
         if filterType == "searchLocation"
         {
-            self.titleSet = SuburbHelper.stringFromSuburbAndPostCode()
-            self.valueSet = SuburbHelper.suburbArray
+            self.titleSet = SuburbHelper.suburbArray
             title = NSLocalizedString("Search Location", comment:"")
         }
         if filterType == "language"
         {
             self.titleSet = LanguageHelper.otherLanguageArray
-            self.valueSet = LanguageHelper.otherLanguageArray
             title = NSLocalizedString("GP's Language", comment:"")
         }
         if filterType == "sortBy"
         {
             self.titleSet = [NSLocalizedString("Distance", comment:""), NSLocalizedString("Rating", comment:""), NSLocalizedString("Popularity", comment:"")]
-            self.valueSet = [NSLocalizedString("Distance", comment:""), NSLocalizedString("Rating", comment:""), NSLocalizedString("Popularity", comment:"")]
             title = NSLocalizedString("Sort By", comment:"")
         }
         self.navigationItem.title = title
@@ -70,7 +66,7 @@ class FilterTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let controller = self.navigationController?.viewControllers[1] as! SearchListTableViewController
-        controller.filter[self.filterType] = self.valueSet[indexPath.row]
+        controller.filter[self.filterType] = self.titleSet[indexPath.row]
         controller.numberOfRowsShowed = 10
         controller.refresh()
         if controller.isList == false
