@@ -51,4 +51,53 @@ class DateHelper: NSObject {
         return currentTime!
     }
     
+    static func facilityNowOpen(facility: Facility) -> Bool
+    {
+        
+        let currentTime = DateHelper.currentTime()
+        
+        var openingHour = ""
+        let dayName = DateHelper.getCurrentDayName()
+        if dayName == "weekday"
+        {
+            openingHour = facility.openningHourWeek
+        }
+        if dayName == "sat"
+        {
+            openingHour = facility.openningHourSat
+        }
+        if dayName == "sun"
+        {
+            openingHour = facility.openningHourSun
+        }
+        
+        if openingHour == ""
+        {
+            return false
+        }
+        else if openingHour == "Closed"
+        {
+            return false
+        }
+        else
+        {
+            let openingHourArray = openingHour.characters.split{$0 == "-"}.map(String.init)
+            if openingHourArray.count > 1
+            {
+                let startTimeString = openingHourArray[0]
+                let endTimeString = openingHourArray[1]
+                
+                let startTime = DateHelper.timeFromString(startTimeString)
+                let endTime = DateHelper.timeFromString(endTimeString)
+                
+                if (currentTime.timeIntervalSince1970 >= startTime.timeIntervalSince1970
+                    && currentTime.timeIntervalSince1970 <= endTime.timeIntervalSince1970)
+                {
+                    return true
+                }
+            }
+        }
+        return false
+    }
+    
 }

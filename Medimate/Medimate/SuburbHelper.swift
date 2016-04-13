@@ -11,7 +11,7 @@ import CoreLocation
 
 class SuburbHelper: NSObject {
     
-    static let suburbArray = [NSLocalizedString("Current Location", comment:""), "Melbourne 3000", "East Melbourne 3002", "West Melbourne 3003", "Melbourne 3004",  "Southbank 3006", "Kensington 3031", "Flemington 3031", "North Melbourne 3051", "Parkville 3052", "Carlton 3053", "Carlton North 3054", "South Yarra 3141", "Caulfield East 3145", "Marvern East 3145", "Caulfield North 3161", "Caulfield 3162", "Caulfield South 3162", "Carnegie 3163", "Glen Huntly 3163", "Bentleigh East 3165", "St Kilda East 3183", "Elsternwik 3185", "Ripponlea 3185", "Bentleigh 3204", "Ormond 3204", "Mckinnon 3204", "Port Melbourne 3207"]
+    static let suburbArray = [NSLocalizedString("Current Location", comment:""), "Melbourne 3000", "East Melbourne 3002", "West Melbourne 3003", "Melbourne 3004",  "Southbank 3006", "Kensington 3031", "Flemington 3031", "North Melbourne 3051", "Parkville 3052", "Carlton 3053", "Carlton North 3054", "South Yarra 3141", "Caulfield East 3145", "Malvern East 3145", "Caulfield North 3161", "Caulfield 3162", "Caulfield South 3162", "Carnegie 3163", "Glen Huntly 3163", "Bentleigh East 3165", "St Kilda East 3183", "Elsternwik 3185", "Ripponlea 3185", "Bentleigh 3204", "Ormond 3204", "Mckinnon 3204", "Port Melbourne 3207"]
     
     static let latitudeArray = [0, -37.814161, -37.813764, -37.808559, -37.836427, -37.825877, -37.794147, -37.785881, -37.798194, -37.786166, -37.800792, -37.78625, -37.838829, -37.881764, -37.874383, -37.872241, -37.884063, -37.895907, -37.89404, -37.892613, -37.922407, -37.866433, -37.88503, -37.877654, -37.918100, -37.903188, -37.911002, -37.839264]
     

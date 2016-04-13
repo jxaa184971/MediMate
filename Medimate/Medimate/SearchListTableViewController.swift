@@ -30,13 +30,14 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
 
         self.automaticallyAdjustsScrollViewInsets = false;
         self.navigationItem.title = NSLocalizedString("\(self.searchCategory)",comment:"")
-
         
         // initialize filter settings
         self.filter = ["searchLocation":NSLocalizedString("Current Location",comment:""), "language": "English", "sortBy": NSLocalizedString("Distance",comment:""), "postCode":""]
         
         // slow down the speed of scrolling table view
         self.tableView.decelerationRate = UIScrollViewDecelerationRateFast
+        
+        self.tableView.sectionFooterHeight = 0
         
         // initialize location manager
         self.locationManager = CLLocationManager()
@@ -61,6 +62,7 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
 
+        print("View will appear")
         if CLLocationManager.authorizationStatus() != CLAuthorizationStatus.NotDetermined
         {
             let results = HTTPHelper.requestForFacilitiesByType(self.searchCategory)
@@ -98,7 +100,7 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
         {
             return 0
         }
-        return 2
+        return 3
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -116,6 +118,10 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
                 }
             }
             if section == 1
+            {
+                return 0
+            }
+            if section == 2
             {
                 if self.results.count < self.numberOfRowsShowed
                 {
@@ -139,6 +145,10 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
                 {
                     return 1
                 }
+            }
+            if section == 1
+            {
+                return 0
             }
         }
         return 0
@@ -169,11 +179,22 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
                         cell.filterValue.text = self.filter["sortBy"]
                     }
                 }
-                if indexPath.row == 2 && self.searchCategory == "GP"
+                if indexPath.row == 2
                 {
-                    cell.filterName.text = NSLocalizedString("Sort By",comment:"")
-                    cell.filterValue.text = self.filter["sortBy"]
+                    if self.searchCategory == "GP"
+                    {
+                        cell.filterName.text = NSLocalizedString("Sort By",comment:"")
+                        cell.filterValue.text = self.filter["sortBy"]
+                    }
                 }
+                return cell
+            }
+            else if indexPath.section == 1
+            {
+                let cell = tableView.dequeueReusableCellWithIdentifier("filterOpenFacilityCell", forIndexPath: indexPath) as! FilterOpenFacilityCell
+                cell.titleLabel.text = NSLocalizedString("Open Now", comment: "")
+                cell.openSwitch.setOn(false, animated: false)
+                cell.selectionStyle = UITableViewCellSelectionStyle.None
                 return cell
             }
             else
@@ -186,6 +207,15 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
                 cell.addressLabel.text = self.results[indexPath.row].address
                 cell.reviewsLabel.text = ""
                 cell.distanceLabel.text = "\(NSString(format:"%.1f",self.results[indexPath.row].distance)) km"
+                
+                // check whether the facility open or not
+                if !DateHelper.facilityNowOpen(self.results[indexPath.row])
+                {
+                    cell.nowOpenImageView.image = nil
+                }
+
+
+                
                 
                 cell.picView.image = UIImage(named: "DefaultImage.png")
                 // set the picView display image as a circle
@@ -220,21 +250,32 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
         }
         else
         {
-            let cell = tableView.dequeueReusableCellWithIdentifier("filterCell", forIndexPath: indexPath) as! FilterCell
-            if indexPath.row == 0
+            if indexPath.section == 0
             {
-                cell.filterName.text = NSLocalizedString("Search Location", comment:"")
-                cell.filterValue.text = self.filter["searchLocation"]
-            }
-            if indexPath.row == 1
-            {
-                if self.searchCategory == "GP"
+                let cell = tableView.dequeueReusableCellWithIdentifier("filterCell", forIndexPath: indexPath) as! FilterCell
+                if indexPath.row == 0
                 {
-                    cell.filterName.text = NSLocalizedString("GP's Language",comment:"")
-                    cell.filterValue.text = self.filter["language"]
+                    cell.filterName.text = NSLocalizedString("Search Location", comment:"")
+                    cell.filterValue.text = self.filter["searchLocation"]
                 }
+                if indexPath.row == 1
+                {
+                    if self.searchCategory == "GP"
+                    {
+                        cell.filterName.text = NSLocalizedString("GP's Language",comment:"")
+                        cell.filterValue.text = self.filter["language"]
+                    }
+                }
+                return cell
             }
-            return cell
+            if indexPath.section == 1
+            {
+                let cell = tableView.dequeueReusableCellWithIdentifier("filterOpenFacilityCell", forIndexPath: indexPath) as! FilterOpenFacilityCell
+                cell.titleLabel.text = NSLocalizedString("Only Show Opended", comment: "")
+                cell.selectionStyle = UITableViewCellSelectionStyle.None
+                return cell
+            }
+            return UITableViewCell()
         }
     }
     
@@ -245,6 +286,10 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
             return 40
         }
         if indexPath.section == 1
+        {
+            return 40
+        }
+        if indexPath.section == 2
         {
             return 100
         }
@@ -257,27 +302,33 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
         {
             return 64
         }
+        if section == 1
+        {
+            return 0
+        }
         return self.tableView.sectionHeaderHeight
+    }
+    
+    override func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        if section == 0
+        {
+            return 0
+        }
+        return self.tableView.sectionFooterHeight
     }
     
     // set title for header
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if section == 1
+        if section == 2
         {
-            if isList == true
+
+            if self.filter["searchLocation"] == NSLocalizedString("Current Location",comment:"")
             {
-                if self.filter["searchLocation"] == NSLocalizedString("Current Location",comment:"")
-                {
-                    return NSLocalizedString("Results ( Within 10km )",comment:"")
-                }
-                return NSLocalizedString("Results",comment:"")
+                return NSLocalizedString("Results ( Within 10km )",comment:"")
             }
-            else
-            {
-                return NSLocalizedString("Map",comment:"")
-            }
+            return NSLocalizedString("Results",comment:"")
         }
-        return ""
+        return nil
     }
 
     
@@ -358,7 +409,7 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
             }
             let camera = GMSCameraPosition.cameraWithLatitude(location.coordinate.latitude,
                 longitude: location.coordinate.longitude, zoom: 5)
-            self.mapView = GMSMapView.mapWithFrame(CGRect(x: 0,y: 160,width: self.view.frame.width,height: self.view.frame.height-160), camera: camera)
+            self.mapView = GMSMapView.mapWithFrame(CGRect(x: 0,y: 200,width: self.view.frame.width,height: self.view.frame.height-200), camera: camera)   //240
             self.mapView.myLocationEnabled = true
             self.mapView.settings.myLocationButton = true
             self.mapView.delegate = self
@@ -488,57 +539,6 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
             {
                 filtedResults.append(result)
             }
-        }
-        self.results = filtedResults
-    }
-    
-    func openFacility()
-    {
-        var filtedResults = Array<Facility>()
-        
-        let currentTime = DateHelper.currentTime()
-        for result in results
-        {
-            var openingHour = ""
-            let dayName = DateHelper.getCurrentDayName()
-            if dayName == "weekday"
-            {
-                openingHour = result.openningHourWeek
-            }
-            if dayName == "sat"
-            {
-                openingHour = result.openningHourSat
-            }
-            if dayName == "sun"
-            {
-                openingHour = result.openningHourSun
-            }
-            
-            if openingHour == ""
-            {
-                break
-            }
-            else
-            {
-                let openingHourArray = openingHour.characters.split{$0 == "-"}.map(String.init)
-                if openingHourArray.count > 1
-                {
-                    let startTimeString = openingHourArray[0]
-                    let endTimeString = openingHourArray[1]
-                
-                    let startTime = DateHelper.timeFromString(startTimeString)
-                    let endTime = DateHelper.timeFromString(endTimeString)
-                    
-                    print(startTime)
-                    print(endTime)
-                    if (currentTime.timeIntervalSince1970 >= startTime.timeIntervalSince1970
-                        && currentTime.timeIntervalSince1970 <= endTime.timeIntervalSince1970)
-                    {
-                        filtedResults.append(result)
-                    }
-                }
-            }
-            
         }
         self.results = filtedResults
     }
