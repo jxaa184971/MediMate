@@ -13,30 +13,29 @@ class DateHelper: NSObject {
     static func getCurrentDayName() -> String
     {
         let today = NSDate()
-        let myCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
-        let myComponents = myCalendar.components(.Weekday, fromDate: today)
-        let weekDay = myComponents.weekday
-                
-        if (weekDay >= 0 && weekDay <= 4)
-        {
-            return "weekday"
-        }
-        if (weekDay == 5)
+        let formatter = NSDateFormatter()
+        formatter.timeZone = NSTimeZone.localTimeZone()
+        formatter.locale = NSLocale(localeIdentifier: "en_US")
+        formatter.dateFormat = "E"
+
+        let weekDay = formatter.stringFromDate(today)
+        if weekDay == "Sat"
         {
             return "sat"
         }
-        if (weekDay == 6)
+        if weekDay == "Sun"
         {
             return "sun"
         }
-
-        return ""
+        return "weekday"
     }
     
     static func timeFromString(string:String) -> NSDate
     {
         let formatter = NSDateFormatter()
-        formatter.dateFormat = "hh:mm a"
+        formatter.timeZone = NSTimeZone.localTimeZone()
+        formatter.dateFormat = "h:mm a"
+        formatter.locale = NSLocale(localeIdentifier: "en_US")
         let dateFromString = formatter.dateFromString(string)
         return dateFromString!
     }
@@ -44,7 +43,9 @@ class DateHelper: NSObject {
     static func currentTime() -> NSDate
     {
         let formatter = NSDateFormatter()
-        formatter.dateFormat = "hh:mm a"
+        formatter.timeZone = NSTimeZone.localTimeZone()
+        formatter.dateFormat = "h:mm a"
+        formatter.locale = NSLocale(localeIdentifier: "en_US")
         let date = NSDate()
         let currentTimeString = formatter.stringFromDate(date)
         let currentTime = formatter.dateFromString(currentTimeString)
@@ -75,26 +76,31 @@ class DateHelper: NSObject {
         {
             return false
         }
-        else if openingHour == "Closed"
+        
+        if openingHour == "Closed"
         {
             return false
         }
-        else
+        
+        
+        let openingHourArray = openingHour.characters.split{$0 == "-"}.map(String.init)
+        if openingHourArray.count > 1
         {
-            let openingHourArray = openingHour.characters.split{$0 == "-"}.map(String.init)
-            if openingHourArray.count > 1
+            let startTimeString = openingHourArray[0].stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
+
+            let endTimeString = openingHourArray[1].stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
+            
+            let startTime = DateHelper.timeFromString(startTimeString)
+            let endTime = DateHelper.timeFromString(endTimeString)
+            
+            print("Current Time: \(currentTime)")
+            print("Start Time: \(startTime)")
+            print("End Time: \(endTime)")
+            
+            if (currentTime.timeIntervalSinceNow >= startTime.timeIntervalSinceNow) &&
+                (currentTime.timeIntervalSinceNow <= endTime.timeIntervalSinceNow)
             {
-                let startTimeString = openingHourArray[0]
-                let endTimeString = openingHourArray[1]
-                
-                let startTime = DateHelper.timeFromString(startTimeString)
-                let endTime = DateHelper.timeFromString(endTimeString)
-                
-                if (currentTime.timeIntervalSince1970 >= startTime.timeIntervalSince1970
-                    && currentTime.timeIntervalSince1970 <= endTime.timeIntervalSince1970)
-                {
-                    return true
-                }
+                return true
             }
         }
         return false

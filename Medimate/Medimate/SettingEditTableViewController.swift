@@ -17,7 +17,7 @@ class SettingEditTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.settingValues = [NSLocalizedString("Default Language", comment:""), "中文", "Español"]
+        self.settingValues = [NSLocalizedString("Default Language", comment:""), "English","中文", "Español"]
         self.navigationItem.title = NSLocalizedString("\(settingType)", comment:"")
         
     }
@@ -63,9 +63,13 @@ class SettingEditTableViewController: UITableViewController {
             }
             if indexPath.row == 1
             {
-                newLanguage = "中文"
+                newLanguage = "English"
             }
             if indexPath.row == 2
+            {
+                newLanguage = "中文"
+            }
+            if indexPath.row == 3
             {
                 newLanguage = "Español"
             }
@@ -132,6 +136,10 @@ class SettingEditTableViewController: UITableViewController {
     func setLanguage()
     {
         if self.currentSetting == NSLocalizedString("Default Language", comment:"")
+        {
+            NSUserDefaults.standardUserDefaults().setObject(nil, forKey: "AppleLanguages")
+        }
+        if self.currentSetting == "English"
         {
             NSUserDefaults.standardUserDefaults().setObject(["en"], forKey: "AppleLanguages")
         }

@@ -209,11 +209,15 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
                 cell.distanceLabel.text = "\(NSString(format:"%.1f",self.results[indexPath.row].distance)) km"
                 
                 // check whether the facility open or not
-                if !DateHelper.facilityNowOpen(self.results[indexPath.row])
+                if DateHelper.facilityNowOpen(self.results[indexPath.row])
                 {
-                    cell.nowOpenImageView.image = nil
+                    cell.nowOpenImageView.image = UIImage(named: "Open.png")
                 }
-
+                else
+                {
+                    cell.nowOpenImageView.image = UIImage(named: "Closed.png")
+                }
+ 
 
                 
                 

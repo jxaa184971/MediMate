@@ -27,6 +27,10 @@ class ProfileTableViewController: UITableViewController {
         {
             self.settings = [NSLocalizedString("Language", comment:""): "Español"]
         }
+        else if language == "en"
+        {
+            self.settings = [NSLocalizedString("Language", comment:""): "English"]
+        }
         else
         {
             self.settings = [NSLocalizedString("Language", comment:""): NSLocalizedString("Default Language", comment:"")]
