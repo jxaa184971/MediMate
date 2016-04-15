@@ -23,11 +23,24 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
     
     var locationManager:CLLocationManager!
     var mapView:GMSMapView!
-        
+    
     // MARK: - View Settings
     override func viewDidLoad() {
         super.viewDidLoad()
-
+                
+        if self.revealViewController() != nil
+        {
+            //self.sideBarButton.target = self.revealViewController()
+            //self.sideBarButton.action = #selector(SWRevealViewController.rightRevealToggleAnimated(_:))
+            //self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+            
+            let rightView = self.storyboard?.instantiateViewControllerWithIdentifier("SideFilterTableViewController") as! SideFilterTableViewController
+            rightView.filter = self.filter
+            
+            self.revealViewController().setRightViewController(rightView, animated: false)
+            self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+        }
+        
         self.automaticallyAdjustsScrollViewInsets = false;
         self.navigationItem.title = NSLocalizedString("\(self.searchCategory)",comment:"")
         
@@ -57,6 +70,19 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
         self.samples = Array<Facility>()
         self.results = Array<Facility>()
 
+        // initialize the side bar menu for filter
+        if self.revealViewController() != nil
+        {
+            //self.sideBarButton.target = self.revealViewController()
+            //self.sideBarButton.action = #selector(SWRevealViewController.rightRevealToggleAnimated(_:))
+            //self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+            
+            let rightView = self.storyboard?.instantiateViewControllerWithIdentifier("SideFilterTableViewController") as! SideFilterTableViewController
+            rightView.mainViewController = self
+            
+            self.revealViewController().setRightViewController(rightView, animated: false)
+            self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+        }
     }
     
     override func viewWillAppear(animated: Bool) {

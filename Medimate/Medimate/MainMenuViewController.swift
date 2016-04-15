@@ -11,9 +11,19 @@ import UIKit
 
 class MainMenuViewController: UIViewController {
 
+    @IBOutlet var rightBarButton: UINavigationItem!
+    @IBOutlet var sidebarButton: UIBarButtonItem!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        if self.revealViewController() != nil
+        {
+            self.sidebarButton.target = self.revealViewController()
+            self.sidebarButton.action = #selector(SWRevealViewController.revealToggle(_:))
+            self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -24,6 +34,7 @@ class MainMenuViewController: UIViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 
         let controller = segue.destinationViewController as! SearchListTableViewController
+
         if segue.identifier == "gpSegue"
         {
             controller.searchCategory = "GP"
