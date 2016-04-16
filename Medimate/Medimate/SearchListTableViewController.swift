@@ -27,20 +27,8 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
     // MARK: - View Settings
     override func viewDidLoad() {
         super.viewDidLoad()
-                
-        if self.revealViewController() != nil
-        {
-            //self.sideBarButton.target = self.revealViewController()
-            //self.sideBarButton.action = #selector(SWRevealViewController.rightRevealToggleAnimated(_:))
-            //self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
-            
-            let rightView = self.storyboard?.instantiateViewControllerWithIdentifier("SideFilterTableViewController") as! SideFilterTableViewController
-            rightView.filter = self.filter
-            
-            self.revealViewController().setRightViewController(rightView, animated: false)
-            self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
-        }
         
+        self.tabBarController?.tabBar.hidden = true
         self.automaticallyAdjustsScrollViewInsets = false;
         self.navigationItem.title = NSLocalizedString("\(self.searchCategory)",comment:"")
         
@@ -371,8 +359,8 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
     func getCurrentLocation() -> CLLocation
     {
         
-        //return self.locationManager.location!
-        return CLLocation(latitude: -37.876415, longitude: 145.044455)
+        return self.locationManager.location!
+        //return CLLocation(latitude: -37.876415, longitude: 145.044455)
     }
     
     // MARK: - Map

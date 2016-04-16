@@ -23,6 +23,7 @@ class SideFilterTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.tableView.sectionFooterHeight = 0
     }
 
     override func didReceiveMemoryWarning() {
@@ -34,7 +35,7 @@ class SideFilterTableViewController: UITableViewController {
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 3
+        return 4
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -54,20 +55,51 @@ class SideFilterTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if indexPath.row == 0
         {
-            let cell = tableView.dequeueReusableCellWithIdentifier("titleCell", forIndexPath: indexPath) as! FilterTitleCell
+            
             if indexPath.section == 0
             {
+                let cell = tableView.dequeueReusableCellWithIdentifier("titleCell", forIndexPath: indexPath) as! FilterTitleCell
                 cell.titleLabel.text = NSLocalizedString("Language", comment: "")
+                cell.valueLabel.text = self.mainViewController.filter["language"]
+                if self.languageSeleted
+                {
+                    cell.picView.image = UIImage(named: "arrow_up.jpeg")
+                }
+                else
+                {
+                    cell.picView.image = UIImage(named: "arrow_down.jpeg")
+                }
+                return cell
             }
             if indexPath.section == 1
             {
+                let cell = tableView.dequeueReusableCellWithIdentifier("titleCell", forIndexPath: indexPath) as! FilterTitleCell
                 cell.titleLabel.text = NSLocalizedString("Search Location", comment: "")
+                cell.valueLabel.text = self.mainViewController.filter["searchLocation"]
+                if self.locationSeleted
+                {
+                    cell.picView.image = UIImage(named: "arrow_up.jpeg")
+                }
+                else
+                {
+                    cell.picView.image = UIImage(named: "arrow_down.jpeg")
+                }
+                return cell
             }
             if indexPath.section == 2
             {
-                cell.titleLabel.text = NSLocalizedString("Search Radius", comment: "")
+                let cell = tableView.dequeueReusableCellWithIdentifier("switchCell", forIndexPath: indexPath) as! FilterSwitchCell
+                cell.titleLabel.text = NSLocalizedString("Open Now", comment: "")
+                cell.filterSwitch.on = false
+                return cell
             }
-            return cell
+            if indexPath.section == 3
+            {
+                let cell = tableView.dequeueReusableCellWithIdentifier("switchCell", forIndexPath: indexPath) as! FilterSwitchCell
+                cell.titleLabel.text = NSLocalizedString("Bulk Billing", comment: "")
+                cell.filterSwitch.on = false
+                return cell
+            }
         }
         else
         {
@@ -96,48 +128,19 @@ class SideFilterTableViewController: UITableViewController {
             }
             return cell
         }
-        
+        return UITableViewCell()
     }
 
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if indexPath.row == 0
         {
-            let cell = self.tableView.cellForRowAtIndexPath(indexPath) as! FilterTitleCell
             if indexPath.section == 0
             {
-                if self.languageSeleted
-                {
-                    cell.picView.image = UIImage(named: "arrow_up.jpeg")
-                }
-                else
-                {
-                    cell.picView.image = UIImage(named: "arrow_down.jpeg")
-                }
                 self.languageSeleted = !self.languageSeleted
             }
             if indexPath.section == 1
             {
-                if self.locationSeleted
-                {
-                    cell.picView.image = UIImage(named: "arrow_up.jpeg")
-                }
-                else
-                {
-                    cell.picView.image = UIImage(named: "arrow_down.jpeg")
-                }
                 self.locationSeleted = !self.locationSeleted
-            }
-            if indexPath.section == 2
-            {
-                if self.radiusSelected
-                {
-                    cell.picView.image = UIImage(named: "arrow_up.jpeg")
-                }
-                else
-                {
-                    cell.picView.image = UIImage(named: "arrow_down.jpeg")
-                }
-                self.radiusSelected = !self.radiusSelected
             }
             self.tableView.reloadSections(NSIndexSet(index: indexPath.section), withRowAnimation: .Fade)
         }
@@ -153,9 +156,20 @@ class SideFilterTableViewController: UITableViewController {
             }
             self.tableView.reloadData()
             mainViewController.refresh()
+            if mainViewController.isList == false
+            {
+                mainViewController.updateMarkers()
+            }
         }
     }
     
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        if indexPath.row == 0 && (indexPath.section == 0 || indexPath.section == 1)
+        {
+            return 65
+        }
+        return self.tableView.rowHeight
+    }
  
     /*
     // Override to support conditional editing of the table view.

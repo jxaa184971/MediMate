@@ -12,18 +12,16 @@ import UIKit
 class MainMenuViewController: UIViewController {
 
     @IBOutlet var rightBarButton: UINavigationItem!
-    @IBOutlet var sidebarButton: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        
-        if self.revealViewController() != nil
-        {
-            self.sidebarButton.target = self.revealViewController()
-            self.sidebarButton.action = #selector(SWRevealViewController.revealToggle(_:))
-            self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
-        }
+        self.tabBarController?.tabBar.hidden = false
+
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        self.tabBarController?.tabBar.hidden = false
     }
     
     override func didReceiveMemoryWarning() {
@@ -38,6 +36,18 @@ class MainMenuViewController: UIViewController {
         if segue.identifier == "gpSegue"
         {
             controller.searchCategory = "GP"
+        }
+        if segue.identifier == "dentistSegue"
+        {
+            controller.searchCategory = "Dentist"
+        }
+        if segue.identifier == "pharmacySegue"
+        {
+            controller.searchCategory = "Pharmacy"
+        }
+        if segue.identifier == "physioSegue"
+        {
+            controller.searchCategory = "Physiotherapist"
         }
     }
 }
