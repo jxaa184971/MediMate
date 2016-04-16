@@ -8,10 +8,17 @@
 
 import UIKit
 
+protocol SwitchClickedProtocol {
+    // protocol definition goes here
+    func switchChanged(sender: UISwitch, type: String)
+    
+}
+
 class FilterSwitchCell: UITableViewCell {
 
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var filterSwitch: UISwitch!
+    var delegate:SwitchClickedProtocol!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -23,8 +30,11 @@ class FilterSwitchCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-    @IBAction func switchClicked(sender: AnyObject) {
-        
+    
+    @IBAction func switchSeleted(sender: UISwitch) {
+        print("Button \(self.titleLabel.text!) seleted")
+        delegate.switchChanged(sender, type: self.titleLabel.text!)
     }
+    
 
 }

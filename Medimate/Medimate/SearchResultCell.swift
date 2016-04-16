@@ -17,5 +17,6 @@ class SearchResultCell: UITableViewCell {
     @IBOutlet var distanceLabel: UILabel!
     @IBOutlet var reviewsLabel: UILabel!
     @IBOutlet var nowOpenImageView: UIImageView!
+    @IBOutlet var bulkBillingImageView: UIImageView!
     
 }

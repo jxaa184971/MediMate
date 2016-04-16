@@ -20,6 +20,8 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
     var isList:Bool! = true            //used to determine the view
     var numberOfRowsShowed:Int! = 10   //the number of results showed on tableview
     var isLoading:Bool! = false        //check whether the view is loading or not
+    var onlyShowOpenNow = false        //only show the open facility or not
+    var onlyBulkBilling = false
     
     var locationManager:CLLocationManager!
     var mapView:GMSMapView!
@@ -67,6 +69,11 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
             
             let rightView = self.storyboard?.instantiateViewControllerWithIdentifier("SideFilterTableViewController") as! SideFilterTableViewController
             rightView.mainViewController = self
+            
+            if self.searchCategory != "GP"
+            {
+                rightView.showBulkBilling = false
+            }
             
             self.revealViewController().setRightViewController(rightView, animated: false)
             self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
@@ -229,7 +236,16 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
                 }
                 else
                 {
-                    cell.nowOpenImageView.image = UIImage(named: "Closed.png")
+                    cell.nowOpenImageView.image = UIImage(named: "blank.png")
+                }
+                
+                if self.results[indexPath.row].bulkBilling == true
+                {
+                    cell.bulkBillingImageView.image = UIImage(named: "bulkBilling.png")
+                }
+                else
+                {
+                    cell.bulkBillingImageView.image = UIImage(named:"blank.png")
                 }
  
 
@@ -409,7 +425,7 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
         }
     }
     
-        @IBAction func showMap(sender: UIBarButtonItem)
+    @IBAction func showMap(sender: UIBarButtonItem)
     {
         if self.isList == true
         {
@@ -432,7 +448,6 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
             self.mapView.settings.myLocationButton = true
             self.mapView.delegate = self
             self.view.addSubview(self.mapView)
-            self.updateMarkers()
         }
         else
         {
@@ -456,7 +471,14 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
         self.languagePreferedResult()
         self.updateSearchLocation()
         self.sortResults()
-        //self.openFacility()
+        if self.onlyShowOpenNow
+        {
+            self.facilityOpenNow()
+        }
+        if self.onlyBulkBilling
+        {
+            self.facilitySupportBulkBilling()
+        }
         
         if self.filter["searchLocation"] == NSLocalizedString("Current Location",comment:"")
         {
@@ -473,6 +495,11 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
         {
             self.tableView.reloadData()
             self.createTableFooter()
+        }
+        
+        if self.isList == false
+        {
+            self.updateMarkers()
         }
     }
     
@@ -554,6 +581,32 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
         for result in results
         {
             if result.distance <= 10
+            {
+                filtedResults.append(result)
+            }
+        }
+        self.results = filtedResults
+    }
+    
+    func facilityOpenNow()
+    {
+        var filtedResults = Array<Facility>()
+        for result in results
+        {
+            if DateHelper.facilityNowOpen(result)
+            {
+                filtedResults.append(result)
+            }
+        }
+        self.results = filtedResults
+    }
+    
+    func facilitySupportBulkBilling()
+    {
+        var filtedResults = Array<Facility>()
+        for result in results
+        {
+            if result.bulkBilling == true
             {
                 filtedResults.append(result)
             }

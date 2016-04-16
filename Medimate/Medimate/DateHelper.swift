@@ -93,10 +93,6 @@ class DateHelper: NSObject {
             let startTime = DateHelper.timeFromString(startTimeString)
             let endTime = DateHelper.timeFromString(endTimeString)
             
-            print("Current Time: \(currentTime)")
-            print("Start Time: \(startTime)")
-            print("End Time: \(endTime)")
-            
             if (currentTime.timeIntervalSinceNow >= startTime.timeIntervalSinceNow) &&
                 (currentTime.timeIntervalSinceNow <= endTime.timeIntervalSinceNow)
             {

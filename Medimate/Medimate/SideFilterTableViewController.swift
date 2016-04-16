@@ -8,11 +8,13 @@
 
 import UIKit
 
-class SideFilterTableViewController: UITableViewController {
+class SideFilterTableViewController: UITableViewController, SwitchClickedProtocol{
 
     var languageSeleted:Bool = false
     var locationSeleted:Bool = false
     var radiusSelected:Bool = false
+    
+    var showBulkBilling:Bool = true
     
     var languages:Array<String> = LanguageHelper.otherLanguageArray
     var locations:Array<String> = SuburbHelper.suburbArray
@@ -35,7 +37,14 @@ class SideFilterTableViewController: UITableViewController {
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 4
+        if self.showBulkBilling
+        {
+            return 4
+        }
+        else
+        {
+            return 3
+        }
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -91,6 +100,7 @@ class SideFilterTableViewController: UITableViewController {
                 let cell = tableView.dequeueReusableCellWithIdentifier("switchCell", forIndexPath: indexPath) as! FilterSwitchCell
                 cell.titleLabel.text = NSLocalizedString("Open Now", comment: "")
                 cell.filterSwitch.on = false
+                cell.delegate = self
                 return cell
             }
             if indexPath.section == 3
@@ -98,6 +108,7 @@ class SideFilterTableViewController: UITableViewController {
                 let cell = tableView.dequeueReusableCellWithIdentifier("switchCell", forIndexPath: indexPath) as! FilterSwitchCell
                 cell.titleLabel.text = NSLocalizedString("Bulk Billing", comment: "")
                 cell.filterSwitch.on = false
+                cell.delegate = self
                 return cell
             }
         }
@@ -169,6 +180,21 @@ class SideFilterTableViewController: UITableViewController {
             return 65
         }
         return self.tableView.rowHeight
+    }
+    
+    // MARK: - Switch Clicked Protocol
+    
+    func switchChanged(sender: UISwitch, type: String)
+    {
+        if type == NSLocalizedString("Open Now", comment: "")
+        {
+            self.mainViewController.onlyShowOpenNow = sender.on
+        }
+        if type == NSLocalizedString("Bulk Billing", comment: "")
+        {
+            self.mainViewController.onlyBulkBilling = sender.on
+        }
+        self.mainViewController.refresh()
     }
  
     /*

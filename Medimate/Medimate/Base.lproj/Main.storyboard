@@ -326,8 +326,12 @@
                                                 <constraint firstAttribute="height" constant="14" id="Yil-9d-429"/>
                                             </constraints>
                                         </imageView>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bulkBilling.png" translatesAutoresizingMaskIntoConstraints="NO" id="cRM-lu-rlR">
+                                            <rect key="frame" x="507" y="28" width="60" height="10"/>
+                                        </imageView>
                                     </subviews>
                                     <constraints>
+                                        <constraint firstItem="cRM-lu-rlR" firstAttribute="leading" secondItem="S3i-JG-Oeu" secondAttribute="trailing" constant="6" id="6Jv-mU-OwB"/>
                                         <constraint firstItem="jv1-rC-QG7" firstAttribute="leading" secondItem="Ktn-QG-AM6" secondAttribute="leading" id="6SO-HA-ERb"/>
                                         <constraint firstItem="S3i-JG-Oeu" firstAttribute="top" secondItem="wir-Vr-3Lm" secondAttribute="topMargin" id="7mY-ag-eyc"/>
                                         <constraint firstItem="Khi-mm-hRn" firstAttribute="trailing" secondItem="1VV-eo-OQ2" secondAttribute="trailing" id="Djv-oQ-02g"/>
@@ -338,6 +342,7 @@
                                         <constraint firstAttribute="bottomMargin" secondItem="1VV-eo-OQ2" secondAttribute="bottom" constant="0.5" id="MAW-3C-Zvc"/>
                                         <constraint firstItem="jv1-rC-QG7" firstAttribute="bottom" secondItem="Um2-PA-l3K" secondAttribute="bottom" id="MGD-6z-9vx"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="Ktn-QG-AM6" secondAttribute="trailing" constant="33" id="R2n-HV-e2t"/>
+                                        <constraint firstItem="cRM-lu-rlR" firstAttribute="top" secondItem="Khi-mm-hRn" secondAttribute="bottom" constant="1" id="UaU-uG-55w"/>
                                         <constraint firstItem="Khi-mm-hRn" firstAttribute="leading" secondItem="1VV-eo-OQ2" secondAttribute="leading" id="Ubi-KA-hJy"/>
                                         <constraint firstItem="S3i-JG-Oeu" firstAttribute="leading" secondItem="Ktn-QG-AM6" secondAttribute="leading" id="YLR-an-mDc"/>
                                         <constraint firstItem="Ktn-QG-AM6" firstAttribute="top" secondItem="Auz-rn-dZQ" secondAttribute="bottom" constant="8" symbolic="YES" id="Zil-ts-ZQr"/>
@@ -348,14 +353,17 @@
                                         <constraint firstAttribute="bottomMargin" secondItem="Um2-PA-l3K" secondAttribute="bottom" constant="-0.5" id="jLq-5N-Oo7"/>
                                         <constraint firstItem="1VV-eo-OQ2" firstAttribute="top" secondItem="S3i-JG-Oeu" secondAttribute="bottom" constant="12" id="l2F-jr-7Lz"/>
                                         <constraint firstItem="Um2-PA-l3K" firstAttribute="top" secondItem="wir-Vr-3Lm" secondAttribute="topMargin" constant="2" id="m3P-un-PGy"/>
+                                        <constraint firstItem="cRM-lu-rlR" firstAttribute="centerY" secondItem="S3i-JG-Oeu" secondAttribute="centerY" id="n2O-hE-e8O"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="S3i-JG-Oeu" secondAttribute="trailing" constant="58" id="ps6-CF-lvT"/>
                                         <constraint firstItem="Auz-rn-dZQ" firstAttribute="top" secondItem="S3i-JG-Oeu" secondAttribute="top" id="qav-Li-gpq"/>
                                         <constraint firstItem="jv1-rC-QG7" firstAttribute="top" secondItem="Ktn-QG-AM6" secondAttribute="bottom" constant="8" symbolic="YES" id="rIt-pS-iMK"/>
                                         <constraint firstItem="Ktn-QG-AM6" firstAttribute="top" secondItem="Khi-mm-hRn" secondAttribute="bottom" constant="3" id="rnQ-gT-NA0"/>
+                                        <constraint firstItem="cRM-lu-rlR" firstAttribute="trailing" secondItem="Auz-rn-dZQ" secondAttribute="trailing" id="wjZ-hu-NuQ"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="addressLabel" destination="jv1-rC-QG7" id="q3o-LN-hIh"/>
+                                    <outlet property="bulkBillingImageView" destination="cRM-lu-rlR" id="jyJ-l6-xQE"/>
                                     <outlet property="distanceLabel" destination="1VV-eo-OQ2" id="oLf-lW-ecY"/>
                                     <outlet property="nameLabel" destination="S3i-JG-Oeu" id="A9X-Eu-QBg"/>
                                     <outlet property="nowOpenImageView" destination="Auz-rn-dZQ" id="hbw-Pw-jGd"/>
@@ -488,7 +496,7 @@
                                         <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7kb-OH-3dh">
                                             <rect key="frame" x="543" y="6" width="51" height="31"/>
                                             <connections>
-                                                <action selector="switchClicked:" destination="iVN-uX-aL7" eventType="valueChanged" id="leV-ls-7YA"/>
+                                                <action selector="switchSeleted:" destination="iVN-uX-aL7" eventType="valueChanged" id="Rpd-nu-7VI"/>
                                             </connections>
                                         </switch>
                                     </subviews>
@@ -957,6 +965,7 @@
         <image name="GP_icon.png" width="128" height="128"/>
         <image name="Open.png" width="237" height="76"/>
         <image name="arrow_down.jpeg" width="50" height="50"/>
+        <image name="bulkBilling.png" width="630" height="112"/>
         <image name="dentist.png" width="128" height="128"/>
         <image name="pharmacy.png" width="128" height="128"/>
         <image name="physiotherapist.png" width="128" height="128"/>

@@ -62,9 +62,15 @@ class HTTPHelper: NSObject {
                 facility.website = facilityEntry.valueForKey("website") as! String
                 facility.imageURL = facilityEntry.valueForKey("imageurl") as! String
                 
-                facility.rating = 3.5
-                facility.numberOfReview = 20
-                facility.distance = 1.7
+                let bulkBillingString = facilityEntry.valueForKey("bulkBilling") as! String
+                if bulkBillingString == "Y"
+                {
+                    facility.bulkBilling = true
+                }
+                else
+                {
+                    facility.bulkBilling = false
+                }
                 
                 results.append(facility)
             }

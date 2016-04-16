@@ -31,6 +31,7 @@ class Facility: NSObject {
     
     var imageURL:String!
     var website:String!
+    var bulkBilling:Bool!
     
     override init() {
         super.init()
