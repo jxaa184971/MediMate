@@ -80,7 +80,27 @@
 
 "Are you sure to open the website of selected medical facility in Web Browser?" = "你确定在网页浏览器打开所选医疗设施的网址吗?";
 
-"Only Show Opended" = "只显示开门的设施";
+"Dentist" = "牙医";
 
+"Physiotherapist" = "理疗医师";
 
+"Pharmacy" = "药房";
+
+"Your Selection" = "你的选择";
+
+"Language Spoken" = "医生语言";
+
+"Open Now" = "正在营业";
+
+"Bulk Billing" = "Bulk Billing";
+
+"System Language" = "系统语言";
+
+"No results found matching your selection." = "没有搜索结果符合你的选择";
+
+"No data returned from server. Please check your network connection." = "服务器没有数据返回. 请检查你的网络是否连接.";
+
+"Current Location (Within 5km)" = "当前位置 (5km内)";
+
+"Current Location (Within 10km)" = "当前位置 (10km内)";
 

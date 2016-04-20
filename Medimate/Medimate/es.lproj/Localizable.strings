@@ -77,3 +77,28 @@
 "Open Website" = "Abrir sitio Web";
 
 "Are you sure to open the website of selected medical facility in Web Browser?" = "Está seguro de abrir el sitio web seleccionado?";
+
+
+"Dentist" = "Dentista";
+
+"Physiotherapist" = "Fisioterapista";
+
+"Pharmacy" = "Farmacia";
+
+"Your Selection" = "Su Selección";
+
+"Language Spoken" = "Idioma Hablado";
+
+"Open Now" = "Abierto Ahora";
+
+"Bulk Billing" = "Cobertura Medicare";
+
+"System Language" = "Idioma del Sistema";
+
+"No results found matching your selection." = "No hay resultados que se ajusten a su selección";
+
+"No data returned from server. Please check your network connection." = "No se recibieron datos del servidor. Favor revise su conección";
+
+"Current Location (Within 5km)" = "Ubicación actual (Dentro de 5km)";
+
+"Current Location (Within 10km)" = "Ubicación actual (Dentro de 10km)";

@@ -17,7 +17,7 @@ class SettingEditTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.settingValues = [NSLocalizedString("Default Language", comment:""), "English","中文", "Español"]
+        self.settingValues = ["English","中文", "Español"]
         self.navigationItem.title = NSLocalizedString("\(settingType)", comment:"")
         
     }
@@ -54,22 +54,18 @@ class SettingEditTableViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if settingType == NSLocalizedString("Language", comment:"")
+        if settingType == NSLocalizedString("System Language", comment:"")
         {
             var newLanguage = ""
             if indexPath.row == 0
             {
-                newLanguage = NSLocalizedString("Default Language", comment:"")
+                newLanguage = "English"
             }
             if indexPath.row == 1
             {
-                newLanguage = "English"
-            }
-            if indexPath.row == 2
-            {
                 newLanguage = "中文"
             }
-            if indexPath.row == 3
+            if indexPath.row == 2
             {
                 newLanguage = "Español"
             }
@@ -83,7 +79,16 @@ class SettingEditTableViewController: UITableViewController {
         let title = "\(NSLocalizedString("Are you sure to change the language to", comment:"")) \(changeLanguage)?"
         let message = NSLocalizedString("The language change will take effect after restart the application.", comment:"")
         
+        let attributedMessage = NSAttributedString(string: message, attributes: [
+            NSFontAttributeName : UIFont.systemFontOfSize(18),
+            NSForegroundColorAttributeName : UIColor.darkGrayColor()
+            ])
+        
+        
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+        
+        alertController.setValue(attributedMessage, forKey: "attributedMessage")
+
         
         let defaultAction = UIAlertAction(title: NSLocalizedString("Yes", comment: ""), style: .Default, handler:
             { (action:UIAlertAction!) in
@@ -135,13 +140,9 @@ class SettingEditTableViewController: UITableViewController {
     // MARK: - Language Change
     func setLanguage()
     {
-        if self.currentSetting == NSLocalizedString("Default Language", comment:"")
-        {
-            NSUserDefaults.standardUserDefaults().setObject(nil, forKey: "AppleLanguages")
-        }
         if self.currentSetting == "English"
         {
-            NSUserDefaults.standardUserDefaults().setObject(["en"], forKey: "AppleLanguages")
+            NSUserDefaults.standardUserDefaults().setObject(["en-AU"], forKey: "AppleLanguages")
         }
         if self.currentSetting == "中文"
         {
@@ -151,6 +152,7 @@ class SettingEditTableViewController: UITableViewController {
         {
             NSUserDefaults.standardUserDefaults().setObject(["es"], forKey: "AppleLanguages")
         }
+        NSUserDefaults.standardUserDefaults().synchronize()
         self.tableView.reloadData()
     }
     

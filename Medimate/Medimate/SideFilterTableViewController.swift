@@ -64,11 +64,10 @@ class SideFilterTableViewController: UITableViewController, SwitchClickedProtoco
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if indexPath.row == 0
         {
-            
             if indexPath.section == 0
             {
                 let cell = tableView.dequeueReusableCellWithIdentifier("titleCell", forIndexPath: indexPath) as! FilterTitleCell
-                cell.titleLabel.text = NSLocalizedString("Language", comment: "")
+                cell.titleLabel.text = NSLocalizedString("Language Spoken", comment: "")
                 cell.valueLabel.text = self.mainViewController.filter["language"]
                 if self.languageSeleted
                 {
@@ -160,12 +159,14 @@ class SideFilterTableViewController: UITableViewController, SwitchClickedProtoco
             if indexPath.section == 0
             {
                 mainViewController.filter["language"] = self.languages[indexPath.row - 1]
+                self.languageSeleted = !self.languageSeleted
             }
             if indexPath.section == 1
             {
                 mainViewController.filter["searchLocation"] = self.locations[indexPath.row - 1]
+                self.locationSeleted = !self.locationSeleted
             }
-            self.tableView.reloadData()
+            self.tableView.reloadSections(NSIndexSet(index: indexPath.section), withRowAnimation: .Fade)
             mainViewController.refresh()
             if mainViewController.isList == false
             {
@@ -179,7 +180,7 @@ class SideFilterTableViewController: UITableViewController, SwitchClickedProtoco
         {
             return 65
         }
-        return self.tableView.rowHeight
+        return 50
     }
     
     // MARK: - Switch Clicked Protocol

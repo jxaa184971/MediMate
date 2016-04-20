@@ -16,24 +16,25 @@ class ProfileTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        let color = UIColor(red: 40/255, green: 130/255, blue: 200/255, alpha: 1)
+        self.navigationController?.navigationBar.translucent = false
+        self.navigationController?.navigationBar.barStyle = .Black
+        self.navigationController?.navigationBar.barTintColor = color
+        self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
+        
         let languages = NSUserDefaults.standardUserDefaults().objectForKey("AppleLanguages") as! NSArray
         let language = languages[0] as! String
         if language == "zh-Hans"
         {
-            self.settings = [NSLocalizedString("Language", comment:""): "中文"]
-
+            self.settings = [NSLocalizedString("System Language", comment:""): "中文"]
         }
         else if language == "es"
         {
-            self.settings = [NSLocalizedString("Language", comment:""): "Español"]
+            self.settings = [NSLocalizedString("System Language", comment:""): "Español"]
         }
-        else if language == "en"
+        else if language == "en-AU"
         {
-            self.settings = [NSLocalizedString("Language", comment:""): "English"]
-        }
-        else
-        {
-            self.settings = [NSLocalizedString("Language", comment:""): NSLocalizedString("Default Language", comment:"")]
+            self.settings = [NSLocalizedString("System Language", comment:""): "English"]
         }
         
         NSUserDefaults.standardUserDefaults().setObject(["zh-Hans"], forKey: "AppleLanguages")
@@ -68,8 +69,8 @@ class ProfileTableViewController: UITableViewController {
         if indexPath.row == 0
         {
             let cell = tableView.dequeueReusableCellWithIdentifier("settingCell", forIndexPath: indexPath) as! SettingCell
-            cell.titleLabel.text = NSLocalizedString("Language", comment:"")
-            cell.valueLabel.text = self.settings["\(NSLocalizedString("Language", comment:""))"]
+            cell.titleLabel.text = NSLocalizedString("System Language", comment:"")
+            cell.valueLabel.text = self.settings["\(NSLocalizedString("System Language", comment:""))"]
             return cell
         }
         
@@ -124,8 +125,8 @@ class ProfileTableViewController: UITableViewController {
             if indexPath?.row == 0
             {
                 let controller = segue.destinationViewController as! SettingEditTableViewController
-                controller.settingType = NSLocalizedString("Language", comment:"")
-                controller.currentSetting = self.settings["\(NSLocalizedString("Language", comment:""))"]
+                controller.settingType = NSLocalizedString("System Language", comment:"")
+                controller.currentSetting = self.settings["\(NSLocalizedString("System Language", comment:""))"]
             }
         }
     }

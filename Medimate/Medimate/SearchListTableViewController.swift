@@ -10,7 +10,7 @@ import UIKit
 import GoogleMaps
 import CoreLocation
 
-class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, CLLocationManagerDelegate {
+class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, CLLocationManagerDelegate,FilterButtonClickedProtocol, SWRevealViewControllerDelegate {
 
     // MARK: - Properties
     var searchCategory: String!        //category of medical facilities, such as GP, Clinic
@@ -21,8 +21,10 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
     var numberOfRowsShowed:Int! = 10   //the number of results showed on tableview
     var isLoading:Bool! = false        //check whether the view is loading or not
     var onlyShowOpenNow = false        //only show the open facility or not
-    var onlyBulkBilling = false
+    var onlyBulkBilling = false        //only show the facility support bulk billing
+    var filterSeleted = false          //check the filter button selected or not
     
+    @IBOutlet var sideBarButton: UIBarButtonItem!
     var locationManager:CLLocationManager!
     var mapView:GMSMapView!
     
@@ -31,11 +33,15 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
         super.viewDidLoad()
         
         self.tabBarController?.tabBar.hidden = true
-        self.automaticallyAdjustsScrollViewInsets = false;
+    
+        self.automaticallyAdjustsScrollViewInsets = false
         self.navigationItem.title = NSLocalizedString("\(self.searchCategory)",comment:"")
+        self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
+        self.navigationController?.navigationBar.barStyle = .Black
+        self.navigationController?.interactivePopGestureRecognizer?.enabled = false
         
         // initialize filter settings
-        self.filter = ["searchLocation":NSLocalizedString("Current Location",comment:""), "language": "English", "sortBy": NSLocalizedString("Distance",comment:""), "postCode":""]
+        self.filter = ["searchLocation":NSLocalizedString("Current Location (Within 5km)", comment:""), "language": "English", "sortBy": NSLocalizedString("Distance",comment:""), "postCode":""]
         
         // slow down the speed of scrolling table view
         self.tableView.decelerationRate = UIScrollViewDecelerationRateFast
@@ -63,10 +69,6 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
         // initialize the side bar menu for filter
         if self.revealViewController() != nil
         {
-            //self.sideBarButton.target = self.revealViewController()
-            //self.sideBarButton.action = #selector(SWRevealViewController.rightRevealToggleAnimated(_:))
-            //self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
-            
             let rightView = self.storyboard?.instantiateViewControllerWithIdentifier("SideFilterTableViewController") as! SideFilterTableViewController
             rightView.mainViewController = self
             
@@ -74,8 +76,13 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
             {
                 rightView.showBulkBilling = false
             }
+            self.revealViewController().delegate = self
+            self.revealViewController().setRightViewController(rightView, animated: true)
+            self.sideBarButton.target = self.revealViewController()
+            self.sideBarButton.action = #selector(SWRevealViewController.rightRevealToggleAnimated(_:))
+
             
-            self.revealViewController().setRightViewController(rightView, animated: false)
+            self.view.addGestureRecognizer(self.revealViewController().tapGestureRecognizer())
             self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
         }
     }
@@ -101,6 +108,11 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
         
             self.refresh()
         }
+        
+        if self.revealViewController() != nil
+        {
+            self.view.addGestureRecognizer(self.revealViewController().tapGestureRecognizer())
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -121,245 +133,146 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
         {
             return 0
         }
-        return 3
+        return 2
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if self.isList == true
+        if section == 0
         {
-            if section == 0
-            {
-                if self.searchCategory == "GP"
-                {
-                    return 3
-                }
-                else
-                {
-                    return 2
-                }
-            }
-            if section == 1
-            {
-                return 0
-            }
-            if section == 2
-            {
-                if self.results.count < self.numberOfRowsShowed
-                {
-                    return self.results.count
-                }
-                else
-                {
-                    return self.numberOfRowsShowed
-                }
-            }
+            return 1
         }
-        if self.isList == false
+        if section == 1
         {
-            if section == 0
+            if self.results.count < self.numberOfRowsShowed
             {
-                if self.searchCategory == "GP"
-                {
-                    return 2
-                }
-                else
-                {
-                    return 1
-                }
+                return self.results.count
             }
-            if section == 1
+            else
             {
-                return 0
+                return self.numberOfRowsShowed
             }
         }
         return 0
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if self.isList == true
+        if indexPath.section == 0
         {
-            // initialize filter cell
-            if indexPath.section == 0
+            let cell = tableView.dequeueReusableCellWithIdentifier("filterCell", forIndexPath: indexPath) as! FilterButtonCell
+            var selectionString = "[\(self.filter["language"]!), \(self.filter["searchLocation"]!)"
+            if self.onlyShowOpenNow == true
             {
-                let cell = tableView.dequeueReusableCellWithIdentifier("filterCell", forIndexPath: indexPath) as! FilterCell
-                if indexPath.row == 0
-                {
-                    cell.filterName.text = NSLocalizedString("Search Location", comment:"")
-                    cell.filterValue.text = self.filter["searchLocation"]
-                }
-                if indexPath.row == 1
-                {
-                    if self.searchCategory == "GP"
-                    {
-                        cell.filterName.text = NSLocalizedString("GP's Language",comment:"")
-                        cell.filterValue.text = self.filter["language"]
-                    }
-                    else
-                    {
-                        cell.filterName.text = NSLocalizedString("Sort By",comment:"")
-                        cell.filterValue.text = self.filter["sortBy"]
-                    }
-                }
-                if indexPath.row == 2
-                {
-                    if self.searchCategory == "GP"
-                    {
-                        cell.filterName.text = NSLocalizedString("Sort By",comment:"")
-                        cell.filterValue.text = self.filter["sortBy"]
-                    }
-                }
-                return cell
+                selectionString = selectionString + ", Open Now"
+                print(selectionString)
             }
-            else if indexPath.section == 1
+            if self.onlyBulkBilling == true
             {
-                let cell = tableView.dequeueReusableCellWithIdentifier("filterOpenFacilityCell", forIndexPath: indexPath) as! FilterOpenFacilityCell
-                cell.titleLabel.text = NSLocalizedString("Open Now", comment: "")
-                cell.openSwitch.setOn(false, animated: false)
-                cell.selectionStyle = UITableViewCellSelectionStyle.None
-                return cell
+                selectionString = selectionString + ", Bulk Billing"
+                print(selectionString)
+            }
+            selectionString = selectionString + "]"
+            cell.selectionLabel.text = selectionString
+            cell.delegate = self
+            if self.filterSeleted == false
+            {
+                cell.filterButton.setImage(UIImage(named: "filter.png"), forState: .Normal)
+            }
+            if self.filterSeleted == true
+            {
+                cell.filterButton.setImage(UIImage(named: "next.png"), forState: .Normal)
+            }
+            return cell
+        }
+        if indexPath.section == 1
+        {
+            // initialize result cell
+            let cell = tableView.dequeueReusableCellWithIdentifier("resultCell", forIndexPath: indexPath) as! SearchResultCell
+            cell.nameLabel.text = self.results[indexPath.row].name
+            //let stars = RatingStarGenerator.ratingStarsFromDouble(self.results[indexPath.row].rating)
+            cell.ratingLabel.text = ""
+            cell.addressLabel.text = self.results[indexPath.row].address
+            cell.reviewsLabel.text = ""
+            cell.distanceLabel.text = "\(NSString(format:"%.1f",self.results[indexPath.row].distance)) km"
+            
+            // check whether the facility open or not
+            if DateHelper.facilityNowOpen(self.results[indexPath.row])
+            {
+                cell.nowOpenImageView.image = UIImage(named: "open_now.png")
             }
             else
             {
-                // initialize result cell
-                let cell = tableView.dequeueReusableCellWithIdentifier("resultCell", forIndexPath: indexPath) as! SearchResultCell
-                cell.nameLabel.text = self.results[indexPath.row].name
-                //let stars = RatingStarGenerator.ratingStarsFromDouble(self.results[indexPath.row].rating)
-                cell.ratingLabel.text = ""
-                cell.addressLabel.text = self.results[indexPath.row].address
-                cell.reviewsLabel.text = ""
-                cell.distanceLabel.text = "\(NSString(format:"%.1f",self.results[indexPath.row].distance)) km"
-                
-                // check whether the facility open or not
-                if DateHelper.facilityNowOpen(self.results[indexPath.row])
-                {
-                    cell.nowOpenImageView.image = UIImage(named: "Open.png")
-                }
-                else
-                {
-                    cell.nowOpenImageView.image = UIImage(named: "blank.png")
-                }
-                
-                if self.results[indexPath.row].bulkBilling == true
-                {
-                    cell.bulkBillingImageView.image = UIImage(named: "bulkBilling.png")
-                }
-                else
-                {
-                    cell.bulkBillingImageView.image = UIImage(named:"blank.png")
-                }
- 
-
-                
-                
-                cell.picView.image = UIImage(named: "DefaultImage.png")
-                // set the picView display image as a circle
-                cell.picView.layer.cornerRadius = CGRectGetHeight(cell.picView.bounds) / 2
-                // remove the parts outside the bound
-                cell.picView.clipsToBounds =  true
-                
-                // asynchronous loading images from URL
-                let session = NSURLSession.sharedSession()
-                let url = NSURL(string: self.results[indexPath.row].imageURL)
-                let task = session.dataTaskWithURL(url!, completionHandler:
-                    {
-                        (data, response, error) -> Void in
-                        if error != nil
-                        {
-                            print("Error: \(error!.localizedDescription)")
-                        }
-                        else
-                        {
-                            let image = UIImage(data: data!)
-
-                            dispatch_async(dispatch_get_main_queue(),
-                                {
-                                    let cellToUpdate = tableView.cellForRowAtIndexPath(indexPath) as! SearchResultCell
-                                    cellToUpdate.picView.image = image
-                            })
-                        }
-                        })
-                task.resume()
-                return cell
+                cell.nowOpenImageView.image = UIImage(named: "blank.png")
             }
-        }
-        else
-        {
-            if indexPath.section == 0
+            
+            if self.results[indexPath.row].bulkBilling == true
             {
-                let cell = tableView.dequeueReusableCellWithIdentifier("filterCell", forIndexPath: indexPath) as! FilterCell
-                if indexPath.row == 0
+                cell.bulkBillingImageView.image = UIImage(named: "bulkBilling.png")
+            }
+            else
+            {
+                cell.bulkBillingImageView.image = UIImage(named:"blank.png")
+            }
+            
+            
+            cell.picView.image = UIImage(named: "DefaultImage.png")
+            // set the picView display image as a circle
+            cell.picView.layer.cornerRadius = CGRectGetHeight(cell.picView.bounds) / 2
+            // remove the parts outside the bound
+            cell.picView.clipsToBounds =  true
+            
+            // asynchronous loading images from URL
+            let session = NSURLSession.sharedSession()
+            let url = NSURL(string: self.results[indexPath.row].imageURL)
+            let task = session.dataTaskWithURL(url!, completionHandler:
                 {
-                    cell.filterName.text = NSLocalizedString("Search Location", comment:"")
-                    cell.filterValue.text = self.filter["searchLocation"]
-                }
-                if indexPath.row == 1
-                {
-                    if self.searchCategory == "GP"
+                    (data, response, error) -> Void in
+                    if error != nil
                     {
-                        cell.filterName.text = NSLocalizedString("GP's Language",comment:"")
-                        cell.filterValue.text = self.filter["language"]
+                        print("Error: \(error!.localizedDescription)")
                     }
-                }
-                return cell
-            }
-            if indexPath.section == 1
-            {
-                let cell = tableView.dequeueReusableCellWithIdentifier("filterOpenFacilityCell", forIndexPath: indexPath) as! FilterOpenFacilityCell
-                cell.titleLabel.text = NSLocalizedString("Only Show Opended", comment: "")
-                cell.selectionStyle = UITableViewCellSelectionStyle.None
-                return cell
-            }
-            return UITableViewCell()
+                    else
+                    {
+                        let image = UIImage(data: data!)
+                        dispatch_async(dispatch_get_main_queue(),
+                            {
+                                let cellToUpdate = tableView.cellForRowAtIndexPath(indexPath) as! SearchResultCell
+                                cellToUpdate.picView.image = image
+                        })
+                    }
+            })
+            task.resume()
+            return cell
+
         }
+        return UITableViewCell()
     }
     
     // set height for rows
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if indexPath.section == 0
         {
-            return 40
+            return 65
         }
         if indexPath.section == 1
         {
-            return 40
-        }
-        if indexPath.section == 2
-        {
             return 100
         }
-        return 0
+        return 40
     }
     
     // set height for header
     override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if section == 0
-        {
-            return 64
-        }
-        if section == 1
-        {
-            return 0
-        }
         return self.tableView.sectionHeaderHeight
-    }
-    
-    override func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        if section == 0
-        {
-            return 0
-        }
-        return self.tableView.sectionFooterHeight
     }
     
     // set title for header
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if section == 2
+        if section == 0
         {
-
-            if self.filter["searchLocation"] == NSLocalizedString("Current Location",comment:"")
-            {
-                return NSLocalizedString("Results ( Within 10km )",comment:"")
-            }
+            return NSLocalizedString("Your Selection", comment: "")
+        }
+        if section == 1
+        {
             return NSLocalizedString("Results",comment:"")
         }
         return nil
@@ -433,7 +346,7 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
             self.isList = false
             var location:CLLocation!
             // initialize map view
-            if self.filter["searchLocation"] == NSLocalizedString("Current Location",comment:"")
+            if self.filter["searchLocation"] == NSLocalizedString("Current Location (Within 5km)", comment:"") || self.filter["searchLocation"] == NSLocalizedString("Current Location (Within 10km)", comment:"")
             {
                 location = self.getCurrentLocation()
             }
@@ -441,9 +354,10 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
             {
                 location = SuburbHelper.locationFromSuburb(self.filter["searchLocation"]!)
             }
+            
             let camera = GMSCameraPosition.cameraWithLatitude(location.coordinate.latitude,
                 longitude: location.coordinate.longitude, zoom: 5)
-            self.mapView = GMSMapView.mapWithFrame(CGRect(x: 0,y: 200,width: self.view.frame.width,height: self.view.frame.height-200), camera: camera)   //240
+            self.mapView = GMSMapView.mapWithFrame(CGRect(x: 0,y: 160,width: self.view.frame.width,height: self.view.frame.height-160), camera: camera)   //240
             self.mapView.myLocationEnabled = true
             self.mapView.settings.myLocationButton = true
             self.mapView.delegate = self
@@ -464,7 +378,7 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
         if self.samples.count == 0
         {
             print("No data returned")
-            self.errorMessage("There is no data returned from server. Please check the network is working well.")
+            self.errorMessage(NSLocalizedString("No data returned from server. Please check your network connection.", comment: ""))
             return
         }
 
@@ -480,22 +394,26 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
             self.facilitySupportBulkBilling()
         }
         
-        if self.filter["searchLocation"] == NSLocalizedString("Current Location",comment:"")
+        if self.filter["searchLocation"] == NSLocalizedString("Current Location (Within 5km)", comment:"")
         {
-            self.resultsWithin10KM()
+            self.resultsWithinDistance(5)
+        }
+        
+        if self.filter["searchLocation"] == NSLocalizedString("Current Location (Within 10km)", comment:"")
+        {
+            self.resultsWithinDistance(10)
         }
         
         if self.results.count == 0 
         {
-            self.errorMessage("There is no result satisfied with the search conditions.")
-            self.tableView.reloadData()
-
+            self.errorMessage(NSLocalizedString("No results found matching your selection.", comment: ""))
         }
         else
         {
-            self.tableView.reloadData()
             self.createTableFooter()
         }
+        
+        self.tableView.reloadData()
         
         if self.isList == false
         {
@@ -505,7 +423,8 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
     
     func updateSearchLocation()
     {
-        if !(self.filter["searchLocation"] == NSLocalizedString("Current Location",comment:""))
+        if self.filter["searchLocation"] != NSLocalizedString("Current Location (Within 5km)",comment:"")
+        && self.filter["searchLocation"] != NSLocalizedString("Current Location (Within 10km)",comment:"")
         {
             var locationBasedResults = Array<Facility>()
             for result in self.results
@@ -522,7 +441,8 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
         {
             var location:CLLocation!
             // initialize map view
-            if self.filter["searchLocation"] == NSLocalizedString("Current Location",comment:"")
+            if self.filter["searchLocation"] == NSLocalizedString("Current Location (Within 5km)",comment:"") ||
+                self.filter["searchLocation"] == NSLocalizedString("Current Location (Within 10km)",comment:"")
             {
                 location = self.getCurrentLocation()
             }
@@ -575,12 +495,12 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
         }
     }
     
-    func resultsWithin10KM ()
+    func resultsWithinDistance(km:Double)
     {
         var filtedResults = Array<Facility>()
         for result in results
         {
-            if result.distance <= 10
+            if result.distance <= km
             {
                 filtedResults.append(result)
             }
@@ -612,6 +532,25 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
             }
         }
         self.results = filtedResults
+    }
+    
+    func filterButtonClicked()
+    {
+        UIApplication.sharedApplication().sendAction(self.sideBarButton.action, to: self.sideBarButton.target, from: self, forEvent: nil)
+    }
+    
+    func revealController(revealController: SWRevealViewController!, willMoveToPosition position: FrontViewPosition) {
+        if position == FrontViewPosition.Left
+        {
+            self.filterSeleted = false
+            print("Left")
+        }
+        if position == FrontViewPosition.LeftSide
+        {
+            self.filterSeleted = true
+            print("Left Side")
+        }
+        self.tableView.reloadData()
     }
     
     func errorMessage(message: String)
@@ -774,6 +713,4 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
             }
         }
     }
-    
-
 }

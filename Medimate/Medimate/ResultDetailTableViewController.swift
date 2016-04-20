@@ -22,6 +22,13 @@ class ResultDetailTableViewController: UITableViewController, GMSMapViewDelegate
         self.navigationItem.title = ""
         self.showMap()
     }
+    
+    override func viewWillAppear(animated: Bool) {
+        if self.revealViewController() != nil
+        {
+            self.view.addGestureRecognizer(self.revealViewController().tapGestureRecognizer())
+        }
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -38,10 +45,11 @@ class ResultDetailTableViewController: UITableViewController, GMSMapViewDelegate
                                                           longitude: location.coordinate.longitude,
                                                           zoom: 12)
 
-        self.mapView = GMSMapView.mapWithFrame(CGRect(x: 0, y: 210, width: self.view.frame.width, height: 155), camera: camera)
+        self.mapView = GMSMapView.mapWithFrame(CGRect(x: 0, y: 181, width: self.view.frame.width, height: 155), camera: camera)
         self.mapView.myLocationEnabled = false
         self.mapView.settings.myLocationButton = false
         self.mapView.delegate = self
+        self.mapView.myLocationEnabled = true
         self.view.addSubview(self.mapView)
         
         // initialize the location marker
@@ -222,10 +230,6 @@ class ResultDetailTableViewController: UITableViewController, GMSMapViewDelegate
     }
     
     override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if section == 0
-        {
-            return 64
-        }
         return self.tableView.sectionHeaderHeight
     }
     
