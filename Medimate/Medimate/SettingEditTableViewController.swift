@@ -2,7 +2,7 @@
 //  SettingEditTableViewController.swift
 //  Medimate
 //
-//  Created by 一川 黄 on 10/04/2016.
+//  Created by Yichuan Huang on 10/04/2016.
 //  Copyright © 2016 Team MarshGhatti. All rights reserved.
 //
 
@@ -142,7 +142,7 @@ class SettingEditTableViewController: UITableViewController {
     {
         if self.currentSetting == "English"
         {
-            NSUserDefaults.standardUserDefaults().setObject(["en-AU"], forKey: "AppleLanguages")
+            NSUserDefaults.standardUserDefaults().setObject(["en"], forKey: "AppleLanguages")
         }
         if self.currentSetting == "中文"
         {

@@ -2,13 +2,13 @@
 //  SideFilterTableViewController.swift
 //  Medimate
 //
-//  Created by 一川 黄 on 15/04/2016.
+//  Created by Yichuan Huang on 15/04/2016.
 //  Copyright © 2016 Team MarshGhatti. All rights reserved.
 //
 
 import UIKit
 
-class SideFilterTableViewController: UITableViewController, SwitchClickedProtocol{
+class SideFilterTableViewController: UITableViewController, SwitchClickedProtocol, HeaderBtnClickedProtocol{
 
     var languageSeleted:Bool = false
     var locationSeleted:Bool = false
@@ -19,13 +19,16 @@ class SideFilterTableViewController: UITableViewController, SwitchClickedProtoco
     var languages:Array<String> = LanguageHelper.otherLanguageArray
     var locations:Array<String> = SuburbHelper.suburbArray
     
-    var mainViewController: SearchListTableViewController!
+    var searchController: SearchListTableViewController!
     var filter:[String:String]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.automaticallyAdjustsScrollViewInsets = false
+        self.tableView.contentInset = UIEdgeInsetsMake(-36, 0, 0, 0);
         self.tableView.sectionFooterHeight = 0
+        tableView.alwaysBounceVertical = false
+
     }
 
     override func didReceiveMemoryWarning() {
@@ -39,21 +42,21 @@ class SideFilterTableViewController: UITableViewController, SwitchClickedProtoco
         // #warning Incomplete implementation, return the number of sections
         if self.showBulkBilling
         {
-            return 4
+            return 5
         }
         else
         {
-            return 3
+            return 4
         }
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        if section == 0 && self.languageSeleted
+        if section == 1 && self.languageSeleted
         {
             return (self.languages.count + 1)
         }
-        if section == 1 && self.locationSeleted
+        if section == 2 && self.locationSeleted
         {
             return (self.locations.count + 1)
         }
@@ -66,25 +69,19 @@ class SideFilterTableViewController: UITableViewController, SwitchClickedProtoco
         {
             if indexPath.section == 0
             {
-                let cell = tableView.dequeueReusableCellWithIdentifier("titleCell", forIndexPath: indexPath) as! FilterTitleCell
-                cell.titleLabel.text = NSLocalizedString("Language Spoken", comment: "")
-                cell.valueLabel.text = self.mainViewController.filter["language"]
-                if self.languageSeleted
-                {
-                    cell.picView.image = UIImage(named: "arrow_up.jpeg")
-                }
-                else
-                {
-                    cell.picView.image = UIImage(named: "arrow_down.jpeg")
-                }
+                let color = UIColor(red: 40/255, green: 130/255, blue: 200/255, alpha: 1)
+                
+                let cell = tableView.dequeueReusableCellWithIdentifier("headerCell", forIndexPath: indexPath) as! FilterHeaderCell
+                cell.backgroundColor = color
+                cell.delegate = self
                 return cell
             }
             if indexPath.section == 1
             {
                 let cell = tableView.dequeueReusableCellWithIdentifier("titleCell", forIndexPath: indexPath) as! FilterTitleCell
-                cell.titleLabel.text = NSLocalizedString("Search Location", comment: "")
-                cell.valueLabel.text = self.mainViewController.filter["searchLocation"]
-                if self.locationSeleted
+                cell.titleLabel.text = NSLocalizedString("Language Spoken", comment: "")
+                cell.valueLabel.text = self.searchController.filter["language"]
+                if self.languageSeleted
                 {
                     cell.picView.image = UIImage(named: "arrow_up.jpeg")
                 }
@@ -96,17 +93,32 @@ class SideFilterTableViewController: UITableViewController, SwitchClickedProtoco
             }
             if indexPath.section == 2
             {
-                let cell = tableView.dequeueReusableCellWithIdentifier("switchCell", forIndexPath: indexPath) as! FilterSwitchCell
-                cell.titleLabel.text = NSLocalizedString("Open Now", comment: "")
-                cell.filterSwitch.on = false
-                cell.delegate = self
+                let cell = tableView.dequeueReusableCellWithIdentifier("titleCell", forIndexPath: indexPath) as! FilterTitleCell
+                cell.titleLabel.text = NSLocalizedString("Search Location", comment: "")
+                cell.valueLabel.text = self.searchController.filter["searchLocation"]
+                if self.locationSeleted
+                {
+                    cell.picView.image = UIImage(named: "arrow_up.jpeg")
+                }
+                else
+                {
+                    cell.picView.image = UIImage(named: "arrow_down.jpeg")
+                }
                 return cell
             }
             if indexPath.section == 3
             {
                 let cell = tableView.dequeueReusableCellWithIdentifier("switchCell", forIndexPath: indexPath) as! FilterSwitchCell
+                cell.titleLabel.text = NSLocalizedString("Open Now", comment: "")
+                cell.filterSwitch.on = self.searchController.onlyShowOpenNow
+                cell.delegate = self
+                return cell
+            }
+            if indexPath.section == 4
+            {
+                let cell = tableView.dequeueReusableCellWithIdentifier("switchCell", forIndexPath: indexPath) as! FilterSwitchCell
                 cell.titleLabel.text = NSLocalizedString("Bulk Billing", comment: "")
-                cell.filterSwitch.on = false
+                cell.filterSwitch.on = self.searchController.onlyBulkBilling
                 cell.delegate = self
                 return cell
             }
@@ -114,9 +126,9 @@ class SideFilterTableViewController: UITableViewController, SwitchClickedProtoco
         else
         {
             let cell = tableView.dequeueReusableCellWithIdentifier("valueCell", forIndexPath: indexPath) as! FilterTitleCell
-            if indexPath.section == 0
+            if indexPath.section == 1
             {
-                if languages[indexPath.row - 1] == mainViewController.filter["language"]
+                if languages[indexPath.row - 1] == searchController.filter["language"]
                 {
                     cell.titleLabel.text = "\(languages[indexPath.row - 1]) (✓)"
                 }
@@ -125,9 +137,9 @@ class SideFilterTableViewController: UITableViewController, SwitchClickedProtoco
                     cell.titleLabel.text = languages[indexPath.row - 1]
                 }
             }
-            if indexPath.section == 1
+            if indexPath.section == 2
             {
-                if locations[indexPath.row - 1] == mainViewController.filter["searchLocation"]
+                if locations[indexPath.row - 1] == searchController.filter["searchLocation"]
                 {
                     cell.titleLabel.text = "\(locations[indexPath.row - 1]) (✓)"
                 }
@@ -144,43 +156,59 @@ class SideFilterTableViewController: UITableViewController, SwitchClickedProtoco
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if indexPath.row == 0
         {
-            if indexPath.section == 0
+            if indexPath.section == 1
             {
                 self.languageSeleted = !self.languageSeleted
             }
-            if indexPath.section == 1
+            if indexPath.section == 2
             {
                 self.locationSeleted = !self.locationSeleted
             }
+            
             self.tableView.reloadSections(NSIndexSet(index: indexPath.section), withRowAnimation: .Fade)
         }
         else
         {
-            if indexPath.section == 0
-            {
-                mainViewController.filter["language"] = self.languages[indexPath.row - 1]
-                self.languageSeleted = !self.languageSeleted
-            }
             if indexPath.section == 1
             {
-                mainViewController.filter["searchLocation"] = self.locations[indexPath.row - 1]
+                searchController.filter["language"] = self.languages[indexPath.row - 1]
+                self.languageSeleted = !self.languageSeleted
+            }
+            if indexPath.section == 2
+            {
+                searchController.filter["searchLocation"] = self.locations[indexPath.row - 1]
                 self.locationSeleted = !self.locationSeleted
             }
             self.tableView.reloadSections(NSIndexSet(index: indexPath.section), withRowAnimation: .Fade)
-            mainViewController.refresh()
-            if mainViewController.isList == false
+            searchController.refresh()
+            if searchController.isList == false
             {
-                mainViewController.updateMarkers()
+                searchController.updateMarkers()
             }
+            
+            let mainController = self.searchController.navigationController?.viewControllers[0] as! MainMenuViewController
+            mainController.filter = searchController.filter
         }
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if indexPath.row == 0 && (indexPath.section == 0 || indexPath.section == 1)
+        if indexPath.row == 0 && (indexPath.section == 1 || indexPath.section == 2)
         {
             return 65
         }
+        if indexPath.section == 0
+        {
+            return 66
+        }
         return 50
+    }
+    
+    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if section == 0
+        {
+            return 0
+        }
+        return self.tableView.sectionHeaderHeight
     }
     
     // MARK: - Switch Clicked Protocol
@@ -189,13 +217,32 @@ class SideFilterTableViewController: UITableViewController, SwitchClickedProtoco
     {
         if type == NSLocalizedString("Open Now", comment: "")
         {
-            self.mainViewController.onlyShowOpenNow = sender.on
+            self.searchController.onlyShowOpenNow = sender.on
         }
         if type == NSLocalizedString("Bulk Billing", comment: "")
         {
-            self.mainViewController.onlyBulkBilling = sender.on
+            self.searchController.onlyBulkBilling = sender.on
         }
-        self.mainViewController.refresh()
+        self.searchController.refresh()
+        let mainController = self.searchController.navigationController?.viewControllers[0] as! MainMenuViewController
+        mainController.onlyShowOpenNow = searchController.onlyShowOpenNow
+        mainController.onlyBulkBilling = searchController.onlyBulkBilling
+    }
+    
+    // MARK: - Header Button Clicked Protocol
+    func backButtonClicked()
+    {
+        searchController.filterButtonClicked()
+    }
+    
+    func resetButtonClicked()
+    {
+        self.searchController.onlyShowOpenNow = false
+        self.searchController.onlyBulkBilling = false
+        self.searchController.filter = ["searchLocation":NSLocalizedString("Current Location (Within 5km)", comment:""), "language": "English", "sortBy": NSLocalizedString("Distance",comment:""), "postCode":""]
+        self.filter = self.searchController.filter
+        self.searchController.refresh()
+        self.tableView.reloadData()
     }
  
     /*

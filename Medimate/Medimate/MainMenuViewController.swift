@@ -2,7 +2,7 @@
 //  MainMenuViewController.swift
 //  Medimate
 //
-//  Created by 一川 黄 on 18/03/2016.
+//  Created by Yichuan Huang on 18/03/2016.
 //  Copyright © 2016 Team MarshGhatti. All rights reserved.
 //
 
@@ -17,8 +17,17 @@ class MainMenuViewController: UIViewController {
     @IBOutlet var dentistButton: UIButton!
     @IBOutlet var physioButton: UIButton!
     @IBOutlet var pharmacyButton: UIButton!
+    
+    
+    var filter:[String:String]!        //filter settings
+    var onlyShowOpenNow = false        //only show the open facility or not
+    var onlyBulkBilling = false        //only show the facility support bulk billing
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // initialize filter settings
+        self.filter = ["searchLocation":NSLocalizedString("Current Location (Within 5km)", comment:""), "language": "English", "sortBy": NSLocalizedString("Distance",comment:""), "postCode":""]
         
         // Do any additional setup after loading the view, typically from a nib.
         let color = UIColor(red: 40/255, green: 130/255, blue: 200/255, alpha: 1)
@@ -61,6 +70,7 @@ class MainMenuViewController: UIViewController {
         if segue.identifier == "gpSegue"
         {
             controller.searchCategory = "GP"
+            controller.onlyBulkBilling = self.onlyBulkBilling
         }
         if segue.identifier == "dentistSegue"
         {
@@ -74,5 +84,7 @@ class MainMenuViewController: UIViewController {
         {
             controller.searchCategory = "Physiotherapist"
         }
+        controller.filter = self.filter
+        controller.onlyShowOpenNow = self.onlyShowOpenNow
     }
 }

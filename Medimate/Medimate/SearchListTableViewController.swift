@@ -2,7 +2,7 @@
 //  SearchListTableViewController.swift
 //  Medimate
 //
-//  Created by 一川 黄 on 19/03/2016.
+//  Created by Yichuan Huang on 19/03/2016.
 //  Copyright © 2016 Team MarshGhatti. All rights reserved.
 //
 
@@ -40,14 +40,10 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
         self.navigationController?.navigationBar.barStyle = .Black
         self.navigationController?.interactivePopGestureRecognizer?.enabled = false
         
-        // initialize filter settings
-        self.filter = ["searchLocation":NSLocalizedString("Current Location (Within 5km)", comment:""), "language": "English", "sortBy": NSLocalizedString("Distance",comment:""), "postCode":""]
-        
         // slow down the speed of scrolling table view
         self.tableView.decelerationRate = UIScrollViewDecelerationRateFast
-        
         self.tableView.sectionFooterHeight = 0
-        
+    
         // initialize location manager
         self.locationManager = CLLocationManager()
         self.locationManager.delegate = self
@@ -70,7 +66,7 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
         if self.revealViewController() != nil
         {
             let rightView = self.storyboard?.instantiateViewControllerWithIdentifier("SideFilterTableViewController") as! SideFilterTableViewController
-            rightView.mainViewController = self
+            rightView.searchController = self
             
             if self.searchCategory != "GP"
             {
@@ -89,14 +85,12 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
-
-        print("View will appear")
         if CLLocationManager.authorizationStatus() != CLAuthorizationStatus.NotDetermined
         {
             let results = HTTPHelper.requestForFacilitiesByType(self.searchCategory)
             if results == nil
             {
-                print("Internet Issues")
+                self.errorMessage(NSLocalizedString("No data returned from server. Please check your network connection.", comment: ""))
             }
             else
             {
@@ -159,18 +153,18 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
         if indexPath.section == 0
         {
             let cell = tableView.dequeueReusableCellWithIdentifier("filterCell", forIndexPath: indexPath) as! FilterButtonCell
-            var selectionString = "[\(self.filter["language"]!), \(self.filter["searchLocation"]!)"
+            var selectionString = "\(self.filter["language"]!) | \(self.filter["searchLocation"]!)"
             if self.onlyShowOpenNow == true
             {
-                selectionString = selectionString + ", Open Now"
+                selectionString = selectionString + " | Open Now"
                 print(selectionString)
             }
             if self.onlyBulkBilling == true
             {
-                selectionString = selectionString + ", Bulk Billing"
+                selectionString = selectionString + " | Bulk Billing"
                 print(selectionString)
             }
-            selectionString = selectionString + "]"
+            selectionString = selectionString + ""
             cell.selectionLabel.text = selectionString
             cell.delegate = self
             if self.filterSeleted == false
@@ -277,6 +271,13 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
         }
         return nil
     }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if indexPath.section == 0
+        {
+            UIApplication.sharedApplication().sendAction(self.sideBarButton.action, to: self.sideBarButton.target, from: self, forEvent: nil)
+        }
+    }
 
     
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
@@ -342,6 +343,7 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
     {
         if self.isList == true
         {
+            self.tableView.setContentOffset(CGPointZero, animated: true)
             self.navigationItem.rightBarButtonItem?.title = NSLocalizedString("List",comment:"")
             self.isList = false
             var location:CLLocation!
@@ -377,7 +379,6 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
     {
         if self.samples.count == 0
         {
-            print("No data returned")
             self.errorMessage(NSLocalizedString("No data returned from server. Please check your network connection.", comment: ""))
             return
         }

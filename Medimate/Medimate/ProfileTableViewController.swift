@@ -2,7 +2,7 @@
 //  ProfileTableViewController.swift
 //  Medimate
 //
-//  Created by 一川 黄 on 10/04/2016.
+//  Created by Yichuan Huang on 10/04/2016.
 //  Copyright © 2016 Team MarshGhatti. All rights reserved.
 //
 
@@ -32,7 +32,7 @@ class ProfileTableViewController: UITableViewController {
         {
             self.settings = [NSLocalizedString("System Language", comment:""): "Español"]
         }
-        else if language == "en-AU"
+        else if language == "en"
         {
             self.settings = [NSLocalizedString("System Language", comment:""): "English"]
         }
