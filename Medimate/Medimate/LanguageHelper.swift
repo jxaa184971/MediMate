@@ -12,7 +12,7 @@ class LanguageHelper: NSObject {
     
     static let englishArray = ["English", "Spanish", "German", "Italian", "Russian", "French", "Greek", "Mandarin", "Cantonese", "Japanese", "Polish", "Arabic", "Indonesian", "Vietnamese", "Zulu", "Hindi", "Serbian", "Hebrew", "Bosnian", "Sinhalese", "Yiddish", "Croatian", "Malay"]
     
-    static let otherLanguageArray = ["English", "Español", "Deutsch", "italiano", "русский", "français", "ελληνικά", "普通话", "广东话", "日本語", "Polskie", "العربية", "Indonesian", "Tiếng Việt", "Zulu", "हिंदी", "Српски", "עִברִית", "bosanski", "සිංහල", "ייִדיש", "hrvatski", "Malay"]
+    static let otherLanguageArray = ["English", "Español", "Deutsch", "italiano", "русский", "français", "ελληνικά", "普通话", "粤语", "日本語", "Polskie", "العربية", "Indonesian", "Tiếng Việt", "Zulu", "हिंदी", "Српски", "עִברִית", "bosanski", "සිංහල", "ייִדיש", "hrvatski", "Malay"]
     
     static func englishFromOtherLanguage(otherLanguage: String) -> String
     {

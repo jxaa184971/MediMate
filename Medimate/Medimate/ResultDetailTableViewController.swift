@@ -10,15 +10,25 @@ import UIKit
 import CoreLocation
 import GoogleMaps
 
-class ResultDetailTableViewController: UITableViewController, GMSMapViewDelegate {
+class ResultDetailTableViewController: UITableViewController, GMSMapViewDelegate, CLLocationManagerDelegate {
 
     var result:Facility!
     var mapView:GMSMapView!
+    @IBOutlet var favoriteButton: UIBarButtonItem!
+    var favorite:Bool!
+    var locationManager:CLLocationManager!
+    var networkConnected:Bool! = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.automaticallyAdjustsScrollViewInsets = false;
-
+        self.automaticallyAdjustsScrollViewInsets = false
+        self.networkConnected = HTTPHelper.isConnectedToNetwork()
+        print("\(self.networkConnected)")
+        // initialize location manager
+        self.locationManager = CLLocationManager()
+        self.locationManager.delegate = self
+        self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        
         self.navigationItem.title = ""
         self.showMap()
     }
@@ -27,6 +37,22 @@ class ResultDetailTableViewController: UITableViewController, GMSMapViewDelegate
         if self.revealViewController() != nil
         {
             self.view.addGestureRecognizer(self.revealViewController().tapGestureRecognizer())
+        }
+        
+        if self.inFavouriteList()
+        {
+            self.favorite = true
+            self.favoriteButton.image = UIImage(named: "favorite.png")
+        }
+        else
+        {
+            self.favorite = false
+            self.favoriteButton.image = UIImage(named: "shape.png")
+        }
+        
+        if self.networkConnected == true
+        {
+            DistanceCalculator.distanceBetween(self.getCurrentLocation(), facility: self.result)
         }
     }
 
@@ -97,12 +123,11 @@ class ResultDetailTableViewController: UITableViewController, GMSMapViewDelegate
             cell.ratingLabel.text = ""
             if self.result.language == ""
             {
-                cell.languageLabel.text = "\(NSLocalizedString("GP's Language", comment:"")): English"
+                cell.languageLabel.text = "\(NSLocalizedString("Language Spoken", comment:"")): English"
             }
             else
             {
-                cell.languageLabel.text = "\(NSLocalizedString("GP's Language", comment:"")): English, \(self.result.language)"
-
+                cell.languageLabel.text = "\(NSLocalizedString("Language Spoken", comment:"")): English, \(self.result.language)"
             }
             if result.type == "GP"
             {
@@ -266,6 +291,102 @@ class ResultDetailTableViewController: UITableViewController, GMSMapViewDelegate
                 self.alterViewFrom(title, message: message, urlString: websiteURL)
             }
         }
+    }
+    
+    // MARK: - Favourite
+    @IBAction func favoriteBtnClicked(sender: UIBarButtonItem) {
+        self.favorite = !self.favorite
+        if self.favorite == true
+        {
+            self.favoriteButton.image = UIImage(named: "favorite.png")
+            if NSUserDefaults.standardUserDefaults().arrayForKey("favourites") != nil
+            {
+                var dataList = NSUserDefaults.standardUserDefaults().arrayForKey("favourites") as! Array<NSData>
+                var facilityList = facilityListFromDataList(dataList)
+                facilityList.append(self.result)
+                dataList = dataListFromFacilityList(facilityList)
+                NSUserDefaults.standardUserDefaults().setObject(dataList, forKey: "favourites")
+                NSUserDefaults.standardUserDefaults().synchronize()
+            }
+            else
+            {
+                var facilityList = Array<Facility>()
+                facilityList.append(self.result)
+                let dataList = dataListFromFacilityList(facilityList)
+                NSUserDefaults.standardUserDefaults().setObject(dataList, forKey: "favourites")
+                NSUserDefaults.standardUserDefaults().synchronize()
+            }
+        }
+        else
+        {
+            self.favoriteButton.image = UIImage(named: "shape.png")
+            var dataList = NSUserDefaults.standardUserDefaults().arrayForKey("favourites") as! Array<NSData>
+            var faciliList = facilityListFromDataList(dataList)
+            
+            if faciliList.count == 1
+            {
+                faciliList = []
+            }
+            else
+            {
+                for index in 0...(faciliList.count-2)
+                {
+                    if faciliList[index].id == self.result.id
+                    {
+                        faciliList.removeAtIndex(index)
+                    }
+                }
+            }
+            dataList = dataListFromFacilityList(faciliList)
+            NSUserDefaults.standardUserDefaults().setObject(dataList, forKey: "favourites")
+            NSUserDefaults.standardUserDefaults().synchronize()
+        }
+    }
+    
+    func inFavouriteList() -> Bool
+    {
+        if NSUserDefaults.standardUserDefaults().arrayForKey("favourites") != nil
+        {
+            let dataList = NSUserDefaults.standardUserDefaults().arrayForKey("favourites") as! [NSData]
+            let facilityList = facilityListFromDataList(dataList)
+            for facility in facilityList
+            {
+                if facility.id == self.result.id
+                {
+                    return true
+                }
+            }
+        }
+        return false
+    }
+    
+    func facilityListFromDataList(dataList:Array<NSData>) -> Array<Facility>
+    {
+        var facilityList = Array<Facility>()
+        for data in dataList
+        {
+            let facility = NSKeyedUnarchiver.unarchiveObjectWithData(data) as! Facility
+            facilityList.append(facility)
+        }
+        return facilityList
+    }
+    
+    func dataListFromFacilityList(facilityList:Array<Facility>) -> Array<NSData>
+    {
+        var dataList = Array<NSData>()
+        for facility in facilityList
+        {
+            let data = NSKeyedArchiver.archivedDataWithRootObject(facility)
+            dataList.append(data)
+        }
+        return dataList
+    }
+    
+    // MARK: - Location Based Functions
+    
+    func getCurrentLocation() -> CLLocation
+    {
+        return self.locationManager.location!
     }
     
     // MARK: - OpenURL

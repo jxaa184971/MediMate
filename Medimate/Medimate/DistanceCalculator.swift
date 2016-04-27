@@ -25,6 +25,14 @@ class DistanceCalculator: NSObject {
     }
     
     
-    
+    static func distanceBetween(curLocation:CLLocation, facility: Facility)
+    {
+        let latitude = facility.latitude
+        let longitude = facility.longitude
+        let facilityLocation = CLLocation(latitude: latitude, longitude: longitude)
+        
+        let distance = curLocation.distanceFromLocation(facilityLocation) / 1000
+        facility.distance = distance
+    }
     
 }

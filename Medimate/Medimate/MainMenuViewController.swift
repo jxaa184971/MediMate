@@ -29,7 +29,7 @@ class MainMenuViewController: UIViewController {
         // initialize filter settings
         self.filter = ["searchLocation":NSLocalizedString("Current Location (Within 5km)", comment:""), "language": "English", "sortBy": NSLocalizedString("Distance",comment:""), "postCode":""]
         
-        // Do any additional setup after loading the view, typically from a nib.
+        // change the style of navigation bar          
         let color = UIColor(red: 40/255, green: 130/255, blue: 200/255, alpha: 1)
 
         self.tabBarController?.tabBar.hidden = false
@@ -39,7 +39,7 @@ class MainMenuViewController: UIViewController {
         self.navigationController?.navigationBar.barStyle = .Black
         self.navigationController?.navigationBar.barTintColor = color
 
-        
+        // change button UI
         self.gpButton.backgroundColor = color
         self.gpButton.setTitle(NSLocalizedString("General Practitioner", comment: ""), forState: .Normal)
         self.dentistButton.backgroundColor = color
@@ -71,18 +71,22 @@ class MainMenuViewController: UIViewController {
         {
             controller.searchCategory = "GP"
             controller.onlyBulkBilling = self.onlyBulkBilling
+            controller.initialSearchCategory = "GP"
         }
         if segue.identifier == "dentistSegue"
         {
             controller.searchCategory = "Dentist"
+            controller.initialSearchCategory = "Dentist"
         }
         if segue.identifier == "pharmacySegue"
         {
             controller.searchCategory = "Pharmacy"
+            controller.initialSearchCategory = "Pharmacy"
         }
         if segue.identifier == "physioSegue"
         {
             controller.searchCategory = "Physiotherapist"
+            controller.initialSearchCategory = "Physiotherapist"
         }
         controller.filter = self.filter
         controller.onlyShowOpenNow = self.onlyShowOpenNow

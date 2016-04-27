@@ -14,6 +14,7 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
 
     // MARK: - Properties
     var searchCategory: String!        //category of medical facilities, such as GP, Clinic
+    var initialSearchCategory: String! //the first category user choose
     var samples: Array<Facility>!
     var results: Array<Facility>!      //search results
     var filter:[String:String]!        //filter settings
@@ -34,8 +35,8 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
         
         self.tabBarController?.tabBar.hidden = true
     
+        // change the style of navigation bar
         self.automaticallyAdjustsScrollViewInsets = false
-        self.navigationItem.title = NSLocalizedString("\(self.searchCategory)",comment:"")
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
         self.navigationController?.navigationBar.barStyle = .Black
         self.navigationController?.interactivePopGestureRecognizer?.enabled = false
@@ -85,28 +86,8 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
-        if CLLocationManager.authorizationStatus() != CLAuthorizationStatus.NotDetermined
-        {
-            let results = HTTPHelper.requestForFacilitiesByType(self.searchCategory)
-            if results == nil
-            {
-                self.errorMessage(NSLocalizedString("No data returned from server. Please check your network connection.", comment: ""))
-            }
-            else
-            {
-                self.samples = results!
-            }
-        
-            let location = self.getCurrentLocation()
-            DistanceCalculator.distanceBetween(location, facilityArray: self.samples)
-        
-            self.refresh()
-        }
-        
-        if self.revealViewController() != nil
-        {
-            self.view.addGestureRecognizer(self.revealViewController().tapGestureRecognizer())
-        }
+        self.requestForNewData()
+        self.refresh()
     }
 
     override func didReceiveMemoryWarning() {
@@ -153,7 +134,7 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
         if indexPath.section == 0
         {
             let cell = tableView.dequeueReusableCellWithIdentifier("filterCell", forIndexPath: indexPath) as! FilterButtonCell
-            var selectionString = "\(self.filter["language"]!) | \(self.filter["searchLocation"]!)"
+            var selectionString = "\(NSLocalizedString(self.searchCategory, comment: "")) | \(self.filter["language"]!) | \(NSLocalizedString(self.filter["searchLocation"]!, comment: ""))"
             if self.onlyShowOpenNow == true
             {
                 selectionString = selectionString + " | Open Now"
@@ -377,6 +358,7 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
     // MARK: - Filter Search Results
     func refresh()
     {
+        self.navigationItem.title = NSLocalizedString("\(self.searchCategory)",comment:"")
         if self.samples.count == 0
         {
             self.errorMessage(NSLocalizedString("No data returned from server. Please check your network connection.", comment: ""))
@@ -651,8 +633,26 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
         self.navigationController?.popViewControllerAnimated(true)
     }
     
+    func requestForNewData()
+    {
+        if CLLocationManager.authorizationStatus() != CLAuthorizationStatus.NotDetermined
+        {
+            let results = HTTPHelper.requestForFacilitiesByType(self.searchCategory)
+            if results == nil
+            {
+                self.errorMessage(NSLocalizedString("No data returned from server. Please check your network connection.", comment: ""))
+            }
+            else
+            {
+                self.samples = results!
+            }
     
-    
+            let location = self.getCurrentLocation()
+            DistanceCalculator.distanceBetween(location, facilityArray: self.samples)
+    }
+}
+
+
 
     /*
     // Override to support editing the table view.

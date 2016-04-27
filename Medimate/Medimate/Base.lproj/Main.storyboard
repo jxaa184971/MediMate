@@ -41,6 +41,7 @@
                     </tabBar>
                     <connections>
                         <segue destination="6Ay-fY-SUR" kind="relationship" relationship="viewControllers" id="hsb-YO-yis"/>
+                        <segue destination="eca-M7-G8s" kind="relationship" relationship="viewControllers" id="wi3-82-Jul"/>
                         <segue destination="ob1-Mi-FM1" kind="relationship" relationship="viewControllers" id="DMN-M8-Ag4"/>
                     </connections>
                 </tabBarController>
@@ -51,7 +52,7 @@
         <!--MediMate-->
         <scene sceneID="jmQ-pG-wgZ">
             <objects>
-                <viewController id="Z1T-Hp-7r5" customClass="MainMenuViewController" customModule="Medimate_temp_caseinsensitive_rename_temp_caseinsensitive_rename" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Z1T-Hp-7r5" customClass="MainMenuViewController" customModule="MediMate" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="viI-kY-etS"/>
                         <viewControllerLayoutGuide type="bottom" id="wh7-vU-XJB"/>
@@ -196,13 +197,13 @@
         <!--Title-->
         <scene sceneID="Z15-Jf-SXF">
             <objects>
-                <tableViewController id="iHg-gO-Lon" customClass="SearchListTableViewController" customModule="Medimate_temp_caseinsensitive_rename_temp_caseinsensitive_rename" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="iHg-gO-Lon" customClass="SearchListTableViewController" customModule="MediMate" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="aKF-Yx-I3f">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="resultCell" rowHeight="100" id="4IX-mM-vor" customClass="SearchResultCell" customModule="Medimate_temp_caseinsensitive_rename_temp_caseinsensitive_rename" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="resultCell" rowHeight="100" id="4IX-mM-vor" customClass="SearchResultCell" customModule="MediMate" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="113.5" width="600" height="100"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4IX-mM-vor" id="wir-Vr-3Lm">
@@ -302,7 +303,7 @@
                                     <segue destination="RgP-5n-4F5" kind="show" identifier="detailSegue" id="Rmv-Eg-SyJ"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="filterCell" rowHeight="65" id="gEM-nm-WLb" customClass="FilterButtonCell" customModule="Medimate_temp_caseinsensitive_rename_temp_caseinsensitive_rename" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="filterCell" rowHeight="65" id="gEM-nm-WLb" customClass="FilterButtonCell" customModule="MediMate" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="213.5" width="600" height="65"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gEM-nm-WLb" id="EC8-3u-oA6">
@@ -378,13 +379,13 @@
         <!--Side Filter Table View Controller-->
         <scene sceneID="M4r-6A-PnV">
             <objects>
-                <tableViewController storyboardIdentifier="SideFilterTableViewController" automaticallyAdjustsScrollViewInsets="NO" id="L8j-zL-Oay" customClass="SideFilterTableViewController" customModule="Medimate_temp_caseinsensitive_rename_temp_caseinsensitive_rename" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="SideFilterTableViewController" automaticallyAdjustsScrollViewInsets="NO" id="L8j-zL-Oay" customClass="SideFilterTableViewController" customModule="MediMate" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="5eO-ex-3Ip">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="titleCell" rowHeight="65" id="neb-1F-OPj" customClass="FilterTitleCell" customModule="Medimate_temp_caseinsensitive_rename_temp_caseinsensitive_rename" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="titleCell" rowHeight="65" id="neb-1F-OPj" customClass="FilterTitleCell" customModule="MediMate" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="49.5" width="600" height="65"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="neb-1F-OPj" id="zsx-zu-Nia">
@@ -434,7 +435,7 @@
                                     <outlet property="valueLabel" destination="ZHP-6f-Azt" id="mfL-Eo-PXh"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="valueCell" id="heK-63-9Uq" customClass="FilterTitleCell" customModule="Medimate_temp_caseinsensitive_rename_temp_caseinsensitive_rename" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="valueCell" id="heK-63-9Uq" customClass="FilterTitleCell" customModule="MediMate" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="114.5" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="heK-63-9Uq" id="bAB-Rd-0rQ">
@@ -461,7 +462,7 @@
                                     <outlet property="titleLabel" destination="41Q-3b-zCR" id="CEh-aY-zzu"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="switchCell" id="iVN-uX-aL7" customClass="FilterSwitchCell" customModule="Medimate_temp_caseinsensitive_rename_temp_caseinsensitive_rename" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="switchCell" id="iVN-uX-aL7" customClass="FilterSwitchCell" customModule="MediMate" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="158.5" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="iVN-uX-aL7" id="ELa-4I-x8X">
@@ -497,7 +498,7 @@
                                     <outlet property="titleLabel" destination="0Jw-Ac-rHe" id="0kw-zy-EuT"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="headerCell" rowHeight="60" id="lW8-3c-tKk" customClass="FilterHeaderCell" customModule="Medimate_temp_caseinsensitive_rename_temp_caseinsensitive_rename" customModuleProvider="target">
+                            <tableViewCell opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" shouldIndentWhileEditing="NO" reuseIdentifier="headerCell" focusStyle="custom" rowHeight="60" id="lW8-3c-tKk" customClass="FilterHeaderCell" customModule="MediMate" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="202.5" width="600" height="60"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="lW8-3c-tKk" id="KH7-7b-VOO">
@@ -563,13 +564,13 @@
         <!--Result Detail Table View Controller-->
         <scene sceneID="TTF-l0-oeX">
             <objects>
-                <tableViewController restorationIdentifier="DetailViewController" storyboardIdentifier="DetailViewController" id="RgP-5n-4F5" customClass="ResultDetailTableViewController" customModule="Medimate_temp_caseinsensitive_rename_temp_caseinsensitive_rename" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController restorationIdentifier="DetailViewController" storyboardIdentifier="DetailViewController" id="RgP-5n-4F5" customClass="ResultDetailTableViewController" customModule="MediMate" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="116" sectionHeaderHeight="18" sectionFooterHeight="18" id="H8C-1B-cmf">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="headerCell" rowHeight="146" id="6IY-jZ-Eo5" customClass="DetailHeaderCell" customModule="Medimate_temp_caseinsensitive_rename_temp_caseinsensitive_rename" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="headerCell" rowHeight="146" id="6IY-jZ-Eo5" customClass="DetailHeaderCell" customModule="MediMate" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="113.5" width="600" height="146"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6IY-jZ-Eo5" id="Zuq-Wp-c08">
@@ -666,7 +667,7 @@
                                     <outlet property="typeLabel" destination="8I0-9f-4A5" id="bHV-9y-lQN"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="contactCell" rowHeight="44" id="JdR-lf-eED" customClass="DetailContactCell" customModule="Medimate_temp_caseinsensitive_rename_temp_caseinsensitive_rename" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="contactCell" rowHeight="44" id="JdR-lf-eED" customClass="DetailContactCell" customModule="MediMate" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="259.5" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="JdR-lf-eED" id="402-l0-eTB">
@@ -704,7 +705,7 @@
                                     <outlet property="valueLabel" destination="VH7-rv-6KS" id="nfb-OQ-cvu"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="openingHourCell" rowHeight="44" id="Kf9-zo-8pr" customClass="DetailOpeningHourCell" customModule="Medimate_temp_caseinsensitive_rename_temp_caseinsensitive_rename" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="openingHourCell" rowHeight="44" id="Kf9-zo-8pr" customClass="DetailOpeningHourCell" customModule="MediMate" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="303.5" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Kf9-zo-8pr" id="Jag-wN-148">
@@ -750,27 +751,87 @@
                             <outlet property="delegate" destination="RgP-5n-4F5" id="Ah1-3X-N82"/>
                         </connections>
                     </tableView>
+                    <toolbarItems>
+                        <barButtonItem title="Item" id="FhN-ae-Xji"/>
+                        <barButtonItem title="Item" id="tMh-qp-pzb"/>
+                    </toolbarItems>
+                    <navigationItem key="navigationItem" id="aHs-Un-C3b">
+                        <barButtonItem key="rightBarButtonItem" image="shape.png" id="AJh-ot-oUQ">
+                            <connections>
+                                <action selector="favoriteBtnClicked:" destination="RgP-5n-4F5" id="Tju-iK-5vl"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="favoriteButton" destination="AJh-ot-oUQ" id="HRs-sB-vYi"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8wV-VY-1Sr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3698" y="-552"/>
         </scene>
-        <!--Root View Controller-->
+        <!--Favourite List-->
         <scene sceneID="56W-SP-0yP">
             <objects>
-                <tableViewController id="2Zn-X6-p4y" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="o6V-aR-0LI">
+                <tableViewController id="2Zn-X6-p4y" customClass="FavouritesTableViewController" customModule="MediMate" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="80" sectionHeaderHeight="18" sectionFooterHeight="18" id="o6V-aR-0LI">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <label key="tableFooterView" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="64H-vE-8Uc">
+                            <rect key="frame" x="0.0" y="211.5" width="600" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="00m-bj-BuK">
-                                <rect key="frame" x="0.0" y="92" width="600" height="44"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="facilityCell" rowHeight="80" id="00m-bj-BuK" customClass="FavoritesFacilityCell" customModule="MediMate" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="113.5" width="600" height="80"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="00m-bj-BuK" id="Lwo-af-Y6j">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="567" height="79.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3ca-3q-Zyr">
+                                            <rect key="frame" x="8" y="8" width="64" height="64"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="64" id="Wqp-FK-mr1"/>
+                                            </constraints>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hoy-VC-ljW">
+                                            <rect key="frame" x="82" y="0.0" width="485" height="48"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Address" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kcK-4q-dSQ">
+                                            <rect key="frame" x="82" y="45" width="485" height="35"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="hoy-VC-ljW" firstAttribute="leading" secondItem="3ca-3q-Zyr" secondAttribute="trailing" constant="10" id="0Hf-fT-lzA"/>
+                                        <constraint firstItem="hoy-VC-ljW" firstAttribute="top" secondItem="Lwo-af-Y6j" secondAttribute="top" id="13a-Qa-9S8"/>
+                                        <constraint firstItem="3ca-3q-Zyr" firstAttribute="centerY" secondItem="Lwo-af-Y6j" secondAttribute="centerY" id="A5j-cf-McR"/>
+                                        <constraint firstItem="hoy-VC-ljW" firstAttribute="leading" secondItem="kcK-4q-dSQ" secondAttribute="leading" id="LhM-Na-Qun"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="kcK-4q-dSQ" secondAttribute="bottom" constant="-8.5" id="LhT-Qj-v0E"/>
+                                        <constraint firstItem="3ca-3q-Zyr" firstAttribute="leading" secondItem="Lwo-af-Y6j" secondAttribute="leadingMargin" id="M49-4U-68D"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="hoy-VC-ljW" secondAttribute="bottom" constant="23.5" id="PJ1-IQ-HQc"/>
+                                        <constraint firstItem="3ca-3q-Zyr" firstAttribute="top" secondItem="Lwo-af-Y6j" secondAttribute="topMargin" id="RK2-QG-SVH"/>
+                                        <constraint firstAttribute="trailing" secondItem="hoy-VC-ljW" secondAttribute="trailing" id="Xen-ds-wAj"/>
+                                        <constraint firstItem="hoy-VC-ljW" firstAttribute="trailing" secondItem="kcK-4q-dSQ" secondAttribute="trailing" id="dIm-l5-bi3"/>
+                                        <constraint firstItem="kcK-4q-dSQ" firstAttribute="top" secondItem="Lwo-af-Y6j" secondAttribute="topMargin" constant="37" id="ndn-bo-Dgd"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="addressLabel" destination="kcK-4q-dSQ" id="k24-PA-aPC"/>
+                                    <outlet property="picView" destination="3ca-3q-Zyr" id="d1R-0W-YMY"/>
+                                    <outlet property="titleLabel" destination="hoy-VC-ljW" id="vZT-Dn-IgT"/>
+                                    <segue destination="RgP-5n-4F5" kind="show" identifier="detailSegue" id="zI2-yo-AlQ"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -778,22 +839,25 @@
                             <outlet property="delegate" destination="2Zn-X6-p4y" id="1JK-l6-Jou"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Root View Controller" id="bkp-Pm-1ZZ"/>
+                    <navigationItem key="navigationItem" title="Favourite List" id="bkp-Pm-1ZZ"/>
+                    <connections>
+                        <outlet property="infoLabel" destination="64H-vE-8Uc" id="yWD-5t-b9a"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JbE-k8-r9w" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1739" y="396"/>
+            <point key="canvasLocation" x="1731" y="408"/>
         </scene>
         <!--Settings-->
         <scene sceneID="jos-QC-kuq">
             <objects>
-                <tableViewController id="1ue-1i-Vbo" customClass="ProfileTableViewController" customModule="Medimate_temp_caseinsensitive_rename_temp_caseinsensitive_rename" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="1ue-1i-Vbo" customClass="ProfileTableViewController" customModule="MediMate" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="p1S-Mf-ivB">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="settingCell" id="Fe1-xd-DAR" customClass="SettingCell" customModule="Medimate_temp_caseinsensitive_rename_temp_caseinsensitive_rename" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="settingCell" id="Fe1-xd-DAR" customClass="SettingCell" customModule="MediMate" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="113.5" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Fe1-xd-DAR" id="Ypq-7X-F9r">
@@ -847,13 +911,13 @@
         <!--Item-->
         <scene sceneID="INT-2P-RqF">
             <objects>
-                <tableViewController id="JaY-UO-ZL0" customClass="SettingEditTableViewController" customModule="Medimate_temp_caseinsensitive_rename_temp_caseinsensitive_rename" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="JaY-UO-ZL0" customClass="SettingEditTableViewController" customModule="MediMate" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="jdO-9A-cGr">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="settingValueCell" id="f43-yF-SrZ" customClass="SettingValueCell" customModule="Medimate_temp_caseinsensitive_rename_temp_caseinsensitive_rename" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="settingValueCell" id="f43-yF-SrZ" customClass="SettingValueCell" customModule="MediMate" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="113.5" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="f43-yF-SrZ" id="iPb-Ps-vKD">
@@ -928,7 +992,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YEh-j6-N20" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="685" y="396"/>
+            <point key="canvasLocation" x="919" y="408"/>
         </scene>
         <!--Item-->
         <scene sceneID="XHQ-Qs-8JU">
@@ -958,10 +1022,12 @@
         <image name="filter.png" width="64" height="64"/>
         <image name="open_now.png" width="200" height="50"/>
         <image name="pharmacy.png" width="128" height="128"/>
-        <image name="physiotherapist.png" width="128" height="128"/>
+        <image name="physiotherapist.png" width="512" height="512"/>
         <image name="settings_32.png" width="32" height="32"/>
+        <image name="shape.png" width="28" height="28"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="zI2-yo-AlQ"/>
         <segue reference="mkP-Kg-Bkp"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.12941176469999999" green="0.43529411759999997" blue="0.73333333329999995" alpha="1" colorSpace="calibratedRGB"/>

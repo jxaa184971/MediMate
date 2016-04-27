@@ -46,6 +46,7 @@ class HTTPHelper: NSObject {
             {
                 let facility = Facility()
                 let facilityEntry = oneEntry as! NSDictionary
+                facility.id = facilityEntry.valueForKey("facilityId") as! Int
                 facility.name = facilityEntry.valueForKey("name") as! String
                 facility.address = facilityEntry.valueForKey("address") as! String
                 let suburbString = facilityEntry.valueForKey("suburb") as! String
@@ -72,6 +73,9 @@ class HTTPHelper: NSObject {
                     facility.bulkBilling = false
                 }
                 
+                facility.rating = 0
+                facility.numberOfReview = 0
+                
                 results.append(facility)
             }
             
@@ -83,4 +87,33 @@ class HTTPHelper: NSObject {
             return nil
         }
     }
+    
+    static func isConnectedToNetwork() -> Bool {
+        
+        var Status:Bool = false
+        let url = NSURL(string: "http://google.com/")
+        let request = NSMutableURLRequest(URL: url!)
+        request.HTTPMethod = "HEAD"
+        request.cachePolicy = NSURLRequestCachePolicy.ReloadIgnoringLocalAndRemoteCacheData
+        request.timeoutInterval = 10.0
+        
+        var response: NSURLResponse?
+        
+        do
+        {
+            var data =  try NSURLConnection.sendSynchronousRequest(request, returningResponse: &response) as NSData
+            if let httpResponse = response as? NSHTTPURLResponse {
+                if httpResponse.statusCode == 200 {
+                    Status = true
+                }
+            }
+        }
+        catch
+        {
+            Status = false
+        }
+        
+        return Status
+    }
+
 }

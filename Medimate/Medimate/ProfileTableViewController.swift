@@ -15,31 +15,32 @@ class ProfileTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        
+        // change the style of navigation bar
         let color = UIColor(red: 40/255, green: 130/255, blue: 200/255, alpha: 1)
         self.navigationController?.navigationBar.translucent = false
         self.navigationController?.navigationBar.barStyle = .Black
         self.navigationController?.navigationBar.barTintColor = color
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
         
-        let languages = NSUserDefaults.standardUserDefaults().objectForKey("AppleLanguages") as! NSArray
-        let language = languages[0] as! String
-        if language == "zh-Hans"
+        if NSUserDefaults.standardUserDefaults().objectForKey("AppleLanguages") != nil
         {
-            self.settings = [NSLocalizedString("System Language", comment:""): "中文"]
+            let languages = NSUserDefaults.standardUserDefaults().objectForKey("AppleLanguages") as! NSArray
+            let language = languages[0] as! String
+            if language == "zh-Hans" || language == "zh-Hans-AU"
+            {
+                self.settings = [NSLocalizedString("System Language", comment:""): "中文"]
+            }
+            else if language == "es" || language == "es-AU"
+            {
+                self.settings = [NSLocalizedString("System Language", comment:""): "Español"]
+            }
+            else 
+            {
+                self.settings = [NSLocalizedString("System Language", comment:""): "English"]
+            }
         }
-        else if language == "es"
-        {
-            self.settings = [NSLocalizedString("System Language", comment:""): "Español"]
-        }
-        else if language == "en"
-        {
-            self.settings = [NSLocalizedString("System Language", comment:""): "English"]
-        }
-        
-        NSUserDefaults.standardUserDefaults().setObject(["zh-Hans"], forKey: "AppleLanguages")
-        NSUserDefaults.standardUserDefaults().synchronize()
-        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 

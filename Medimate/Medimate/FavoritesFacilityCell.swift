@@ -1,15 +1,18 @@
 //
-//  FilterValueTableViewCell.swift
+//  FavoritesFacilityCell.swift
 //  Medimate
 //
-//  Created by Yichuan Huang on 15/04/2016.
+//  Created by 一川 黄 on 27/04/2016.
 //  Copyright © 2016 Team MarshGhatti. All rights reserved.
 //
 
 import UIKit
 
-class FilterValueTableViewCell: UITableViewCell {
+class FavoritesFacilityCell: UITableViewCell {
 
+    @IBOutlet var picView: UIImageView!
+    @IBOutlet var titleLabel: UILabel!
+    @IBOutlet var addressLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
