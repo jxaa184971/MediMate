@@ -273,6 +273,10 @@ class ResultDetailTableViewController: UITableViewController, GMSMapViewDelegate
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if indexPath.section == 1
         {
+            if indexPath.row == 1
+            {
+                self.addressAlterViewClicked()
+            }
             if indexPath.row == 2
             {
                 let phoneNumberURL = "tel:\(PhoneNoHelper.phoneNumberFromString(self.result.phone))"
@@ -387,6 +391,44 @@ class ResultDetailTableViewController: UITableViewController, GMSMapViewDelegate
     func getCurrentLocation() -> CLLocation
     {
         return self.locationManager.location!
+    }
+    
+    // MARK: - Google Map
+    func openAddressInGoogleMap()
+    {
+        let addressString = self.result.address.stringByReplacingOccurrencesOfString(" ", withString: "+", options: NSStringCompareOptions.LiteralSearch, range: nil)
+        let string = "comgooglemaps://?daddr=\(addressString)&center=\(self.result.latitude),\(self.result.longitude)&zoom=10"
+        if (UIApplication.sharedApplication().canOpenURL(NSURL(string:"comgooglemaps://")!))
+        {
+            UIApplication.sharedApplication().openURL(NSURL(string: string)!)
+        }
+        else
+        {
+            let title = NSLocalizedString("Error", comment: "")
+            let message = NSLocalizedString("Can't find Google Map application on your phone.", comment: "")
+            let alertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+            let cancelAction = UIAlertAction(title: NSLocalizedString("Okay", comment: ""), style: .Default, handler: nil)
+            alertController.addAction(cancelAction)
+            self.presentViewController(alertController, animated: true, completion: nil)
+        }
+    }
+    
+    func addressAlterViewClicked()
+    {
+        let title = NSLocalizedString("Open Google Map", comment: "")
+        let message = NSLocalizedString("Are you sure to show the facility address in Google Map?", comment: "")
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+        
+        let defaultAction = UIAlertAction(title: NSLocalizedString("Yes", comment: ""), style: .Default, handler:
+            { (action:UIAlertAction!) in
+                self.openAddressInGoogleMap()
+        })
+        
+        let cancelAction = UIAlertAction(title: NSLocalizedString("No", comment: ""), style: .Default, handler: nil)
+        alertController.addAction(defaultAction)
+        alertController.addAction(cancelAction)
+        
+        self.presentViewController(alertController, animated: true, completion: nil)
     }
     
     // MARK: - OpenURL

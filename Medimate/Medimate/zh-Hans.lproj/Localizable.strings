@@ -108,4 +108,12 @@
 
 "Favourites" = "个人收藏";
 
-"" = "";
+"Error" = "错误";
+
+"Can't find Google Map application on your phone." = "无法在你的手机上找到谷歌地图";
+
+"Open Google Map" = "打开谷歌地图";
+
+"Are you sure to show the facility address in Google Map?" = "你确定要在谷歌地图上显示该医疗设施的地址吗?";
+
+
