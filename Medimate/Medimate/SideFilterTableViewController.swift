@@ -200,7 +200,6 @@ class SideFilterTableViewController: UITableViewController, SwitchClickedProtoco
             {
                 self.locationSeleted = !self.locationSeleted
             }
-            
             self.tableView.reloadSections(NSIndexSet(index: indexPath.section), withRowAnimation: .Fade)
         }
         else
@@ -292,11 +291,16 @@ class SideFilterTableViewController: UITableViewController, SwitchClickedProtoco
         self.searchController.onlyShowOpenNow = false
         self.searchController.onlyBulkBilling = false
         self.searchController.searchCategory = self.searchController.initialSearchCategory
-        self.searchController.filter = ["searchLocation":NSLocalizedString("Current Location (Within 5km)", comment:""), "language": "English", "sortBy": NSLocalizedString("Distance",comment:""), "postCode":""]
+        self.searchController.filter["searchLocation"] = NSLocalizedString("Current Location (Within 5km)", comment:"")
+        self.searchController.filter["language"] = "English"
         self.filter = self.searchController.filter
         self.searchController.requestForNewData()
         self.searchController.refresh()
         self.tableView.reloadData()
+        
+        let mainController = self.searchController.navigationController?.viewControllers[0] as! MainMenuViewController
+        mainController.filter = searchController.filter
+
     }
  
     /*

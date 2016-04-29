@@ -23,11 +23,16 @@ class ResultDetailTableViewController: UITableViewController, GMSMapViewDelegate
         super.viewDidLoad()
         self.automaticallyAdjustsScrollViewInsets = false
         self.networkConnected = HTTPHelper.isConnectedToNetwork()
-        print("\(self.networkConnected)")
+
         // initialize location manager
         self.locationManager = CLLocationManager()
         self.locationManager.delegate = self
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        
+        if self.revealViewController() != nil
+        {
+            self.view.addGestureRecognizer(self.revealViewController().tapGestureRecognizer())
+        }
         
         self.navigationItem.title = ""
         self.showMap()

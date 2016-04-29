@@ -42,12 +42,13 @@
                     <connections>
                         <segue destination="6Ay-fY-SUR" kind="relationship" relationship="viewControllers" id="hsb-YO-yis"/>
                         <segue destination="eca-M7-G8s" kind="relationship" relationship="viewControllers" id="wi3-82-Jul"/>
+                        <segue destination="aUQ-pW-FdU" kind="relationship" relationship="viewControllers" id="WSd-Mq-JX0"/>
                         <segue destination="ob1-Mi-FM1" kind="relationship" relationship="viewControllers" id="DMN-M8-Ag4"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vNM-V3-XCZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-74" y="408"/>
+            <point key="canvasLocation" x="-138" y="400"/>
         </scene>
         <!--MediMate-->
         <scene sceneID="jmQ-pG-wgZ">
@@ -67,7 +68,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="f1x-OP-Qga"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
                                 <state key="normal">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -81,7 +82,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="h17-Wz-t6e"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
                                 <state key="normal">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -109,7 +110,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="6Hh-9S-Nr6"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
                                 <state key="normal">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -123,7 +124,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="KdW-1Z-3Im"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
                                 <state key="normal">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -848,6 +849,25 @@
             </objects>
             <point key="canvasLocation" x="1731" y="408"/>
         </scene>
+        <!--Nearby-->
+        <scene sceneID="BF7-LT-0X4">
+            <objects>
+                <viewController id="vKm-QQ-hf1" customClass="NearbyViewController" customModule="MediMate" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="lyR-Ej-Hil"/>
+                        <viewControllerLayoutGuide type="bottom" id="AtN-41-5dV"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="jNh-qT-gSI">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Nearby" id="aYn-Qk-SSk"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Vvw-w6-RFc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1731" y="1162"/>
+        </scene>
         <!--Settings-->
         <scene sceneID="jos-QC-kuq">
             <objects>
@@ -906,7 +926,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gEr-Si-2cs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1490" y="1241"/>
+            <point key="canvasLocation" x="938" y="1861"/>
         </scene>
         <!--Item-->
         <scene sceneID="INT-2P-RqF">
@@ -958,7 +978,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qLn-Sf-ghC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2314" y="1241"/>
+            <point key="canvasLocation" x="1826" y="1861"/>
         </scene>
         <!--Settings-->
         <scene sceneID="jfh-Dl-Lru">
@@ -975,7 +995,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cy5-46-nFQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="670" y="1241"/>
+            <point key="canvasLocation" x="-74" y="1861"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="42h-Uo-KkQ">
@@ -1013,6 +1033,25 @@
             </objects>
             <point key="canvasLocation" x="919" y="-542"/>
         </scene>
+        <!--Nearby-->
+        <scene sceneID="YTi-Bu-80j">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="aUQ-pW-FdU" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Nearby" image="nearby.png" id="KcO-IF-3Pz"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="ou2-CW-YTk">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="vKm-QQ-hf1" kind="relationship" relationship="rootViewController" id="v7Q-ww-VR7"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="S9D-ug-I6s" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="919" y="1162"/>
+        </scene>
     </scenes>
     <resources>
         <image name="GP_icon.png" width="128" height="128"/>
@@ -1020,15 +1059,16 @@
         <image name="bulkBilling.png" width="630" height="112"/>
         <image name="dentist.png" width="128" height="128"/>
         <image name="filter.png" width="64" height="64"/>
+        <image name="nearby.png" width="32" height="32"/>
         <image name="open_now.png" width="200" height="50"/>
         <image name="pharmacy.png" width="128" height="128"/>
-        <image name="physiotherapist.png" width="512" height="512"/>
-        <image name="settings_32.png" width="32" height="32"/>
+        <image name="physiotherapist.png" width="1200" height="1200"/>
+        <image name="settings_32.png" width="28" height="28"/>
         <image name="shape.png" width="28" height="28"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="zI2-yo-AlQ"/>
         <segue reference="mkP-Kg-Bkp"/>
+        <segue reference="Rmv-Eg-SyJ"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.12941176469999999" green="0.43529411759999997" blue="0.73333333329999995" alpha="1" colorSpace="calibratedRGB"/>
 </document>

@@ -86,6 +86,11 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
+        if self.revealViewController() != nil
+        {
+            self.view.addGestureRecognizer(self.revealViewController().tapGestureRecognizer())
+            self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+        }
         self.requestForNewData()
         self.refresh()
     }
@@ -340,7 +345,7 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
             
             let camera = GMSCameraPosition.cameraWithLatitude(location.coordinate.latitude,
                 longitude: location.coordinate.longitude, zoom: 5)
-            self.mapView = GMSMapView.mapWithFrame(CGRect(x: 0,y: 160,width: self.view.frame.width,height: self.view.frame.height-160), camera: camera)   //240
+            self.mapView = GMSMapView.mapWithFrame(CGRect(x: 0,y: 158,width: self.view.frame.width,height: self.view.frame.height-158), camera: camera)   //240
             self.mapView.myLocationEnabled = true
             self.mapView.settings.myLocationButton = true
             self.mapView.delegate = self
@@ -647,10 +652,13 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
                 self.samples = results!
             }
     
-            let location = self.getCurrentLocation()
-            DistanceCalculator.distanceBetween(location, facilityArray: self.samples)
+            if HTTPHelper.isConnectedToNetwork()
+            {
+                let location = self.getCurrentLocation()
+                DistanceCalculator.distanceBetween(location, facilityArray: self.samples)
+            }
+        }
     }
-}
 
 
 

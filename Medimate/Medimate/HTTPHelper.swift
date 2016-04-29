@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreLocation
 
 class HTTPHelper: NSObject {
 
@@ -16,6 +17,28 @@ class HTTPHelper: NSObject {
     static func requestForFacilitiesByType(type: String) -> Array<Facility>?
     {
         let url = NSURL(string: "\(HTTPHelper.URL)\(HTTPHelper.FACILITY)findByType/\(type)")
+        
+        let request1: NSURLRequest = NSURLRequest(URL: url!)
+        let response: AutoreleasingUnsafeMutablePointer<NSURLResponse?> = nil
+        do
+        {
+            let data: NSData =  try NSURLConnection.sendSynchronousRequest(request1, returningResponse: response)
+            let results = HTTPHelper.parseJSONToFacilities(data)
+            if results != nil
+            {
+                return results
+            }
+        }
+        catch
+        {
+            print("Error: There might have Internet Issues")
+        }
+        return nil
+    }
+    
+    static func requestForFacilitiesNearby(curLocation:CLLocation) -> Array<Facility>?
+    {
+        let url = NSURL(string: "\(HTTPHelper.URL)\(HTTPHelper.FACILITY)facilityWithKM/5/\(curLocation.coordinate.latitude)/\(curLocation.coordinate.longitude)")
         
         let request1: NSURLRequest = NSURLRequest(URL: url!)
         let response: AutoreleasingUnsafeMutablePointer<NSURLResponse?> = nil

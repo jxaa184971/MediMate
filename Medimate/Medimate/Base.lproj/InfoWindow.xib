@@ -8,21 +8,21 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="MarkerInfoWindow" customModule="Medimate_temp_caseinsensitive_rename_temp_caseinsensitive_rename" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="250" height="200"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="MarkerInfoWindow" customModule="MediMate" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="250" height="182"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView userInteractionEnabled="NO" alpha="0.90000000000000002" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="CalloutBox.png" translatesAutoresizingMaskIntoConstraints="NO" id="z78-cp-WPl">
-                    <rect key="frame" x="0.0" y="0.0" width="250" height="200"/>
+                    <rect key="frame" x="0.0" y="0.0" width="250" height="182"/>
                 </imageView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qZc-I3-oaf">
-                    <rect key="frame" x="13" y="28" width="224" height="50"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Title" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qZc-I3-oaf">
+                    <rect key="frame" x="13" y="10" width="224" height="50"/>
                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rating" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GK9-6f-QQU">
-                    <rect key="frame" x="13" y="52" width="115" height="21"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Rating" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GK9-6f-QQU">
+                    <rect key="frame" x="13" y="34" width="115" height="21"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="21" id="DcT-To-AzT"/>
                     </constraints>
@@ -31,7 +31,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Address" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ig6-1O-qeB">
-                    <rect key="frame" x="13" y="91" width="224" height="42"/>
+                    <rect key="frame" x="13" y="73" width="224" height="42"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="42" id="CdW-kh-VAR"/>
                     </constraints>
@@ -39,8 +39,8 @@
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Type:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eCj-wh-bwW">
-                    <rect key="frame" x="13" y="75" width="224" height="21"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Type:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eCj-wh-bwW">
+                    <rect key="frame" x="13" y="57" width="224" height="21"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="21" id="czR-cF-RGK"/>
                     </constraints>
@@ -48,8 +48,8 @@
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reviews" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BT5-0P-DEG">
-                    <rect key="frame" x="136" y="52" width="101" height="21"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Reviews" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BT5-0P-DEG">
+                    <rect key="frame" x="136" y="34" width="101" height="21"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="101" id="sPk-jz-Wh3"/>
                     </constraints>
@@ -57,8 +57,8 @@
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gGk-Yu-yRS">
-                    <rect key="frame" x="13" y="125" width="224" height="30"/>
+                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gGk-Yu-yRS">
+                    <rect key="frame" x="13" y="107" width="224" height="30"/>
                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                     <state key="normal" title="Click For More Info"/>
                     <connections>
@@ -100,7 +100,7 @@
                 <outlet property="titleLabel" destination="qZc-I3-oaf" id="eRa-GR-95Q"/>
                 <outlet property="typeLabel" destination="eCj-wh-bwW" id="30u-Jf-vq1"/>
             </connections>
-            <point key="canvasLocation" x="370" y="151"/>
+            <point key="canvasLocation" x="370" y="160"/>
         </view>
     </objects>
     <resources>

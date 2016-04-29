@@ -121,7 +121,7 @@ class FavouritesTableViewController: UITableViewController {
         }
         if facility.type == "Physiotherapist"
         {
-            cell.picView.image = UIImage(named: "physio_blue.png")
+            cell.picView.image = UIImage(named: "physiotherapist_blue.png")
         }
         if facility.type == "Pharmacy"
         {
