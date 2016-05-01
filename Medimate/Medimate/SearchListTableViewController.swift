@@ -192,35 +192,44 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
             {
                 cell.bulkBillingImageView.image = UIImage(named:"blank.png")
             }
-            
-            
-            cell.picView.image = UIImage(named: "DefaultImage.png")
-            // set the picView display image as a circle
-            cell.picView.layer.cornerRadius = CGRectGetHeight(cell.picView.bounds) / 2
-            // remove the parts outside the bound
-            cell.picView.clipsToBounds =  true
-            
-            // asynchronous loading images from URL
-            let session = NSURLSession.sharedSession()
-            let url = NSURL(string: self.results[indexPath.row].imageURL)
-            let task = session.dataTaskWithURL(url!, completionHandler:
-                {
-                    (data, response, error) -> Void in
-                    if error != nil
-                    {
-                        print("Error: \(error!.localizedDescription)")
-                    }
-                    else
-                    {
-                        let image = UIImage(data: data!)
-                        dispatch_async(dispatch_get_main_queue(),
-                            {
-                                let cellToUpdate = tableView.cellForRowAtIndexPath(indexPath) as! SearchResultCell
-                                cellToUpdate.picView.image = image
-                        })
-                    }
-            })
-            task.resume()
+            var imageString = ""
+            if self.results[indexPath.row].type == "GP" || self.results[indexPath.row].type == "Clinic"
+            {
+                imageString = "marker_gp.png"
+            }
+            else if self.results[indexPath.row].type == "Physiotherapist"
+            {
+                imageString = "marker_phy.png"
+            }
+            else if self.results[indexPath.row].type == "Pharmacy"
+            {
+                imageString = "marker_pharmacy.png"
+            }
+            else if self.results[indexPath.row].type == "Dentist"
+            {
+                imageString = "marker_dentist.png"
+            }
+            else if self.results[indexPath.row].type == "Clinic, Physiotherapist"
+            {
+                imageString = "marker_gp_phy.png"
+            }
+            else if self.results[indexPath.row].type == "Clinic, Dentist"
+            {
+                imageString = "marker_gp_den.png"
+            }
+            else if self.results[indexPath.row].type == "Physiotherapist, Pharmacy"
+            {
+                imageString = "marker_phy_pha.png"
+            }
+            else if self.results[indexPath.row].type == "Clinic, Dentist, Physiotherapist, Pharmacy"
+            {
+                imageString = "marker_all.png"
+            }
+            else
+            {
+                imageString = "marker.png"
+            }
+            cell.picView.image = UIImage(named: imageString)
             return cell
 
         }
@@ -322,6 +331,46 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
             let marker = GMSMarker(position: position)
             marker.userData = result
             marker.map = self.mapView
+            var imageString = ""
+            if result.type == "GP" || result.type == "Clinic"
+            {
+                imageString = "marker_gp.png"
+            }
+            else if result.type == "Physiotherapist"
+            {
+                imageString = "marker_phy.png"
+            }
+            else if result.type == "Pharmacy"
+            {
+                imageString = "marker_pharmacy.png"
+            }
+            else if result.type == "Dentist"
+            {
+                imageString = "marker_dentist.png"
+            }
+            else if result.type == "Clinic, Physiotherapist"
+            {
+                imageString = "marker_gp_phy.png"
+            }
+            else if result.type == "Clinic, Dentist"
+            {
+                imageString = "marker_gp_den.png"
+            }
+            else if result.type == "Physiotherapist, Pharmacy"
+            {
+                imageString = "marker_phy_pha.png"
+            }
+            else if result.type == "Clinic, Dentist, Physiotherapist, Pharmacy"
+            {
+                imageString = "marker_all.png"
+            }
+            else
+            {
+                imageString = "marker.png"
+            }
+            
+            let image = UIImage(named:imageString)
+            marker.icon = ImageHelper.resizeImage(image!, newWidth: 35)
         }
     }
     

@@ -46,7 +46,13 @@ class NearbyViewController: UIViewController, GMSMapViewDelegate, CLLocationMana
     }
     
     override func viewWillAppear(animated: Bool) {
-
+        if self.mapView != nil
+        {
+            let location = self.getCurrentLocation()
+            let camera = GMSCameraPosition.cameraWithLatitude(location.coordinate.latitude,
+                                                              longitude: location.coordinate.longitude, zoom: 15)
+            self.mapView.camera = camera
+        }
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -88,7 +94,7 @@ class NearbyViewController: UIViewController, GMSMapViewDelegate, CLLocationMana
     {
         let location = self.getCurrentLocation()
         let camera = GMSCameraPosition.cameraWithLatitude(location.coordinate.latitude,
-                                                          longitude: location.coordinate.longitude, zoom: 12)
+                                                          longitude: location.coordinate.longitude, zoom: 15)
         self.mapView = GMSMapView.mapWithFrame(CGRect(x: 0,y: 0,width: self.view.frame.width,height: self.view.frame.height-110), camera: camera)
         self.mapView.myLocationEnabled = true
         self.mapView.settings.myLocationButton = true
@@ -111,8 +117,47 @@ class NearbyViewController: UIViewController, GMSMapViewDelegate, CLLocationMana
             let position = CLLocationCoordinate2DMake(result.latitude, result.longitude)
             let marker = GMSMarker(position: position)
             marker.userData = result
-            marker.appearAnimation = kGMSMarkerAnimationPop
-            marker.icon = UIImage(named: "maker.png")
+            var imageString = ""
+            if result.type == "GP" || result.type == "Clinic"
+            {
+                imageString = "marker_gp.png"
+            }
+            else if result.type == "Physiotherapist"
+            {
+                imageString = "marker_phy.png"
+            }
+            else if result.type == "Pharmacy"
+            {
+                imageString = "marker_pharmacy.png"
+            }
+            else if result.type == "Dentist"
+            {
+                imageString = "marker_dentist.png"
+            }
+            else if result.type == "Clinic, Physiotherapist"
+            {
+                imageString = "marker_gp_phy.png"
+            }
+            else if result.type == "Clinic, Dentist"
+            {
+                imageString = "marker_gp_den.png"
+            }
+            else if result.type == "Physiotherapist, Pharmacy"
+            {
+                imageString = "marker_phy_pha.png"
+            }
+            else if result.type == "Clinic, Dentist, Physiotherapist, Pharmacy"
+            {
+                imageString = "marker_all.png"
+            }
+            else
+            {
+                imageString = "marker.png"
+            }
+
+            let image = UIImage(named:imageString)
+            marker.icon = ImageHelper.resizeImage(image!, newWidth: 35)
+
             marker.map = self.mapView
         }
     }
@@ -145,6 +190,8 @@ class NearbyViewController: UIViewController, GMSMapViewDelegate, CLLocationMana
         controller.result = selectedFacility
         self.navigationController?.pushViewController(controller, animated: true)
     }
+    
+  
     
     /*
     // MARK: - Navigation

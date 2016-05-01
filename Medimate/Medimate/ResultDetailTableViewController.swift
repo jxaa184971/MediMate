@@ -76,7 +76,7 @@ class ResultDetailTableViewController: UITableViewController, GMSMapViewDelegate
                                                           longitude: location.coordinate.longitude,
                                                           zoom: 12)
 
-        self.mapView = GMSMapView.mapWithFrame(CGRect(x: 0, y: 181, width: self.view.frame.width, height: 155), camera: camera)
+        self.mapView = GMSMapView.mapWithFrame(CGRect(x: 0, y: 215, width: self.view.frame.width, height: 155), camera: camera)
         self.mapView.myLocationEnabled = false
         self.mapView.settings.myLocationButton = false
         self.mapView.delegate = self
@@ -247,7 +247,7 @@ class ResultDetailTableViewController: UITableViewController, GMSMapViewDelegate
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if indexPath.section == 0
         {
-            return 146
+            return 180
         }
         else if indexPath.section == 1 && indexPath.row == 0
         {

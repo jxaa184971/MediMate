@@ -111,22 +111,45 @@ class FavouritesTableViewController: UITableViewController {
         let facility = self.favouriteList[indexPath.row]
         cell.titleLabel.text = facility.name
         cell.addressLabel.text = facility.address
+        var imageString = ""
         if facility.type == "GP" || facility.type == "Clinic"
         {
-            cell.picView.image = UIImage(named: "gp_blue.png")
+            imageString = "marker_gp.png"
         }
-        if facility.type == "Dentist"
+        else if facility.type == "Physiotherapist"
         {
-            cell.picView.image = UIImage(named: "dentist_blue.png")
+            imageString = "marker_phy.png"
         }
-        if facility.type == "Physiotherapist"
+        else if facility.type == "Pharmacy"
         {
-            cell.picView.image = UIImage(named: "physiotherapist_blue.png")
+            imageString = "marker_pharmacy.png"
         }
-        if facility.type == "Pharmacy"
+        else if facility.type == "Dentist"
         {
-            cell.picView.image = UIImage(named: "pharmacy_blue.png")
+            imageString = "marker_dentist.png"
         }
+        else if facility.type == "Clinic, Physiotherapist"
+        {
+            imageString = "marker_gp_phy.png"
+        }
+        else if facility.type == "Clinic, Dentist"
+        {
+            imageString = "marker_gp_den.png"
+        }
+        else if facility.type == "Physiotherapist, Pharmacy"
+        {
+            imageString = "marker_phy_pha.png"
+        }
+        else if facility.type == "Clinic, Dentist, Physiotherapist, Pharmacy"
+        {
+            imageString = "marker_all.png"
+        }
+        else
+        {
+            imageString = "DefaultImage.png"
+        }
+        cell.picView.image = UIImage(named: imageString)
+
         return cell
     }
 
