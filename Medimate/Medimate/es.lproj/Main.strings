@@ -97,3 +97,9 @@
 
 /* Class = "UINavigationItem"; title = "Settings"; ObjectID = "zxr-kK-tRO"; */
 "zxr-kK-tRO.title" = "Ajustes";
+
+/* Class = "UITabBarItem"; title = "Nearby"; ObjectID = "KcO-IF-3Pz"; */
+"KcO-IF-3Pz.title" = "Cerca de mí";
+
+/* Class = "UINavigationItem"; title = "Nearby"; ObjectID = "aYn-Qk-SSk"; */
+"aYn-Qk-SSk.title" = "Cerca de mí";

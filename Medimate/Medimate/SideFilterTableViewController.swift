@@ -77,6 +77,8 @@ class SideFilterTableViewController: UITableViewController, SwitchClickedProtoco
                 
                 let cell = tableView.dequeueReusableCellWithIdentifier("headerCell", forIndexPath: indexPath) as! FilterHeaderCell
                 cell.backgroundColor = color
+                cell.backButton.setTitle(NSLocalizedString("< Back", comment: ""), forState: .Normal)
+                cell.resetButton.setTitle(NSLocalizedString("Reset", comment: ""), forState: .Normal)
                 cell.delegate = self
                 cell.selectionStyle = .None
                 return cell

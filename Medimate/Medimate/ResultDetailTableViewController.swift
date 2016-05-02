@@ -47,12 +47,12 @@ class ResultDetailTableViewController: UITableViewController, GMSMapViewDelegate
         if self.inFavouriteList()
         {
             self.favorite = true
-            self.favoriteButton.image = UIImage(named: "favorite.png")
+            self.favoriteButton.image = ImageHelper.resizeImage(UIImage(named: "favorite.png")!, newWidth: 30)
         }
         else
         {
             self.favorite = false
-            self.favoriteButton.image = UIImage(named: "shape.png")
+            self.favoriteButton.image = ImageHelper.resizeImage(UIImage(named: "shape.png")!, newWidth: 30)
         }
         
         if self.networkConnected == true
@@ -286,8 +286,8 @@ class ResultDetailTableViewController: UITableViewController, GMSMapViewDelegate
             {
                 let phoneNumberURL = "tel:\(PhoneNoHelper.phoneNumberFromString(self.result.phone))"
                 
-                let title = NSLocalizedString("Make Phone Call", comment: "")
-                let message = NSLocalizedString("Are you sure to make a phone call of selected medical facility?", comment: "")
+                let title = NSLocalizedString("Make a Call", comment: "")
+                let message = NSLocalizedString("Would you like to call the selected medical facility?", comment: "")
                 self.alterViewFrom(title, message: message, urlString: phoneNumberURL)
                 
             }
@@ -296,7 +296,7 @@ class ResultDetailTableViewController: UITableViewController, GMSMapViewDelegate
                 let websiteURL = "http://\(self.result.website)"
                 
                 let title = NSLocalizedString("Open Website", comment: "")
-                let message = NSLocalizedString("Are you sure to open the website of selected medical facility in Web Browser?", comment: "")
+                let message = NSLocalizedString("Would you like to open the website in Web Browser?", comment: "")
                 self.alterViewFrom(title, message: message, urlString: websiteURL)
             }
         }
@@ -307,7 +307,7 @@ class ResultDetailTableViewController: UITableViewController, GMSMapViewDelegate
         self.favorite = !self.favorite
         if self.favorite == true
         {
-            self.favoriteButton.image = UIImage(named: "favorite.png")
+            self.favoriteButton.image = ImageHelper.resizeImage(UIImage(named: "favorite.png")!, newWidth: 30)
             if NSUserDefaults.standardUserDefaults().arrayForKey("favourites") != nil
             {
                 var dataList = NSUserDefaults.standardUserDefaults().arrayForKey("favourites") as! Array<NSData>
@@ -328,7 +328,7 @@ class ResultDetailTableViewController: UITableViewController, GMSMapViewDelegate
         }
         else
         {
-            self.favoriteButton.image = UIImage(named: "shape.png")
+            self.favoriteButton.image = ImageHelper.resizeImage(UIImage(named: "shape.png")!, newWidth: 30)
             var dataList = NSUserDefaults.standardUserDefaults().arrayForKey("favourites") as! Array<NSData>
             var faciliList = facilityListFromDataList(dataList)
             
@@ -410,7 +410,7 @@ class ResultDetailTableViewController: UITableViewController, GMSMapViewDelegate
         else
         {
             let title = NSLocalizedString("Error", comment: "")
-            let message = NSLocalizedString("Can't find Google Map application on your phone.", comment: "")
+            let message = NSLocalizedString("Sorry, we could not find Google Maps on your phone.", comment: "")
             let alertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
             let cancelAction = UIAlertAction(title: NSLocalizedString("Okay", comment: ""), style: .Default, handler: nil)
             alertController.addAction(cancelAction)
@@ -420,8 +420,8 @@ class ResultDetailTableViewController: UITableViewController, GMSMapViewDelegate
     
     func addressAlterViewClicked()
     {
-        let title = NSLocalizedString("Open Google Map", comment: "")
-        let message = NSLocalizedString("Are you sure to show the facility address in Google Map?", comment: "")
+        let title = NSLocalizedString("Open Google Maps", comment: "")
+        let message = NSLocalizedString("Would you like to view the facility address in Google Maps?", comment: "")
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
         
         let defaultAction = UIAlertAction(title: NSLocalizedString("Yes", comment: ""), style: .Default, handler:

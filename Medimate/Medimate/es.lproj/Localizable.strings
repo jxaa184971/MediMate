@@ -70,15 +70,6 @@
 
 "No" = "No";
 
-"Make Phone Call" = "Llamar";
-
-"Are you sure to make a phone call of selected medical facility?" = "Está seguro que desea llamar al número seleccionado?";
-
-"Open Website" = "Abrir sitio Web";
-
-"Are you sure to open the website of selected medical facility in Web Browser?" = "Está seguro de abrir el sitio web seleccionado?";
-
-
 "Dentist" = "Dentista";
 
 "Physiotherapist" = "Fisioterapista";
@@ -102,3 +93,37 @@
 "Current Location (Within 5km)" = "Ubicación actual (Dentro de 5km)";
 
 "Current Location (Within 10km)" = "Ubicación actual (Dentro de 10km)";
+
+"Reset" = "Reinicializar";
+
+"< Back" = "< Atrás";
+
+"Search Category" = "Buscar Categoría";
+
+"Clinic, Physiotherapist"="Clínica, Fisioterapista";
+
+"Clinic, Dentist" = "Clínica, Dentista";
+
+"Physiotherapist, Pharmacy" = "Fisioterapista, Farmacia";
+
+"Clinic, Dentist, Physiotherapist, Pharmacy" = "Clínica, Dentista, Fisioterapista, Farmacia";
+
+"Favourites" = "Favoritos";
+
+"Open Google Maps" = "Abrir Mapas de Google";
+
+"Would you like to view the facility address in Google Maps?" = "Está seguro de mostrar la dirección seleccionada en Mapas de Google? ";
+
+"Make a Call" = "Llamar";
+
+"Would you like to call the selected medical facility?" = "Está seguro que desea llamar al número seleccionado?";
+
+"Open Website" = "Abrir sitio Web";
+
+"Would you like to open the website in Web Browser?" = "Está seguro de abrir el sitio web seleccionado?";
+
+"You do not have any current favourites. To add a new favourite facility, tap ‘☆’ shown in the top right corner of the facility detail screen." = "No ha seleccionado ningún favorito al momento. Para añadir un favorito a la lista seleccione ‘☆’ en la esquina superior derecha en la pantalla.";
+
+"Error" = "Error";
+
+"Sorry, we could not find Google Maps on your device." = "Disculpas, no hemos encontrado la aplicación Mapas de Google en su dispositivo";

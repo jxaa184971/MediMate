@@ -72,14 +72,6 @@
 
 "No" = "取消";
 
-"Make Phone Call" = "拨打电话";
-
-"Are you sure to make a phone call of selected medical facility?" = "你确定要拨打所选医疗设施的电话吗?";
-
-"Open Website" = "打开网页";
-
-"Are you sure to open the website of selected medical facility in Web Browser?" = "你确定在网页浏览器打开所选医疗设施的网址吗?";
-
 "Dentist" = "牙医";
 
 "Physiotherapist" = "理疗医师";
@@ -104,16 +96,39 @@
 
 "Current Location (Within 10km)" = "当前位置 (10km内)";
 
-"Favourite List" = "个人收藏";
-
 "Favourites" = "个人收藏";
 
 "Error" = "错误";
 
-"Can't find Google Map application on your phone." = "无法在你的手机上找到谷歌地图";
+"Sorry, we could not find Google Maps on your phone." = "对不起, 无法在你的手机上找到谷歌地图.";
 
-"Open Google Map" = "打开谷歌地图";
+"Reset" = "重置";
 
-"Are you sure to show the facility address in Google Map?" = "你确定要在谷歌地图上显示该医疗设施的地址吗?";
+"< Back" = "< 返回";
+
+"Search Category" = "搜索类别";
+
+"Clinic, Physiotherapist"="诊所, 理疗医师";
+
+"Clinic, Dentist" = "诊所, 牙医";
+
+"Physiotherapist, Pharmacy" = "理疗医师, 药房";
+
+"Clinic, Dentist, Physiotherapist, Pharmacy" = "诊所, 牙医, 理疗医师, 药房";
+
+"Open Google Maps" = "打开谷歌地图";
+
+"Would you like to view the facility address in Google Maps?" = "是否需要谷歌地图上显示所选的医疗设施?";
+
+"Make a Call" = "拨打电话";
+
+"Would you like to call the selected medical facility?" = "是否需要给所选的医疗设施打电话?";
+
+"Open Website" = "打开网页";
+
+"Would you like to open the website in Web Browser?" = "是否需要在浏览器打开所选医疗设施的网站?";
+
+"You do not have any current favourites. To add a new favourite facility, tap ‘☆’ shown in the top right corner of the facility detail screen." = "你尚未添加任何个人收藏. 在医疗设施详细资料页面点击右上角的‘☆’形按钮添加新的个人收藏.";
+
 
 

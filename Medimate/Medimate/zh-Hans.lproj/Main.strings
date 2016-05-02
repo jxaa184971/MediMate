@@ -80,5 +80,8 @@
 /* Class = "UINavigationItem"; title = "Root View Controller"; ObjectID = "zxr-kK-tRO"; */
 "zxr-kK-tRO.title" = "设置";
 
+/* Class = "UITabBarItem"; title = "Nearby"; ObjectID = "KcO-IF-3Pz"; */
+"KcO-IF-3Pz.title" = "附近";
 
-
+/* Class = "UINavigationItem"; title = "Nearby"; ObjectID = "aYn-Qk-SSk"; */
+"aYn-Qk-SSk.title" = "附近";

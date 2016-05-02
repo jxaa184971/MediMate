@@ -27,7 +27,7 @@ class FavouritesTableViewController: UITableViewController {
         self.navigationController?.navigationBar.barStyle = .Black
         self.navigationController?.navigationBar.barTintColor = color
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
-        self.navigationItem.title = NSLocalizedString("Favourite List", comment: "")
+        self.navigationItem.title = NSLocalizedString("Favourites", comment: "")
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -38,7 +38,7 @@ class FavouritesTableViewController: UITableViewController {
         }
         else
         {
-            self.infoLabel.text = NSLocalizedString("You don't have any favourite facility in your list. Try to add favourite facility in the right-top of facility detail view.", comment: "")
+            self.infoLabel.text = NSLocalizedString("You do not have any current favourites. To add a new favourite facility, tap ‘☆’ shown in the top right corner of the facility detail screen.", comment: "")
         }
         self.tableView.reloadData()
     }
@@ -177,7 +177,7 @@ class FavouritesTableViewController: UITableViewController {
             {
                 self.favouriteList = Array<Facility>()
                 self.tableView.reloadData()
-                self.infoLabel.text = NSLocalizedString("You don't have any favourite facility in your list. Try to add favourite facility in the right-top of facility detail view.", comment: "")
+                self.infoLabel.text = NSLocalizedString("You do not have any current favourites. To add a new favourite facility, tap ‘☆’ shown in the top right corner of the facility detail screen.", comment: "")
             }
             else
             {

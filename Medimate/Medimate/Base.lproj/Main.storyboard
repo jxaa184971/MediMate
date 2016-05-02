@@ -572,10 +572,10 @@
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="headerCell" rowHeight="180" id="6IY-jZ-Eo5" customClass="DetailHeaderCell" customModule="MediMate" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="114" width="600" height="180"/>
+                                <rect key="frame" x="0.0" y="113.5" width="600" height="180"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6IY-jZ-Eo5" id="Zuq-Wp-c08">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="180"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="179.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rating: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7j6-Kb-YBF">
@@ -770,7 +770,7 @@
             </objects>
             <point key="canvasLocation" x="3698" y="-552"/>
         </scene>
-        <!--Favourite List-->
+        <!--Favourites-->
         <scene sceneID="56W-SP-0yP">
             <objects>
                 <tableViewController id="2Zn-X6-p4y" customClass="FavouritesTableViewController" customModule="MediMate" customModuleProvider="target" sceneMemberID="viewController">
@@ -779,7 +779,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <label key="tableFooterView" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="64H-vE-8Uc">
-                            <rect key="frame" x="0.0" y="211.5" width="600" height="44"/>
+                            <rect key="frame" x="0.0" y="211.5" width="600" height="92"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -839,7 +839,7 @@
                             <outlet property="delegate" destination="2Zn-X6-p4y" id="1JK-l6-Jou"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Favourite List" id="bkp-Pm-1ZZ"/>
+                    <navigationItem key="navigationItem" title="Favourites" id="bkp-Pm-1ZZ"/>
                     <connections>
                         <outlet property="infoLabel" destination="64H-vE-8Uc" id="yWD-5t-b9a"/>
                     </connections>
@@ -1063,11 +1063,11 @@
         <image name="pharmacy.png" width="128" height="128"/>
         <image name="physiotherapist.png" width="1200" height="1200"/>
         <image name="settings_32.png" width="28" height="28"/>
-        <image name="shape.png" width="28" height="28"/>
+        <image name="shape.png" width="512" height="512"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="zI2-yo-AlQ"/>
         <segue reference="mkP-Kg-Bkp"/>
-        <segue reference="Rmv-Eg-SyJ"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.12941176469999999" green="0.43529411759999997" blue="0.73333333329999995" alpha="1" colorSpace="calibratedRGB"/>
 </document>
