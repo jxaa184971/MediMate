@@ -24,6 +24,8 @@ class ResultDetailTableViewController: UITableViewController, GMSMapViewDelegate
         self.automaticallyAdjustsScrollViewInsets = false
         self.networkConnected = HTTPHelper.isConnectedToNetwork()
 
+        print("Facility \(result.id) selected")
+        
         // initialize location manager
         self.locationManager = CLLocationManager()
         self.locationManager.delegate = self
@@ -94,7 +96,7 @@ class ResultDetailTableViewController: UITableViewController, GMSMapViewDelegate
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 3
+        return 4
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -115,6 +117,10 @@ class ResultDetailTableViewController: UITableViewController, GMSMapViewDelegate
         {
             return 3
         }
+        if section == 3
+        {
+            return 1 + (self.result.reviews?.count)!
+        }
         return 0
     }
 
@@ -125,7 +131,19 @@ class ResultDetailTableViewController: UITableViewController, GMSMapViewDelegate
             let cell = tableView.dequeueReusableCellWithIdentifier("headerCell", forIndexPath: indexPath) as! DetailHeaderCell
             cell.nameLabel.text = self.result.name
             cell.distanceLabel.text = "\(NSString(format:"%.1f",self.result.distance)) km"
-            cell.ratingLabel.text = ""
+            cell.reviewLabel.text = "\(self.result.numberOfReview) Reviews"
+            if self.result.numberOfReview > 0
+            {
+                cell.starRating.rating = self.result.rating
+                cell.starRating.fillMode = 1
+                cell.starRating.text = "\(self.result.rating)"
+            }
+            else
+            {
+                cell.starRating.rating = 0
+                cell.starRating.text = ""
+            }
+            
             if self.result.language == ""
             {
                 cell.languageLabel.text = "\(NSLocalizedString("Language Spoken", comment:"")): English"
@@ -158,7 +176,8 @@ class ResultDetailTableViewController: UITableViewController, GMSMapViewDelegate
                         {
                             print("error when downloading image from URL")
                             print("Error: \(error!.localizedDescription)")
-                        } else
+                        }
+                        else
                         {
                             
                             let image = UIImage(data: data!)
@@ -241,6 +260,40 @@ class ResultDetailTableViewController: UITableViewController, GMSMapViewDelegate
             }
             return cell
         }
+        if indexPath.section == 3
+        {
+            if indexPath.row == 0
+            {
+                let cell = tableView.dequeueReusableCellWithIdentifier("reviewHeaderCell", forIndexPath: indexPath) as! DetailRatingHeaderCell
+                cell.ratingLabel.text = "\(NSLocalizedString("User Reviews", comment: ""))(\(self.result.numberOfReview))"
+                cell.reviewLabel.text = NSLocalizedString("View All Reviews", comment: "")
+                return cell
+            }
+            else
+            {
+                let cell = tableView.dequeueReusableCellWithIdentifier("ratingCell", forIndexPath: indexPath) as! RatingCell
+                let review = self.result.reviews![indexPath.row-1]
+                
+                cell.deviceLabel.text = review.deviceName
+                cell.timeLabel.text = review.date
+                cell.waitingTimeRating.rating = review.waitingRating
+                cell.waitingTimeRating.text = "\(review.waitingRating)"
+                cell.waitingTimeRating.fillMode = 1
+                cell.parkingRating.rating = review.parkingRating
+                cell.parkingRating.text = "\(review.parkingRating)"
+                cell.parkingRating.fillMode = 1
+                cell.disabilityRating.rating = review.disabilityRating
+                cell.disabilityRating.text = "\(review.disabilityRating)"
+                cell.disabilityRating.fillMode = 1
+                cell.languageRating.rating = review.languageRating
+                cell.languageRating.text = "\(review.languageRating)"
+                cell.languageRating.fillMode = 1
+                cell.transportRating.rating = review.transportRating
+                cell.transportRating.text = "\(review.transportRating)"
+                cell.transportRating.fillMode = 1
+                return cell
+            }
+        }
         return UITableViewCell()
     }
     
@@ -249,14 +302,15 @@ class ResultDetailTableViewController: UITableViewController, GMSMapViewDelegate
         {
             return 180
         }
-        else if indexPath.section == 1 && indexPath.row == 0
+        if indexPath.section == 1 && indexPath.row == 0
         {
             return 120
         }
-        else
+        if indexPath.section == 3 && indexPath.row != 0
         {
-            return 40
+            return 145
         }
+        return 40
     }
     
     override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -267,6 +321,10 @@ class ResultDetailTableViewController: UITableViewController, GMSMapViewDelegate
         if section == 2
         {
             return NSLocalizedString("Opening Hours", comment:"")
+        }
+        else if section == 3
+        {
+            return NSLocalizedString("Reviews", comment: "")
         }
         else
         {

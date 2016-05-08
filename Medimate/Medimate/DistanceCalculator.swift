@@ -35,4 +35,19 @@ class DistanceCalculator: NSObject {
         facility.distance = distance
     }
     
+    static func averageRating(reviews: Array<Review>) -> Double
+    {
+        var sum:Double = 0
+        
+        for review in reviews
+        {
+            sum += review.waitingRating
+            sum += review.parkingRating
+            sum += review.disabilityRating
+            sum += review.languageRating
+            sum += review.transportRating
+        }
+        
+        return sum / (Double(reviews.count) * 5.0)
+    }
 }

@@ -169,10 +169,22 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
             let cell = tableView.dequeueReusableCellWithIdentifier("resultCell", forIndexPath: indexPath) as! SearchResultCell
             cell.nameLabel.text = self.results[indexPath.row].name
             //let stars = RatingStarGenerator.ratingStarsFromDouble(self.results[indexPath.row].rating)
-            cell.ratingLabel.text = ""
+
             cell.addressLabel.text = self.results[indexPath.row].address
-            cell.reviewsLabel.text = ""
+            cell.reviewsLabel.text = "\(self.results[indexPath.row].numberOfReview) Reviews"
             cell.distanceLabel.text = "\(NSString(format:"%.1f",self.results[indexPath.row].distance)) km"
+            
+            if self.results[indexPath.row].numberOfReview > 0
+            {
+                cell.starRating.rating = self.results[indexPath.row].rating
+                cell.starRating.text = "\(self.results[indexPath.row].rating)"
+                cell.starRating.fillMode = 1
+            }
+            else
+            {
+                cell.starRating.rating = 0
+                cell.starRating.text = ""
+            }
             
             // check whether the facility open or not
             if DateHelper.facilityNowOpen(self.results[indexPath.row])
@@ -244,7 +256,7 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
         }
         if indexPath.section == 1
         {
-            return 100
+            return 148
         }
         return 40
     }
@@ -687,6 +699,7 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
         self.navigationController?.popViewControllerAnimated(true)
     }
     
+    
     func requestForNewData()
     {
         if CLLocationManager.authorizationStatus() != CLAuthorizationStatus.NotDetermined
@@ -698,6 +711,44 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
             }
             else
             {
+                self.samples = results!
+            }
+            
+            let reviews = HTTPHelper.requestAllReviews()
+            if reviews != nil
+            {
+                for review in reviews!
+                {
+                    for facility in results!
+                    {
+                        if facility.id == review.facilityId
+                        {
+                            facility.reviews?.append(review)
+                            facility.numberOfReview = facility.numberOfReview + 1
+                        }
+                    }
+                }
+                
+                for facility in results!
+                {
+                    if facility.reviews?.count > 0
+                    {
+                        var sum = 0.0
+                        for review in facility.reviews!
+                        {
+                            sum += review.waitingRating
+                            sum += review.parkingRating
+                            sum += review.languageRating
+                            sum += review.disabilityRating
+                            sum += review.transportRating
+                        }
+                        let average = sum / (Double((facility.reviews?.count)!) * 5.0)
+                        facility.rating = average
+                        
+                        print("facility id: \(facility.id) & rating: \(facility.rating)")
+                    }
+                }
+                
                 self.samples = results!
             }
     

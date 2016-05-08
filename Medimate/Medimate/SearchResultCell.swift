@@ -12,11 +12,11 @@ class SearchResultCell: UITableViewCell {
 
     @IBOutlet var picView: UIImageView!
     @IBOutlet var nameLabel: UILabel!
-    @IBOutlet var ratingLabel: UILabel!
     @IBOutlet var addressLabel: UILabel!
     @IBOutlet var distanceLabel: UILabel!
     @IBOutlet var reviewsLabel: UILabel!
     @IBOutlet var nowOpenImageView: UIImageView!
     @IBOutlet var bulkBillingImageView: UIImageView!
+    @IBOutlet var starRating: CosmosView!
     
 }

@@ -1,22 +1,19 @@
 //
-//  DetailHeaderCell.swift
+//  DetailRatingHeaderCell.swift
 //  Medimate
 //
-//  Created by Yichuan Huang on 20/03/2016.
+//  Created by 一川 黄 on 4/05/2016.
 //  Copyright © 2016 Team MarshGhatti. All rights reserved.
 //
 
 import UIKit
 
-class DetailHeaderCell: UITableViewCell {
+class DetailRatingHeaderCell: UITableViewCell {
 
-    @IBOutlet var picView: UIImageView!
-    @IBOutlet var nameLabel: UILabel!
-    @IBOutlet var starRating: CosmosView!
+    @IBOutlet var ratingLabel: UILabel!
+    @IBOutlet var cosmosView: CosmosView!
     @IBOutlet var reviewLabel: UILabel!
-    @IBOutlet var typeLabel: UILabel!
-    @IBOutlet var distanceLabel: UILabel!
-    @IBOutlet var languageLabel: UILabel!
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()

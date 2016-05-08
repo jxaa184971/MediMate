@@ -33,6 +33,8 @@ class Facility: NSObject, NSCoding {
     var website:String!
     var bulkBilling:Bool!
     
+    var reviews: Array<Review>?
+    
     override init() {
         super.init()
     }
@@ -74,6 +76,7 @@ class Facility: NSObject, NSCoding {
         aCoder.encodeObject(self.website, forKey: "website")
         aCoder.encodeBool(self.bulkBilling, forKey: "bulkBilling")
     }
+    
     required init(coder aDecoder: NSCoder)
     {
         super.init()

@@ -13,6 +13,7 @@ class HTTPHelper: NSObject {
 
     static let URL = "http://13.73.117.26:23294/Medimate/webresources/"
     static let FACILITY = "entities.facility/"
+    static let REVIEWS = "entities.reviews/"
     
     static func requestForFacilitiesByType(type: String) -> Array<Facility>?
     {
@@ -58,6 +59,87 @@ class HTTPHelper: NSObject {
         return nil
     }
     
+    static func requestAllReviews() -> Array<Review>?
+    {
+        let url = NSURL(string: "\(HTTPHelper.URL)\(HTTPHelper.REVIEWS)")
+        
+        let request: NSURLRequest = NSURLRequest(URL: url!)
+        let response: AutoreleasingUnsafeMutablePointer<NSURLResponse?> = nil
+        
+        do
+        {
+            let data:NSData = try NSURLConnection.sendSynchronousRequest(request, returningResponse: response)
+            let results = HTTPHelper.parseJSONToReviews(data)
+            if results != nil
+            {
+                return results
+            }
+        }
+        catch
+        {
+            print("Error: There is a error when downloading all reviews")
+        }
+        return nil
+    }
+    
+    static func requestForReviewsByFacilityID(facilityID: Int) -> Array<Review>?
+    {
+        let url = NSURL(string: "\(HTTPHelper.URL)\(HTTPHelper.REVIEWS)getReviewsByFacilityID/\(facilityID)")
+        
+        let request: NSURLRequest = NSURLRequest(URL: url!)
+        let response: AutoreleasingUnsafeMutablePointer<NSURLResponse?> = nil
+        
+        do
+        {
+            let data:NSData = try NSURLConnection.sendSynchronousRequest(request, returningResponse: response)
+            let results = HTTPHelper.parseJSONToReviews(data)
+            if results != nil
+            {
+                return results
+            }
+        }
+        catch
+        {
+            print("Error: There is a error when downloading reviews by facility ID")
+        }
+        return nil
+    }
+    
+    static func parseJSONToReviews(data:NSData) -> Array<Review>?
+    {
+        var results = Array<Review>()
+        
+        do {
+            let entries: NSArray = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.AllowFragments) as! NSArray
+            
+            for oneEntry in entries
+            {
+                let review = Review()
+                let reviewEntry = oneEntry as! NSDictionary
+                review.reviewId = reviewEntry.valueForKey("reviewId") as! Int
+                review.deviceName = reviewEntry.valueForKey("deviceName") as! String
+                review.deviceUID = reviewEntry.valueForKey("deviceUid") as! String
+                review.waitingRating = reviewEntry.valueForKey("waitingTime") as! Double
+                review.parkingRating = reviewEntry.valueForKey("parking") as! Double
+                review.disabilityRating = reviewEntry.valueForKey("disability") as! Double
+                review.languageRating = reviewEntry.valueForKey("language") as! Double
+                review.transportRating = reviewEntry.valueForKey("transport") as! Double
+                review.date = reviewEntry.valueForKey("date") as! String
+                review.facilityId = reviewEntry.valueForKey("facilityId") as! Int
+                
+                results.append(review)
+            }
+            
+            return results
+        }
+        catch
+        {
+            print("error serializing JSON: \(error)")
+            return nil
+        }
+
+    }
+    
     static func parseJSONToFacilities(data:NSData) -> Array<Facility>?
     {
         var results = Array<Facility>()
@@ -95,9 +177,9 @@ class HTTPHelper: NSObject {
                 {
                     facility.bulkBilling = false
                 }
-                
                 facility.rating = 0
                 facility.numberOfReview = 0
+                facility.reviews = Array<Review>()
                 
                 results.append(facility)
             }
