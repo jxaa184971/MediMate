@@ -96,7 +96,7 @@ class ResultDetailTableViewController: UITableViewController, GMSMapViewDelegate
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 4
+        return 5
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -119,7 +119,18 @@ class ResultDetailTableViewController: UITableViewController, GMSMapViewDelegate
         }
         if section == 3
         {
-            return 1 + (self.result.reviews?.count)!
+            if self.result.reviews?.count <= 3
+            {
+                return 1 + (self.result.reviews?.count)!
+            }
+            else
+            {
+                return 4
+            }
+        }
+        if section == 4
+        {
+            return 1
         }
         return 0
     }
@@ -293,6 +304,18 @@ class ResultDetailTableViewController: UITableViewController, GMSMapViewDelegate
                 cell.transportRating.fillMode = 1
                 return cell
             }
+        }
+        if indexPath.section == 4
+        {
+            
+            let cell = tableView.dequeueReusableCellWithIdentifier("addReviewCell", forIndexPath: indexPath) as! ButtonCell
+            
+            if self.alreadyAddReview()
+            {
+                cell.addReviewButton.enabled = false
+            }
+            
+            return cell
         }
         return UITableViewCell()
     }
@@ -494,6 +517,52 @@ class ResultDetailTableViewController: UITableViewController, GMSMapViewDelegate
         self.presentViewController(alertController, animated: true, completion: nil)
     }
     
+    // MARK: - Review
+    func addReviewButtonClicked(sender:UIButton)
+    {
+        print("Clicked")
+    }
+    
+    func alreadyAddReview() -> Bool
+    {
+        let deviceUID = UIDevice.currentDevice().identifierForVendor!.UUIDString
+        for review in self.result.reviews!
+        {
+            if review.deviceUID == deviceUID
+            {
+                return true
+            }
+        }
+        return false
+    }
+    
+    func afterAddReview()
+    {
+        let results = HTTPHelper.requestForReviewsByFacilityID(self.result.id)
+        if results != nil
+        {
+            self.result.reviews = results
+            self.result.numberOfReview = self.result.reviews?.count
+
+            if self.result.reviews?.count > 0
+            {
+                var sum = 0.0
+                for review in self.result.reviews!
+                {
+                    sum += review.waitingRating
+                    sum += review.parkingRating
+                    sum += review.languageRating
+                    sum += review.disabilityRating
+                    sum += review.transportRating
+                }
+                let average = sum / (Double((self.result.reviews?.count)!) * 5.0)
+                self.result.rating = average
+            }
+            
+        }
+        self.tableView.reloadData()
+    }
+    
     // MARK: - OpenURL
     
     func openURLFromString(string:String)
@@ -518,14 +587,23 @@ class ResultDetailTableViewController: UITableViewController, GMSMapViewDelegate
         self.presentViewController(alertController, animated: true, completion: nil)
     }
 
-    /*
+    
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        if segue.identifier == "reviewSegue"
+        {
+            let controller = segue.destinationViewController as! AllReviewsTableViewController
+            controller.allReviews = self.result.reviews
+        }
+        
+        if segue.identifier == "addReviewSegue"
+        {
+            let controller = segue.destinationViewController as! AddReviewTableViewController
+            controller.facility = self.result
+            controller.parentController = self
+        }
     }
-    */
+    
 
 }

@@ -10,6 +10,19 @@ import UIKit
 
 class DateHelper: NSObject {
 
+    static func getCurrentDateStringForReview() -> String
+    {
+        let now = NSDate()
+        let formatter = NSDateFormatter()
+        formatter.timeZone = NSTimeZone.localTimeZone()
+        formatter.locale = NSLocale(localeIdentifier: "en_US")
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        
+        return formatter.stringFromDate(now)
+    }
+    
+    
+    
     static func getCurrentDayName() -> String
     {
         let today = NSDate()

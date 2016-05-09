@@ -606,10 +606,10 @@
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="headerCell" rowHeight="180" id="6IY-jZ-Eo5" customClass="DetailHeaderCell" customModule="MediMate" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="114" width="600" height="180"/>
+                                <rect key="frame" x="0.0" y="113.5" width="600" height="180"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6IY-jZ-Eo5" id="Zuq-Wp-c08">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="180"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="179.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Type: " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8I0-9f-4A5">
@@ -1187,16 +1187,39 @@
                                     <outlet property="waitingTimeRating" destination="bL8-zX-zrC" id="FXi-cd-R71"/>
                                 </connections>
                             </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="addReviewCell" rowHeight="44" id="SxE-Bd-jDY" customClass="ButtonCell" customModule="MediMate" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="566.5" width="600" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="SxE-Bd-jDY" id="Uxh-3d-fTt">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="44K-oZ-5Vx">
+                                            <rect key="frame" x="8" y="7" width="584" height="30"/>
+                                            <state key="normal" title="Add Review"/>
+                                            <connections>
+                                                <segue destination="Kmz-No-YKt" kind="show" identifier="addReviewSegue" id="Ge5-0L-h6q"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="bottomMargin" secondItem="44K-oZ-5Vx" secondAttribute="bottom" constant="-1.5" id="e0g-CF-Aw6"/>
+                                        <constraint firstItem="44K-oZ-5Vx" firstAttribute="trailing" secondItem="Uxh-3d-fTt" secondAttribute="trailingMargin" id="hc8-b1-56b"/>
+                                        <constraint firstItem="44K-oZ-5Vx" firstAttribute="leading" secondItem="Uxh-3d-fTt" secondAttribute="leadingMargin" id="s3k-O3-2Qi"/>
+                                        <constraint firstItem="44K-oZ-5Vx" firstAttribute="top" secondItem="Uxh-3d-fTt" secondAttribute="topMargin" constant="-1" id="tMO-hV-iob"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="addReviewButton" destination="44K-oZ-5Vx" id="eYF-Az-hP1"/>
+                                </connections>
+                            </tableViewCell>
                         </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="RgP-5n-4F5" id="BVs-bn-OMY"/>
                             <outlet property="delegate" destination="RgP-5n-4F5" id="Ah1-3X-N82"/>
                         </connections>
                     </tableView>
-                    <toolbarItems>
-                        <barButtonItem title="Item" id="FhN-ae-Xji"/>
-                        <barButtonItem title="Item" id="tMh-qp-pzb"/>
-                    </toolbarItems>
+                    <toolbarItems/>
                     <navigationItem key="navigationItem" id="aHs-Un-C3b">
                         <barButtonItem key="rightBarButtonItem" image="shape.png" id="AJh-ot-oUQ">
                             <connections>
@@ -1214,17 +1237,17 @@
             </objects>
             <point key="canvasLocation" x="3698" y="-552"/>
         </scene>
-        <!--All Reviews Table View Controller-->
+        <!--Reviews-->
         <scene sceneID="hRW-Ur-wAW">
             <objects>
                 <tableViewController id="t3H-fh-FlP" customClass="AllReviewsTableViewController" customModule="MediMate" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="Ycc-B8-aYk">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="Ycc-B8-aYk">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="800"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="ratingCell" rowHeight="145" id="bXx-Lf-KBr" customClass="RatingCell" customModule="MediMate" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="92" width="600" height="145"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="reviewCell" rowHeight="145" id="bXx-Lf-KBr" customClass="RatingCell" customModule="MediMate" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="113.5" width="600" height="145"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bXx-Lf-KBr" id="sDN-ee-Pbc">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="144.5"/>
@@ -1497,10 +1520,362 @@
                             <outlet property="delegate" destination="t3H-fh-FlP" id="ePr-Gi-vQT"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" title="Reviews" id="bCC-XH-ARo"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ljU-44-mkz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4573" y="-652"/>
+        </scene>
+        <!--Add Review-->
+        <scene sceneID="PJe-Vj-xi8">
+            <objects>
+                <tableViewController id="Kmz-No-YKt" customClass="AddReviewTableViewController" customModule="MediMate" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="5vl-q1-Z4L">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="800"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="addReviewCell" rowHeight="335" id="D2C-68-KPJ" customClass="AddReviewCell" customModule="MediMate" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="113.5" width="600" height="335"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="D2C-68-KPJ" id="SWj-jf-Obi">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="334.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Waiting Time" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nJ1-hs-i5W">
+                                            <rect key="frame" x="8" y="8" width="584" height="24"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="24" id="ewk-ID-UQJ"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VCl-8S-p6Q" customClass="CosmosView" customModule="MediMate" customModuleProvider="target">
+                                            <rect key="frame" x="221" y="40" width="158" height="25"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="158" id="FUi-Tf-j3E"/>
+                                                <constraint firstAttribute="height" constant="25" id="HQs-5M-aMK"/>
+                                            </constraints>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="filledColor">
+                                                    <color key="value" red="0.13900283790000001" green="0.47380810359999997" blue="0.79932133839999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="emptyBorderColor">
+                                                    <color key="value" red="0.13900283790000001" green="0.47380810359999997" blue="0.79932133839999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="filledBorderColor">
+                                                    <color key="value" red="0.13900283790000001" green="0.47380810359999997" blue="0.79932133839999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="fillMode">
+                                                    <integer key="value" value="1"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="textColor">
+                                                    <color key="value" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="minTouchRating">
+                                                    <real key="value" value="0.0"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="textSize">
+                                                    <real key="value" value="16"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="starMargin">
+                                                    <real key="value" value="14"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="textMargin">
+                                                    <real key="value" value="32"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="starSize">
+                                                    <real key="value" value="20"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="rating">
+                                                    <real key="value" value="0.0"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                        </view>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Parking Accessibility" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ewl-co-un1">
+                                            <rect key="frame" x="8" y="73" width="584" height="24"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="24" id="wc5-yb-8hD"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OLM-e5-Ld6" customClass="CosmosView" customModule="MediMate" customModuleProvider="target">
+                                            <rect key="frame" x="221" y="105" width="158" height="25"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="158" id="LGI-cP-Eay"/>
+                                                <constraint firstAttribute="height" constant="25" id="Px5-UG-bhf"/>
+                                            </constraints>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="filledColor">
+                                                    <color key="value" red="0.13900283790000001" green="0.47380810359999997" blue="0.79932133839999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="emptyBorderColor">
+                                                    <color key="value" red="0.13900283790000001" green="0.47380810359999997" blue="0.79932133839999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="filledBorderColor">
+                                                    <color key="value" red="0.13900283790000001" green="0.47380810359999997" blue="0.79932133839999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="fillMode">
+                                                    <integer key="value" value="1"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="textColor">
+                                                    <color key="value" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="minTouchRating">
+                                                    <real key="value" value="0.0"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="textSize">
+                                                    <real key="value" value="16"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="starMargin">
+                                                    <real key="value" value="14"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="textMargin">
+                                                    <real key="value" value="32"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="starSize">
+                                                    <real key="value" value="20"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="rating">
+                                                    <real key="value" value="0.0"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                        </view>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Disability Accessibility" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0mm-Bb-QLq">
+                                            <rect key="frame" x="8" y="138" width="584" height="24"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="24" id="1ZI-u4-GXJ"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UAO-t2-cUl" customClass="CosmosView" customModule="MediMate" customModuleProvider="target">
+                                            <rect key="frame" x="221" y="170" width="158" height="25"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="25" id="HMj-Ez-5Ie"/>
+                                                <constraint firstAttribute="width" constant="158" id="iIU-EZ-k7K"/>
+                                            </constraints>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="filledColor">
+                                                    <color key="value" red="0.13900283790000001" green="0.47380810359999997" blue="0.79932133839999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="emptyBorderColor">
+                                                    <color key="value" red="0.13900283790000001" green="0.47380810359999997" blue="0.79932133839999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="filledBorderColor">
+                                                    <color key="value" red="0.13900283790000001" green="0.47380810359999997" blue="0.79932133839999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="fillMode">
+                                                    <integer key="value" value="1"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="textColor">
+                                                    <color key="value" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="minTouchRating">
+                                                    <real key="value" value="0.0"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="textSize">
+                                                    <real key="value" value="16"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="starMargin">
+                                                    <real key="value" value="14"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="textMargin">
+                                                    <real key="value" value="32"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="starSize">
+                                                    <real key="value" value="20"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="rating">
+                                                    <real key="value" value="0.0"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                        </view>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Language of Your Choice" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f0E-Vd-D3Y">
+                                            <rect key="frame" x="8" y="203" width="584" height="24"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="24" id="Foy-Eu-Dp3"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CPp-42-TYz" customClass="CosmosView" customModule="MediMate" customModuleProvider="target">
+                                            <rect key="frame" x="221" y="235" width="158" height="25"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="158" id="JFb-hX-Acj"/>
+                                                <constraint firstAttribute="height" constant="25" id="ZH7-Q7-7hs"/>
+                                            </constraints>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="filledColor">
+                                                    <color key="value" red="0.13900283790000001" green="0.47380810359999997" blue="0.79932133839999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="emptyBorderColor">
+                                                    <color key="value" red="0.13900283790000001" green="0.47380810359999997" blue="0.79932133839999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="filledBorderColor">
+                                                    <color key="value" red="0.13900283790000001" green="0.47380810359999997" blue="0.79932133839999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="fillMode">
+                                                    <integer key="value" value="1"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="textColor">
+                                                    <color key="value" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="minTouchRating">
+                                                    <real key="value" value="0.0"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="textSize">
+                                                    <real key="value" value="16"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="starMargin">
+                                                    <real key="value" value="14"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="textMargin">
+                                                    <real key="value" value="32"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="starSize">
+                                                    <real key="value" value="20"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="rating">
+                                                    <real key="value" value="0.0"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                        </view>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Public Transport" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="065-jH-JQL">
+                                            <rect key="frame" x="8" y="268" width="584" height="24"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="24" id="sqD-g2-vrV"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ptw-ke-imV" customClass="CosmosView" customModule="MediMate" customModuleProvider="target">
+                                            <rect key="frame" x="221" y="300" width="158" height="25"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="25" id="QFs-Uq-opn"/>
+                                                <constraint firstAttribute="width" constant="158" id="ov3-LG-dya"/>
+                                            </constraints>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="filledColor">
+                                                    <color key="value" red="0.13900283790000001" green="0.47380810359999997" blue="0.79932133839999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="emptyBorderColor">
+                                                    <color key="value" red="0.13900283790000001" green="0.47380810359999997" blue="0.79932133839999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="filledBorderColor">
+                                                    <color key="value" red="0.13900283790000001" green="0.47380810359999997" blue="0.79932133839999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="fillMode">
+                                                    <integer key="value" value="1"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="textColor">
+                                                    <color key="value" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="minTouchRating">
+                                                    <real key="value" value="0.0"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="textSize">
+                                                    <real key="value" value="16"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="starMargin">
+                                                    <real key="value" value="14"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="textMargin">
+                                                    <real key="value" value="32"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="starSize">
+                                                    <real key="value" value="20"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="rating">
+                                                    <real key="value" value="0.0"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                        </view>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="nJ1-hs-i5W" firstAttribute="top" secondItem="SWj-jf-Obi" secondAttribute="topMargin" id="1Gx-Bz-F0G"/>
+                                        <constraint firstItem="CPp-42-TYz" firstAttribute="centerX" secondItem="SWj-jf-Obi" secondAttribute="centerX" id="1dI-LD-rUz"/>
+                                        <constraint firstItem="UAO-t2-cUl" firstAttribute="top" secondItem="0mm-Bb-QLq" secondAttribute="bottom" constant="8" id="1pu-9u-q1v"/>
+                                        <constraint firstItem="ptw-ke-imV" firstAttribute="top" secondItem="065-jH-JQL" secondAttribute="bottom" constant="8" id="2C7-qP-aMo"/>
+                                        <constraint firstItem="VCl-8S-p6Q" firstAttribute="centerX" secondItem="SWj-jf-Obi" secondAttribute="centerX" id="7Ip-1v-Dq6"/>
+                                        <constraint firstItem="065-jH-JQL" firstAttribute="leading" secondItem="SWj-jf-Obi" secondAttribute="leadingMargin" id="8Kx-Sx-AFj"/>
+                                        <constraint firstItem="0mm-Bb-QLq" firstAttribute="trailing" secondItem="SWj-jf-Obi" secondAttribute="trailingMargin" id="A2b-M1-wb3"/>
+                                        <constraint firstItem="Ewl-co-un1" firstAttribute="leading" secondItem="SWj-jf-Obi" secondAttribute="leadingMargin" id="DMj-rw-l6M"/>
+                                        <constraint firstItem="0mm-Bb-QLq" firstAttribute="top" secondItem="OLM-e5-Ld6" secondAttribute="bottom" constant="8" id="MvS-Gk-Jm4"/>
+                                        <constraint firstItem="ptw-ke-imV" firstAttribute="centerX" secondItem="SWj-jf-Obi" secondAttribute="centerX" id="Qgx-x5-Pf0"/>
+                                        <constraint firstItem="f0E-Vd-D3Y" firstAttribute="leading" secondItem="SWj-jf-Obi" secondAttribute="leadingMargin" id="Rjj-wX-9gB"/>
+                                        <constraint firstItem="065-jH-JQL" firstAttribute="trailing" secondItem="SWj-jf-Obi" secondAttribute="trailingMargin" id="XhU-Hz-Fna"/>
+                                        <constraint firstItem="OLM-e5-Ld6" firstAttribute="top" secondItem="Ewl-co-un1" secondAttribute="bottom" constant="8" id="Z6w-3b-UtS"/>
+                                        <constraint firstItem="CPp-42-TYz" firstAttribute="top" secondItem="f0E-Vd-D3Y" secondAttribute="bottom" constant="8" id="avg-et-FCV"/>
+                                        <constraint firstItem="065-jH-JQL" firstAttribute="top" secondItem="CPp-42-TYz" secondAttribute="bottom" constant="8" id="gEX-yd-boD"/>
+                                        <constraint firstItem="UAO-t2-cUl" firstAttribute="centerX" secondItem="SWj-jf-Obi" secondAttribute="centerX" id="hUs-uK-vOz"/>
+                                        <constraint firstItem="f0E-Vd-D3Y" firstAttribute="top" secondItem="UAO-t2-cUl" secondAttribute="bottom" constant="8" id="n9L-CK-Q7i"/>
+                                        <constraint firstItem="VCl-8S-p6Q" firstAttribute="top" secondItem="nJ1-hs-i5W" secondAttribute="bottom" constant="8" id="nIk-7q-nIK"/>
+                                        <constraint firstItem="Ewl-co-un1" firstAttribute="top" secondItem="VCl-8S-p6Q" secondAttribute="bottom" constant="8" id="o8n-t1-Y6n"/>
+                                        <constraint firstItem="f0E-Vd-D3Y" firstAttribute="trailing" secondItem="SWj-jf-Obi" secondAttribute="trailingMargin" id="oFV-fl-hoW"/>
+                                        <constraint firstItem="0mm-Bb-QLq" firstAttribute="leading" secondItem="SWj-jf-Obi" secondAttribute="leadingMargin" id="ozY-zu-dR1"/>
+                                        <constraint firstItem="Ewl-co-un1" firstAttribute="trailing" secondItem="SWj-jf-Obi" secondAttribute="trailingMargin" id="qS0-18-42o"/>
+                                        <constraint firstItem="nJ1-hs-i5W" firstAttribute="leading" secondItem="SWj-jf-Obi" secondAttribute="leadingMargin" id="rPL-6p-Mg9"/>
+                                        <constraint firstItem="OLM-e5-Ld6" firstAttribute="centerX" secondItem="SWj-jf-Obi" secondAttribute="centerX" id="wpg-0Q-PmN"/>
+                                        <constraint firstItem="nJ1-hs-i5W" firstAttribute="trailing" secondItem="SWj-jf-Obi" secondAttribute="trailingMargin" id="yao-wL-2AZ"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="disabilityRating" destination="UAO-t2-cUl" id="3OS-3P-7Nk"/>
+                                    <outlet property="languageRating" destination="CPp-42-TYz" id="5Fh-sO-CGo"/>
+                                    <outlet property="parkingRating" destination="OLM-e5-Ld6" id="mJV-5C-JUC"/>
+                                    <outlet property="transportRating" destination="ptw-ke-imV" id="u9F-4y-vvR"/>
+                                    <outlet property="waitingRating" destination="VCl-8S-p6Q" id="e3N-5b-tVZ"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="buttonCell" rowHeight="44" id="NJ0-Nh-4GE" customClass="ButtonCell" customModule="MediMate" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="448.5" width="600" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="NJ0-Nh-4GE" id="1JS-kM-GcQ">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6rH-mH-iWB">
+                                            <rect key="frame" x="8" y="7" width="584" height="30"/>
+                                            <state key="normal" title="Save"/>
+                                            <connections>
+                                                <action selector="buttonClicked:" destination="NJ0-Nh-4GE" eventType="touchUpInside" id="Pl3-yM-O2L"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="6rH-mH-iWB" firstAttribute="leading" secondItem="1JS-kM-GcQ" secondAttribute="leadingMargin" id="YtC-mK-gGp"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="6rH-mH-iWB" secondAttribute="bottom" constant="-1.5" id="drT-gC-r7n"/>
+                                        <constraint firstItem="6rH-mH-iWB" firstAttribute="top" secondItem="1JS-kM-GcQ" secondAttribute="topMargin" constant="-1" id="lJw-Tk-cpn"/>
+                                        <constraint firstItem="6rH-mH-iWB" firstAttribute="trailing" secondItem="1JS-kM-GcQ" secondAttribute="trailingMargin" id="lWQ-z2-glC"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="addReviewButton" destination="6rH-mH-iWB" id="lpz-lK-eVz"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="Kmz-No-YKt" id="Grd-Om-XVy"/>
+                            <outlet property="delegate" destination="Kmz-No-YKt" id="q24-aj-o9d"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Add Review" id="Ybk-Qc-l8K"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="sni-ay-lOq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4573" y="433"/>
         </scene>
         <!--Favourites-->
         <scene sceneID="56W-SP-0yP">

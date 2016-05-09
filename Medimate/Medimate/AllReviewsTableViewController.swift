@@ -10,14 +10,12 @@ import UIKit
 
 class AllReviewsTableViewController: UITableViewController {
 
+    var allReviews: Array<Review>!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
 
     override func didReceiveMemoryWarning() {
@@ -28,24 +26,48 @@ class AllReviewsTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
+        if self.allReviews.count > 0
+        {
+            return 1
+        }
         return 0
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+        return self.allReviews.count
     }
 
-    /*
+    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath)
-
-        // Configure the cell...
-
+        let cell = tableView.dequeueReusableCellWithIdentifier("reviewCell", forIndexPath: indexPath) as! RatingCell
+        let review = self.allReviews[indexPath.row]
+        cell.deviceLabel.text = review.deviceName
+        cell.timeLabel.text = review.date
+        cell.waitingTimeRating.rating = review.waitingRating
+        cell.waitingTimeRating.text = "\(review.waitingRating)"
+        cell.waitingTimeRating.fillMode = 1
+        cell.parkingRating.rating = review.parkingRating
+        cell.parkingRating.text = "\(review.parkingRating)"
+        cell.parkingRating.fillMode = 1
+        cell.disabilityRating.rating = review.disabilityRating
+        cell.disabilityRating.text = "\(review.disabilityRating)"
+        cell.disabilityRating.fillMode = 1
+        cell.languageRating.rating = review.languageRating
+        cell.languageRating.text = "\(review.languageRating)"
+        cell.languageRating.fillMode = 1
+        cell.transportRating.rating = review.transportRating
+        cell.transportRating.text = "\(review.transportRating)"
+        cell.transportRating.fillMode = 1
         return cell
     }
-    */
+    
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        if indexPath.section == 0
+        {
+            return 145
+        }
+        return 44
+    }
 
     /*
     // Override to support conditional editing of the table view.

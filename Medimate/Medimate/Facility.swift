@@ -75,6 +75,8 @@ class Facility: NSObject, NSCoding {
         aCoder.encodeObject(self.imageURL, forKey: "imageURL")
         aCoder.encodeObject(self.website, forKey: "website")
         aCoder.encodeBool(self.bulkBilling, forKey: "bulkBilling")
+        
+        aCoder.encodeObject(self.reviews, forKey: "reviews")
     }
     
     required init(coder aDecoder: NSCoder)
@@ -98,5 +100,6 @@ class Facility: NSObject, NSCoding {
         self.imageURL = aDecoder.decodeObjectForKey("imageURL") as! String
         self.website = aDecoder.decodeObjectForKey("website") as! String
         self.bulkBilling = aDecoder.decodeBoolForKey("bulkBilling")
+        self.reviews = aDecoder.decodeObjectForKey("reviews") as? Array<Review>
     }
 }

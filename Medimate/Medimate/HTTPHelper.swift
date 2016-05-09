@@ -221,4 +221,28 @@ class HTTPHelper: NSObject {
         return Status
     }
 
+    static func insertReview(deviceUID:String, deviceName:String, waiting:Double, parking:Double, disability:Double, language:Double, transport:Double, date:String, facilityID:Int) -> String
+    {
+        let string = "\(HTTPHelper.URL)\(HTTPHelper.REVIEWS)insertReview/\(deviceUID)/\(deviceName)/\(waiting)/\(parking)/\(disability)/\(language)/\(transport)/\(date)/\(facilityID)"
+        let newString = string.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!
+        let url = NSURL(string: newString)
+                
+        let request1: NSURLRequest = NSURLRequest(URL: url!)
+        let response: AutoreleasingUnsafeMutablePointer<NSURLResponse?> = nil
+        do
+        {
+            let data: NSData =  try NSURLConnection.sendSynchronousRequest(request1, returningResponse: response)
+            let result = NSString(data: data, encoding: NSUTF8StringEncoding)
+        
+            if result != nil
+            {
+                return "\(result!)"
+            }
+        }
+        catch
+        {
+            print("Error: There might have Internet Issues")
+        }
+        return "Error"
+    }
 }
