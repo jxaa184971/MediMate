@@ -78,7 +78,6 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
             self.sideBarButton.target = self.revealViewController()
             self.sideBarButton.action = #selector(SWRevealViewController.rightRevealToggleAnimated(_:))
 
-            
             self.view.addGestureRecognizer(self.revealViewController().tapGestureRecognizer())
             self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
         }
@@ -139,7 +138,7 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
         if indexPath.section == 0
         {
             let cell = tableView.dequeueReusableCellWithIdentifier("filterCell", forIndexPath: indexPath) as! FilterButtonCell
-            var selectionString = "\(NSLocalizedString(self.searchCategory, comment: "")) | \(self.filter["language"]!) | \(NSLocalizedString(self.filter["searchLocation"]!, comment: ""))"
+            var selectionString = "\(NSLocalizedString(self.searchCategory, comment: "")) | \(self.filter["language"]!) | \(NSLocalizedString(self.filter["searchLocation"]!, comment: "")) | \(NSLocalizedString("Sort By", comment: "")): \(NSLocalizedString(self.filter["sortBy"]!, comment: ""))"
             if self.onlyShowOpenNow == true
             {
                 selectionString = selectionString + " | Open Now"
@@ -268,10 +267,6 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
     
     // set title for header
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if section == 0
-        {
-            return NSLocalizedString("Your Selection", comment: "")
-        }
         if section == 1
         {
             return NSLocalizedString("Results",comment:"")
@@ -406,7 +401,7 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
             
             let camera = GMSCameraPosition.cameraWithLatitude(location.coordinate.latitude,
                 longitude: location.coordinate.longitude, zoom: 5)
-            self.mapView = GMSMapView.mapWithFrame(CGRect(x: 0,y: 158,width: self.view.frame.width,height: self.view.frame.height-158), camera: camera)   //240
+            self.mapView = GMSMapView.mapWithFrame(CGRect(x: 0,y: 138,width: self.view.frame.width,height: self.view.frame.height-138), camera: camera)   //240
             self.mapView.myLocationEnabled = true
             self.mapView.settings.myLocationButton = true
             self.mapView.delegate = self
@@ -538,7 +533,7 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
         {
             self.results.sortInPlace({$0.rating > $1.rating})
         }
-        if sortBy == NSLocalizedString("Popularity",comment:"")
+        if sortBy == NSLocalizedString("Number Of Reviews",comment:"")
         {
             self.results.sortInPlace({$0.numberOfReview > $1.numberOfReview})
         }
@@ -592,12 +587,16 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
         if position == FrontViewPosition.Left
         {
             self.filterSeleted = false
-            print("Left")
+            self.view.userInteractionEnabled = true
+            self.navigationController!.view.userInteractionEnabled = true
+            self.view.alpha = 1
         }
         if position == FrontViewPosition.LeftSide
         {
             self.filterSeleted = true
-            print("Left Side")
+            self.view.userInteractionEnabled = false
+            self.navigationController!.view.userInteractionEnabled = false
+            self.view.alpha = 0.8
         }
         self.tableView.reloadData()
     }
@@ -643,7 +642,7 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
     override func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         if self.hasMoreDataToLoad() && self.isLoading == false
         {
-            if self.tableView.contentOffset.y > (self.tableView.contentSize.height - self.tableView.frame.size.height + 20)
+            if self.tableView.contentOffset.y > (self.tableView.contentSize.height - self.tableView.frame.size.height + 10)
             {
                 let tableFooterActivityIndicator = UIActivityIndicatorView(frame: CGRect(x: 75, y: 10, width: 20, height: 20))
                 tableFooterActivityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
@@ -668,10 +667,10 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
             self.numberOfRowsShowed = self.numberOfRowsShowed + 5
         }
         
-        _ = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(self.refresh), userInfo: nil, repeats: false)
+        _ = NSTimer.scheduledTimerWithTimeInterval(0.2, target: self, selector: #selector(self.refresh), userInfo: nil, repeats: false)
         
         // finish loading data after 2 sec, to avoid multiple times loading as one time
-        _ = NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: #selector(self.finishLoading), userInfo: nil, repeats: false)
+        _ = NSTimer.scheduledTimerWithTimeInterval(0.5, target: self, selector: #selector(self.finishLoading), userInfo: nil, repeats: false)
     }
     
     func hasMoreDataToLoad() -> Bool

@@ -9,7 +9,7 @@
         <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
     </dependencies>
     <scenes>
-        <!--Reveal View Controller-->
+        <!--Home-->
         <scene sceneID="XDM-1g-SJw">
             <objects>
                 <viewController id="6Ay-fY-SUR" customClass="SWRevealViewController" sceneMemberID="viewController">
@@ -22,7 +22,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" systemItem="search" id="hDy-mu-kUd"/>
+                    <tabBarItem key="tabBarItem" title="Home" image="homePage30.png" id="hDy-mu-kUd"/>
                     <connections>
                         <segue destination="mA4-DU-rau" kind="custom" identifier="sw_front" customClass="SWRevealViewControllerSegueSetController" id="3Tc-xw-5gw"/>
                     </connections>
@@ -1245,6 +1245,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="800"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <label key="tableFooterView" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="WcB-KD-aCV">
+                            <rect key="frame" x="0.0" y="276.5" width="600" height="180"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="reviewCell" rowHeight="145" id="bXx-Lf-KBr" customClass="RatingCell" customModule="MediMate" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="113.5" width="600" height="145"/>
@@ -1521,6 +1528,9 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Reviews" id="bCC-XH-ARo"/>
+                    <connections>
+                        <outlet property="infoLabel" destination="WcB-KD-aCV" id="gum-hh-MCS"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ljU-44-mkz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1946,8 +1956,11 @@
                             <outlet property="delegate" destination="2Zn-X6-p4y" id="1JK-l6-Jou"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Favourites" id="bkp-Pm-1ZZ"/>
+                    <navigationItem key="navigationItem" title="Favourites" id="bkp-Pm-1ZZ">
+                        <barButtonItem key="leftBarButtonItem" title="Item" id="7Vj-j3-itt"/>
+                    </navigationItem>
                     <connections>
+                        <outlet property="homeButton" destination="7Vj-j3-itt" id="WmD-rK-OF3"/>
                         <outlet property="infoLabel" destination="64H-vE-8Uc" id="yWD-5t-b9a"/>
                     </connections>
                 </tableViewController>
@@ -1968,7 +1981,12 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Nearby" id="aYn-Qk-SSk"/>
+                    <navigationItem key="navigationItem" title="Nearby" id="aYn-Qk-SSk">
+                        <barButtonItem key="leftBarButtonItem" title="Item" id="WMM-4N-WMl"/>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="homeButton" destination="WMM-4N-WMl" id="tQN-wg-L8j"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vvw-w6-RFc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -2028,7 +2046,12 @@
                             <outlet property="delegate" destination="1ue-1i-Vbo" id="NOK-mj-axT"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Settings" id="zxr-kK-tRO"/>
+                    <navigationItem key="navigationItem" title="Settings" id="zxr-kK-tRO">
+                        <barButtonItem key="leftBarButtonItem" title="Item" id="2mY-Fz-U2z"/>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="homeButton" destination="2mY-Fz-U2z" id="24N-JA-uje"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gEr-Si-2cs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -2090,7 +2113,7 @@
         <scene sceneID="jfh-Dl-Lru">
             <objects>
                 <navigationController id="ob1-Mi-FM1" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Settings" image="settings_32.png" id="wda-yC-s0P"/>
+                    <tabBarItem key="tabBarItem" title="Settings" image="setting.png" id="wda-yC-s0P"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="vcY-Wv-Dcl">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -2165,16 +2188,17 @@
         <image name="bulkBilling.png" width="630" height="112"/>
         <image name="dentist.png" width="128" height="128"/>
         <image name="filter.png" width="64" height="64"/>
-        <image name="nearby.png" width="32" height="32"/>
+        <image name="homePage30.png" width="30" height="30"/>
+        <image name="nearby.png" width="30" height="30"/>
         <image name="open_now.png" width="200" height="50"/>
         <image name="pharmacy.png" width="128" height="128"/>
         <image name="physiotherapist.png" width="512" height="512"/>
-        <image name="settings_32.png" width="28" height="28"/>
+        <image name="setting.png" width="30" height="30"/>
         <image name="shape.png" width="512" height="512"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Rmv-Eg-SyJ"/>
         <segue reference="mkP-Kg-Bkp"/>
+        <segue reference="zI2-yo-AlQ"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.12941176469999999" green="0.43529411759999997" blue="0.73333333329999995" alpha="1" colorSpace="calibratedRGB"/>
 </document>

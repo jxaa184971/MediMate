@@ -310,11 +310,6 @@ class ResultDetailTableViewController: UITableViewController, GMSMapViewDelegate
             
             let cell = tableView.dequeueReusableCellWithIdentifier("addReviewCell", forIndexPath: indexPath) as! ButtonCell
             
-            if self.alreadyAddReview()
-            {
-                cell.addReviewButton.enabled = false
-            }
-            
             return cell
         }
         return UITableViewCell()

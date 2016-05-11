@@ -12,12 +12,17 @@ class FavouritesTableViewController: UITableViewController {
 
     var favouriteList:Array<Facility>!
     @IBOutlet var infoLabel: UILabel!
+    @IBOutlet var homeButton: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.favouriteList = Array<Facility>()
         self.infoLabel.text = ""
+
+        self.homeButton.image = ImageHelper.resizeImage(UIImage(named: "homePage.png")!, newWidth: 30)
+        self.homeButton.target = self
+        self.homeButton.action = #selector(self.backToHomePage)
         
         // change the style of navigation bar
         let color = UIColor(red: 40/255, green: 130/255, blue: 200/255, alpha: 1)
@@ -191,7 +196,11 @@ class FavouritesTableViewController: UITableViewController {
         }
     }
     
-
+    func backToHomePage()
+    {
+        self.tabBarController?.selectedIndex = 0
+    }
+    
     /*
     // Override to support rearranging the table view.
     override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {

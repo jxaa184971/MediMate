@@ -13,12 +13,14 @@ class SideFilterTableViewController: UITableViewController, SwitchClickedProtoco
     var languageSeleted:Bool = false
     var locationSeleted:Bool = false
     var categorySelected:Bool = false
+    var sortBySelected:Bool = false
     
     var showBulkBilling:Bool = true
     
     var languages:Array<String> = LanguageHelper.otherLanguageArray
     var locations:Array<String> = SuburbHelper.suburbArray
     var categories:Array<String> = ["GP", "Dentist", "Physiotherapist", "Pharmacy"]
+    var sortBy:Array<String> = [NSLocalizedString("Distance", comment: ""), NSLocalizedString("Rating", comment: ""), NSLocalizedString("Number Of Reviews", comment: "")]
     var searchController: SearchListTableViewController!
     var filter:[String:String]!
     
@@ -28,7 +30,6 @@ class SideFilterTableViewController: UITableViewController, SwitchClickedProtoco
         self.tableView.contentInset = UIEdgeInsetsMake(-36, 0, 0, 0);
         self.tableView.sectionFooterHeight = 0
         tableView.alwaysBounceVertical = false
-
     }
 
     override func didReceiveMemoryWarning() {
@@ -42,11 +43,11 @@ class SideFilterTableViewController: UITableViewController, SwitchClickedProtoco
         // #warning Incomplete implementation, return the number of sections
         if self.showBulkBilling
         {
-            return 6
+            return 7
         }
         else
         {
-            return 5
+            return 6
         }
     }
 
@@ -63,6 +64,10 @@ class SideFilterTableViewController: UITableViewController, SwitchClickedProtoco
         if section == 3 && self.locationSeleted
         {
             return (self.locations.count + 1)
+        }
+        if section == 4 && self.sortBySelected
+        {
+            return (self.sortBy.count + 1)
         }
         return 1
     }
@@ -130,13 +135,28 @@ class SideFilterTableViewController: UITableViewController, SwitchClickedProtoco
             }
             if indexPath.section == 4
             {
+                let cell = tableView.dequeueReusableCellWithIdentifier("titleCell", forIndexPath: indexPath) as! FilterTitleCell
+                cell.titleLabel.text = NSLocalizedString("Sort By", comment: "")
+                cell.valueLabel.text = self.searchController.filter["sortBy"]
+                if self.sortBySelected
+                {
+                    cell.picView.image = UIImage(named: "arrow_up.jpeg")
+                }
+                else
+                {
+                    cell.picView.image = UIImage(named: "arrow_down.jpeg")
+                }
+                return cell
+            }
+            if indexPath.section == 5
+            {
                 let cell = tableView.dequeueReusableCellWithIdentifier("switchCell", forIndexPath: indexPath) as! FilterSwitchCell
                 cell.titleLabel.text = NSLocalizedString("Open Now", comment: "")
                 cell.filterSwitch.on = self.searchController.onlyShowOpenNow
                 cell.delegate = self
                 return cell
             }
-            if indexPath.section == 5
+            if indexPath.section == 6
             {
                 let cell = tableView.dequeueReusableCellWithIdentifier("switchCell", forIndexPath: indexPath) as! FilterSwitchCell
                 cell.titleLabel.text = NSLocalizedString("Bulk Billing", comment: "")
@@ -181,6 +201,17 @@ class SideFilterTableViewController: UITableViewController, SwitchClickedProtoco
                     cell.titleLabel.text = locations[indexPath.row - 1]
                 }
             }
+            if indexPath.section == 4
+            {
+                if sortBy[indexPath.row - 1] == searchController.filter["sortBy"]
+                {
+                    cell.titleLabel.text = "\(sortBy[indexPath.row - 1]) (✓)"
+                }
+                else
+                {
+                    cell.titleLabel.text = sortBy[indexPath.row - 1]
+                }
+            }
             
             return cell
         }
@@ -201,6 +232,10 @@ class SideFilterTableViewController: UITableViewController, SwitchClickedProtoco
             if indexPath.section == 3
             {
                 self.locationSeleted = !self.locationSeleted
+            }
+            if indexPath.section == 4
+            {
+                self.sortBySelected = !self.sortBySelected
             }
             self.tableView.reloadSections(NSIndexSet(index: indexPath.section), withRowAnimation: .Fade)
         }
@@ -232,6 +267,11 @@ class SideFilterTableViewController: UITableViewController, SwitchClickedProtoco
                 searchController.filter["searchLocation"] = self.locations[indexPath.row - 1]
                 self.locationSeleted = !self.locationSeleted
             }
+            if indexPath.section == 4
+            {
+                searchController.filter["sortBy"] = self.sortBy[indexPath.row - 1]
+                self.sortBySelected = !self.sortBySelected
+            }
             self.tableView.reloadSections(NSIndexSet(index: indexPath.section), withRowAnimation: .Fade)
             searchController.refresh()
             if searchController.isList == false
@@ -245,7 +285,7 @@ class SideFilterTableViewController: UITableViewController, SwitchClickedProtoco
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if indexPath.row == 0 && (indexPath.section == 1 || indexPath.section == 2 || indexPath.section == 3)
+        if indexPath.row == 0 && (indexPath.section == 1 || indexPath.section == 2 || indexPath.section == 3 || indexPath.section == 4)
         {
             return 65
         }
@@ -295,7 +335,14 @@ class SideFilterTableViewController: UITableViewController, SwitchClickedProtoco
         self.searchController.searchCategory = self.searchController.initialSearchCategory
         self.searchController.filter["searchLocation"] = NSLocalizedString("Current Location (Within 5km)", comment:"")
         self.searchController.filter["language"] = "English"
+        self.searchController.filter["sortBy"] = NSLocalizedString("Distance", comment:"")
         self.filter = self.searchController.filter
+        
+        self.categorySelected = false
+        self.languageSeleted = false
+        self.locationSeleted = false
+        self.sortBySelected = false
+        
         self.searchController.requestForNewData()
         self.searchController.refresh()
         self.tableView.reloadData()

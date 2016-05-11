@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  Medimate
 //
-//  Created by 一川 黄 on 18/03/2016.
+//  Created by Yichuan Huang on 18/03/2016.
 //  Copyright © 2016 Team MarshGhatti. All rights reserved.
 //
 
@@ -13,12 +13,31 @@ import GoogleMaps
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    var mask: CALayer?
+    var controller:SWRevealViewController?
+    
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 
         // key for using Google Map API
         GMSServices.provideAPIKey("AIzaSyBRqqscURTDlUdOr70q-qUsZHI-i9aQsGw")
-    
+        
+        let tabBarController = self.window?.rootViewController as! TabBarController
+        let swRevealController = tabBarController.viewControllers![0] as! SWRevealViewController
+        
+        self.mask = CALayer()
+        self.mask!.contents = UIImage(named: "LOGO.png")?.CGImage
+        self.mask!.contentsGravity = kCAGravityResizeAspect
+        self.mask!.bounds = CGRect(x: 0, y: 0, width: 180, height: 120)
+        self.mask!.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        self.mask!.position = CGPoint(x: swRevealController.view.frame.size.width / 2, y: swRevealController.view.frame.size.height / 2)
+        swRevealController.view.layer.mask = mask
+        
+        self.controller = swRevealController
+        
+        animateMask()
+
+        self.window!.backgroundColor = UIColor.lightGrayColor()
+        self.window!.makeKeyAndVisible()
         return true
     }
 
@@ -43,7 +62,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-
-
+    
+    func animateMask() {
+        
+        let keyFrameAnimation = CAKeyframeAnimation(keyPath: "bounds")
+        keyFrameAnimation.delegate = self
+        keyFrameAnimation.duration = 1
+        keyFrameAnimation.beginTime = CACurrentMediaTime() + 1
+        keyFrameAnimation.timingFunctions = [CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut), CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)]
+        let initalBounds = NSValue(CGRect: mask!.bounds)
+        let secondBounds = NSValue(CGRect: CGRect(x: 0, y: 0, width: 160, height: 107))
+        let finalBounds = NSValue(CGRect: CGRect(x: 0, y: 0, width: 1600, height: 1300))
+        keyFrameAnimation.values = [initalBounds, secondBounds, finalBounds]
+        keyFrameAnimation.keyTimes = [0, 0.3, 1]
+        self.mask!.addAnimation(keyFrameAnimation, forKey: "bounds")
+        
+    }
+    
+    override func animationDidStop(anim: CAAnimation, finished flag: Bool) {
+        self.controller?.view.layer.mask = nil
+    }
 }
 

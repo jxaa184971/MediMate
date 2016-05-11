@@ -11,11 +11,26 @@ import UIKit
 class AllReviewsTableViewController: UITableViewController {
 
     var allReviews: Array<Review>!
+    @IBOutlet var infoLabel: UILabel!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        if self.allReviews.count == 0
+        {
+            self.infoLabel.text = NSLocalizedString("No review for now.", comment: "")
+        }
+        else
+        {
+            if self.allReviews.count == 0
+            {
+                self.infoLabel.text = ""
+            }
+        }
     }
 
     override func didReceiveMemoryWarning() {

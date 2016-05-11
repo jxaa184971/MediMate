@@ -14,10 +14,15 @@ class NearbyViewController: UIViewController, GMSMapViewDelegate, CLLocationMana
     var locationManager:CLLocationManager!
     var mapView:GMSMapView!
     var results:Array<Facility>!
+    @IBOutlet var homeButton: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.homeButton.image = ImageHelper.resizeImage(UIImage(named: "homePage.png")!, newWidth: 30)
+        self.homeButton.target = self
+        self.homeButton.action = #selector(self.backToHomePage)
+        
         // change the style of navigation bar
         let color = UIColor(red: 40/255, green: 130/255, blue: 200/255, alpha: 1)
         self.tabBarController?.tabBar.hidden = false
@@ -191,7 +196,10 @@ class NearbyViewController: UIViewController, GMSMapViewDelegate, CLLocationMana
         self.navigationController?.pushViewController(controller, animated: true)
     }
     
-  
+    func backToHomePage()
+    {
+        self.tabBarController?.selectedIndex = 0
+    }
     
     /*
     // MARK: - Navigation

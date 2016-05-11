@@ -16,7 +16,50 @@
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LOGO.png" translatesAutoresizingMaskIntoConstraints="NO" id="88X-gB-eM9">
+                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="180" id="Kl0-D1-nWS"/>
+                                    <constraint firstAttribute="height" constant="120" id="jHu-Fh-Wfr"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="Kl0-D1-nWS"/>
+                                        <exclude reference="jHu-Fh-Wfr"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular">
+                                    <mask key="constraints">
+                                        <include reference="Kl0-D1-nWS"/>
+                                        <include reference="jHu-Fh-Wfr"/>
+                                    </mask>
+                                </variation>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="88X-gB-eM9" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="X2G-fW-xMH"/>
+                            <constraint firstItem="88X-gB-eM9" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="oeR-Dv-KZW"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="88X-gB-eM9"/>
+                            </mask>
+                            <mask key="constraints">
+                                <exclude reference="X2G-fW-xMH"/>
+                                <exclude reference="oeR-Dv-KZW"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=regular">
+                            <mask key="subviews">
+                                <include reference="88X-gB-eM9"/>
+                            </mask>
+                            <mask key="constraints">
+                                <include reference="X2G-fW-xMH"/>
+                                <include reference="oeR-Dv-KZW"/>
+                            </mask>
+                        </variation>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -24,4 +67,7 @@
             <point key="canvasLocation" x="53" y="375"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="LOGO.png" width="815" height="515"/>
+    </resources>
 </document>
