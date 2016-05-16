@@ -170,7 +170,7 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
             //let stars = RatingStarGenerator.ratingStarsFromDouble(self.results[indexPath.row].rating)
 
             cell.addressLabel.text = self.results[indexPath.row].address
-            cell.reviewsLabel.text = "\(self.results[indexPath.row].numberOfReview) Reviews"
+            cell.reviewsLabel.text = "\(self.results[indexPath.row].numberOfReview) \(NSLocalizedString("Reviews", comment: ""))"
             cell.distanceLabel.text = "\(NSString(format:"%.1f",self.results[indexPath.row].distance)) km"
             
             if self.results[indexPath.row].numberOfReview > 0
@@ -587,15 +587,11 @@ class SearchListTableViewController: UITableViewController, GMSMapViewDelegate, 
         if position == FrontViewPosition.Left
         {
             self.filterSeleted = false
-            self.view.userInteractionEnabled = true
-            self.navigationController!.view.userInteractionEnabled = true
             self.view.alpha = 1
         }
         if position == FrontViewPosition.LeftSide
         {
             self.filterSeleted = true
-            self.view.userInteractionEnabled = false
-            self.navigationController!.view.userInteractionEnabled = false
             self.view.alpha = 0.8
         }
         self.tableView.reloadData()

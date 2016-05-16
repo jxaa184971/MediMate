@@ -29,9 +29,13 @@ class MainMenuViewController: UIViewController {
         // initialize filter settings
         self.filter = ["searchLocation":NSLocalizedString("Current Location (Within 5km)", comment:""), "language": "English", "sortBy": NSLocalizedString("Distance",comment:""), "postCode":""]
         
+        //self.view.backgroundColor = UIColor(patternImage: UIImage(named: "back.jpg")!)
+        
         // change the style of navigation bar          
         let color = UIColor(red: 40/255, green: 130/255, blue: 200/255, alpha: 1)
 
+        //let color = UIColor(patternImage: ImageHelper.resizeImage(UIImage(named: "back.jpg")!, newWidth: 200))
+        
         self.tabBarController?.tabBar.hidden = false
         self.tabBarController?.tabBar.tintColor = color
         
@@ -39,14 +43,18 @@ class MainMenuViewController: UIViewController {
         self.navigationController?.navigationBar.barStyle = .Black
         self.navigationController?.navigationBar.barTintColor = color
 
-        // change button UI
+        // change button
         self.gpButton.backgroundColor = color
+        self.gpButton.layer.cornerRadius = 10.0
         self.gpButton.setTitle(NSLocalizedString("General Practitioner", comment: ""), forState: .Normal)
         self.dentistButton.backgroundColor = color
+        self.dentistButton.layer.cornerRadius = 10.0
         self.dentistButton.setTitle(NSLocalizedString("Dentist", comment: ""), forState: .Normal)
         self.physioButton.backgroundColor = color
+        self.physioButton.layer.cornerRadius = 10.0
         self.physioButton.setTitle(NSLocalizedString("Physiotherapist", comment: ""), forState: .Normal)
         self.pharmacyButton.backgroundColor = color
+        self.pharmacyButton.layer.cornerRadius = 10.0
         self.pharmacyButton.setTitle(NSLocalizedString("Pharmacy", comment: ""), forState: .Normal)
     }
     

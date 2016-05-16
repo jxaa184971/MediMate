@@ -2,7 +2,7 @@
 //  AddReviewCell.swift
 //  Medimate
 //
-//  Created by 一川 黄 on 8/05/2016.
+//  Created by Yichuan Huang on 8/05/2016.
 //  Copyright © 2016 Team MarshGhatti. All rights reserved.
 //
 
@@ -15,6 +15,14 @@ class AddReviewCell: UITableViewCell {
     @IBOutlet var disabilityRating: CosmosView!
     @IBOutlet var languageRating: CosmosView!
     @IBOutlet var transportRating: CosmosView!
+    
+    
+    @IBOutlet var waitingLabel: UILabel!
+    @IBOutlet var parkingLabel: UILabel!
+    @IBOutlet var disabilityLabel: UILabel!
+    @IBOutlet var languageLabel: UILabel!
+    @IBOutlet var transportLabel: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

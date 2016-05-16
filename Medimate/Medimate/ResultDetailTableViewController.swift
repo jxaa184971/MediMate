@@ -285,6 +285,12 @@ class ResultDetailTableViewController: UITableViewController, GMSMapViewDelegate
                 let cell = tableView.dequeueReusableCellWithIdentifier("ratingCell", forIndexPath: indexPath) as! RatingCell
                 let review = self.result.reviews![indexPath.row-1]
                 
+                cell.waitingLabel.text = NSLocalizedString("Waiting Time", comment: "")
+                cell.parkingLabel.text = NSLocalizedString("Parking Accessibility", comment: "")
+                cell.disabilityLabel.text = NSLocalizedString("Disability Accessibility", comment: "")
+                cell.languageLabel.text = NSLocalizedString("Language of Your Choice", comment: "")
+                cell.transportLabel.text = NSLocalizedString("Public Transport Accessibility", comment: "")
+                
                 cell.deviceLabel.text = review.deviceName
                 cell.timeLabel.text = review.date
                 cell.waitingTimeRating.rating = review.waitingRating
@@ -309,7 +315,7 @@ class ResultDetailTableViewController: UITableViewController, GMSMapViewDelegate
         {
             
             let cell = tableView.dequeueReusableCellWithIdentifier("addReviewCell", forIndexPath: indexPath) as! ButtonCell
-            
+            cell.addReviewButton.setTitle(NSLocalizedString("Add Review", comment: ""), forState: .Normal)
             return cell
         }
         return UITableViewCell()

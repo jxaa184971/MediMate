@@ -3,7 +3,7 @@
 //  Medimate
 //
 //  Created by Yichuan Huang on 18/03/2016.
-//  Copyright © 2016 Team MarshGhatti. All rights reserved.
+//  Copyright © 2016 Team MarshGhetti. All rights reserved.
 //
 
 import UIKit
@@ -25,9 +25,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let swRevealController = tabBarController.viewControllers![0] as! SWRevealViewController
         
         self.mask = CALayer()
-        self.mask!.contents = UIImage(named: "LOGO.png")?.CGImage
+        self.mask!.contents = UIImage(named: "logo.png")?.CGImage
         self.mask!.contentsGravity = kCAGravityResizeAspect
-        self.mask!.bounds = CGRect(x: 0, y: 0, width: 180, height: 120)
+        self.mask!.bounds = CGRect(x: 0, y: 0, width: 100, height: 100)
         self.mask!.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         self.mask!.position = CGPoint(x: swRevealController.view.frame.size.width / 2, y: swRevealController.view.frame.size.height / 2)
         swRevealController.view.layer.mask = mask
@@ -36,7 +36,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         animateMask()
 
-        self.window!.backgroundColor = UIColor.lightGrayColor()
+        self.window!.backgroundColor = UIColor(red: 120/255, green: 178/255, blue: 210/255, alpha: 1)
         self.window!.makeKeyAndVisible()
         return true
     }
@@ -68,11 +68,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let keyFrameAnimation = CAKeyframeAnimation(keyPath: "bounds")
         keyFrameAnimation.delegate = self
         keyFrameAnimation.duration = 1
-        keyFrameAnimation.beginTime = CACurrentMediaTime() + 1
+        keyFrameAnimation.beginTime = CACurrentMediaTime() + 0.5
         keyFrameAnimation.timingFunctions = [CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut), CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)]
         let initalBounds = NSValue(CGRect: mask!.bounds)
-        let secondBounds = NSValue(CGRect: CGRect(x: 0, y: 0, width: 160, height: 107))
-        let finalBounds = NSValue(CGRect: CGRect(x: 0, y: 0, width: 1600, height: 1300))
+        let secondBounds = NSValue(CGRect: CGRect(x: 0, y: 0, width: 90, height: 90))
+        let finalBounds = NSValue(CGRect: CGRect(x: 0, y: 0, width: 3200, height: 3200))
         keyFrameAnimation.values = [initalBounds, secondBounds, finalBounds]
         keyFrameAnimation.keyTimes = [0, 0.3, 1]
         self.mask!.addAnimation(keyFrameAnimation, forKey: "bounds")

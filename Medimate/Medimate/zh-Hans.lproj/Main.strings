@@ -85,3 +85,6 @@
 
 /* Class = "UINavigationItem"; title = "Nearby"; ObjectID = "aYn-Qk-SSk"; */
 "aYn-Qk-SSk.title" = "附近";
+
+/* Class = "UITabBarItem"; title = "Home"; ObjectID = "hDy-mu-kUd"; */
+"hDy-mu-kUd.title"="首页";

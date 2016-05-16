@@ -130,5 +130,26 @@
 
 "You do not have any current favourites. To add a new favourite facility, tap ‘☆’ shown in the top right corner of the facility detail screen." = "你尚未添加任何个人收藏. 在医疗设施详细资料页面点击右上角的‘☆’形按钮添加新的个人收藏.";
 
+"Reviews" = "评论";
 
+"User Reviews" = "用户评论";
 
+"View All Reviews" = "查看所有评论";
+
+"Waiting Time" = "等待时间";
+
+"Parking Accessibility" = "停车便易性";
+
+"Disability Accessibility" = "残疾人便易性";
+
+"Language of Your Choice" = "医生语言";
+
+"Public Transport Accessibility" = "公共交通便易性";
+
+"Add Review" = "添加评论";
+
+"Sorry, there is no review for selected medical facility." = "对不起, 你所选择的医疗设施尚未添加评论.";
+
+"Save" = "保存";
+
+"Cancel" = "取消";

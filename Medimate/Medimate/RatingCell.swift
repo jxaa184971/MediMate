@@ -2,7 +2,7 @@
 //  RatingCell.swift
 //  Medimate
 //
-//  Created by 一川 黄 on 4/05/2016.
+//  Created by Yichuan Huang on 4/05/2016.
 //  Copyright © 2016 Team MarshGhatti. All rights reserved.
 //
 
@@ -19,6 +19,11 @@ class RatingCell: UITableViewCell {
     @IBOutlet var transportRating: CosmosView!
     
     
+    @IBOutlet var waitingLabel: UILabel!
+    @IBOutlet var parkingLabel: UILabel!
+    @IBOutlet var disabilityLabel: UILabel!
+    @IBOutlet var languageLabel: UILabel!
+    @IBOutlet var transportLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

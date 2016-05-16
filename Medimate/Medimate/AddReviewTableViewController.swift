@@ -2,7 +2,7 @@
 //  AddReviewTableViewController.swift
 //  Medimate
 //
-//  Created by 一川 黄 on 8/05/2016.
+//  Created by Yichuan Huang on 8/05/2016.
 //  Copyright © 2016 Team MarshGhatti. All rights reserved.
 //
 
@@ -16,6 +16,9 @@ class AddReviewTableViewController: UITableViewController, ButtonClickedProtocol
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.navigationItem.title = NSLocalizedString("Add Review", comment: "")
+        
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -52,9 +55,14 @@ class AddReviewTableViewController: UITableViewController, ButtonClickedProtocol
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if indexPath.section == 0
         {
-            let cell = tableView.dequeueReusableCellWithIdentifier("addReviewCell", forIndexPath: indexPath)
-
-
+            let cell = tableView.dequeueReusableCellWithIdentifier("addReviewCell", forIndexPath: indexPath) as! AddReviewCell
+            
+            cell.waitingLabel.text = NSLocalizedString("Waiting Time", comment: "")
+            cell.parkingLabel.text = NSLocalizedString("Parking Accessibility", comment: "")
+            cell.disabilityLabel.text = NSLocalizedString("Disability Accessibility", comment: "")
+            cell.languageLabel.text = NSLocalizedString("Language of Your Choice", comment: "")
+            cell.transportLabel.text = NSLocalizedString("Public Transport Accessibility", comment: "")
+            
             return cell
         }
         if indexPath.section == 1

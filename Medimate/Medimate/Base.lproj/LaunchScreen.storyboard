@@ -17,38 +17,38 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LOGO.png" translatesAutoresizingMaskIntoConstraints="NO" id="88X-gB-eM9">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="88X-gB-eM9">
                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="180" id="Kl0-D1-nWS"/>
-                                    <constraint firstAttribute="height" constant="120" id="jHu-Fh-Wfr"/>
+                                    <constraint firstAttribute="height" constant="100" id="Ozc-Ck-weo"/>
+                                    <constraint firstAttribute="width" constant="100" id="qQo-A1-pJW"/>
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
-                                        <exclude reference="Kl0-D1-nWS"/>
-                                        <exclude reference="jHu-Fh-Wfr"/>
+                                        <exclude reference="Ozc-Ck-weo"/>
+                                        <exclude reference="qQo-A1-pJW"/>
                                     </mask>
                                 </variation>
                                 <variation key="heightClass=regular">
                                     <mask key="constraints">
-                                        <include reference="Kl0-D1-nWS"/>
-                                        <include reference="jHu-Fh-Wfr"/>
+                                        <include reference="Ozc-Ck-weo"/>
+                                        <include reference="qQo-A1-pJW"/>
                                     </mask>
                                 </variation>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.47058823529999999" green="0.69803921570000005" blue="0.82352941180000006" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="88X-gB-eM9" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="X2G-fW-xMH"/>
-                            <constraint firstItem="88X-gB-eM9" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="oeR-Dv-KZW"/>
+                            <constraint firstItem="88X-gB-eM9" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="Dvy-PT-Hrc"/>
+                            <constraint firstItem="88X-gB-eM9" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="tKB-9n-sFU"/>
                         </constraints>
                         <variation key="default">
                             <mask key="subviews">
                                 <exclude reference="88X-gB-eM9"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="X2G-fW-xMH"/>
-                                <exclude reference="oeR-Dv-KZW"/>
+                                <exclude reference="Dvy-PT-Hrc"/>
+                                <exclude reference="tKB-9n-sFU"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular">
@@ -56,8 +56,8 @@
                                 <include reference="88X-gB-eM9"/>
                             </mask>
                             <mask key="constraints">
-                                <include reference="X2G-fW-xMH"/>
-                                <include reference="oeR-Dv-KZW"/>
+                                <include reference="Dvy-PT-Hrc"/>
+                                <include reference="tKB-9n-sFU"/>
                             </mask>
                         </variation>
                     </view>
@@ -68,6 +68,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="LOGO.png" width="815" height="515"/>
+        <image name="logo.png" width="248" height="248"/>
     </resources>
 </document>

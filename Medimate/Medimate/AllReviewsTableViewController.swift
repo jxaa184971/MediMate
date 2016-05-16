@@ -2,7 +2,7 @@
 //  AllReviewsTableViewController.swift
 //  Medimate
 //
-//  Created by 一川 黄 on 4/05/2016.
+//  Created by Yichuan Huang on 4/05/2016.
 //  Copyright © 2016 Team MarshGhatti. All rights reserved.
 //
 
@@ -17,12 +17,13 @@ class AllReviewsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.navigationItem.title = NSLocalizedString("Reviews", comment: "")
     }
     
     override func viewWillAppear(animated: Bool) {
         if self.allReviews.count == 0
         {
-            self.infoLabel.text = NSLocalizedString("No review for now.", comment: "")
+            self.infoLabel.text = NSLocalizedString("Sorry, there is no review for selected medical facility.", comment: "")
         }
         else
         {
@@ -56,6 +57,13 @@ class AllReviewsTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("reviewCell", forIndexPath: indexPath) as! RatingCell
         let review = self.allReviews[indexPath.row]
+        
+        cell.waitingLabel.text = NSLocalizedString("Waiting Time", comment: "")
+        cell.parkingLabel.text = NSLocalizedString("Parking Accessibility", comment: "")
+        cell.disabilityLabel.text = NSLocalizedString("Disability Accessibility", comment: "")
+        cell.languageLabel.text = NSLocalizedString("Language of Your Choice", comment: "")
+        cell.transportLabel.text = NSLocalizedString("Public Transport Accessibility", comment: "")
+        
         cell.deviceLabel.text = review.deviceName
         cell.timeLabel.text = review.date
         cell.waitingTimeRating.rating = review.waitingRating
